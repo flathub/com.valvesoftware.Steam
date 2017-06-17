@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Cosimo Cecchi <cosimoc@gnome.org> -->
+<application>
+  <id type="desktop">com.valvesoftware.Steam.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>proprietary</project_license>
+  <summary>Application for managing and playing games on Steam</summary>
+  <description>
+    <p>
+      Steam is an appstore and manager for games.
+    </p>
+  </description>
+  <url type="homepage">http://store.steampowered.com/</url>
+</application>
