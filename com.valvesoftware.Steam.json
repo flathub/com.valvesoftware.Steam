@@ -14,6 +14,7 @@
         "--share=network",
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.freedesktop.NetworkManager",
+        "--talk-name=org.kde.StatusNotifierWatcher",
         "--device=all",
         "--allow=multiarch",
         "--persist=.steam",
