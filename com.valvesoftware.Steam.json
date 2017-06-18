@@ -3,7 +3,7 @@
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "1.6",
     "sdk": "org.freedesktop.Sdk",
-    "command": "steam.sh",
+    "command": "steam-wrapper",
     "separate-locales": false,
     "rename-icon": "steam",
     "tags": ["proprietary"],
@@ -17,6 +17,7 @@
         "--device=all",
         "--allow=multiarch",
         "--persist=.steam",
+        "--persist=.local",
         "--extension=org.freedesktop.Platform.Compat32=directory=lib/32bit",
         "--extension=org.freedesktop.Platform.Compat32=version=1.6",
         "--extension=org.freedesktop.Platform.GL32=directory=lib/32bit/lib/GL",
@@ -49,8 +50,17 @@
                 },
                 {
                     "type": "script",
-                    "dest-filename": "steam.sh",
-                    "commands": [ "/app/bin/steam" ]
+                    "dest-filename": "steam-wrapper",
+                    "commands": [
+                        "# Create a custom HOME so that games can write wherever they want and it persists",
+                        "mkdir -p $HOME/.var/app/com.valvesoftware.Steam/home",
+                        "cd $HOME/.var/app/com.valvesoftware.Steam/home",
+                        "ln -s ../../../../.local .",
+                        "ln -s ../../../../.steam .",
+                        "ln -s ../../../../.var .",
+                        "export HOME=$HOME/.var/app/com.valvesoftware.Steam/home",
+                        "/app/bin/steam"
+                    ]
                 },
                 {
                     "type": "file",
@@ -66,7 +76,7 @@
             ],
             "post-install": [
                 "cp /app/share/applications/steam.desktop /app/share/applications/com.valvesoftware.Steam.desktop",
-                "cp steam.sh /app/bin",
+                "cp steam-wrapper /app/bin",
                 "cp /usr/bin/cmp /app/bin",
                 "mkdir -p /app/lib/32bit",
                 "ln -s /app/lib/32bit/lib/ld-linux.so.2 /app/lib/ld-linux.so.2",
