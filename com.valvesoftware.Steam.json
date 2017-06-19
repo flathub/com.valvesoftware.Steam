@@ -36,7 +36,7 @@
     ],
     "build-options" : {
         "env": {
-            "PREFIX": "/app/"
+            "PREFIX": "/app"
         }
     },
     "modules": [
@@ -50,18 +50,8 @@
                     "sha256": "42531bf2615afed54c333ae9afeebe8cb68a31304ddfcf90e61b3532a5597386"
                 },
                 {
-                    "type": "script",
-                    "dest-filename": "steam-wrapper",
-                    "commands": [
-                        "# Create a custom HOME so that games can write wherever they want and it persists",
-                        "mkdir -p $HOME/.var/app/com.valvesoftware.Steam/home",
-                        "cd $HOME/.var/app/com.valvesoftware.Steam/home",
-                        "ln -s ../../../../.local .",
-                        "ln -s ../../../../.steam .",
-                        "ln -s ../../../../.var .",
-                        "export HOME=$HOME/.var/app/com.valvesoftware.Steam/home",
-                        "/app/bin/steam"
-                    ]
+                    "type": "file",
+                    "path": "steam-wrapper"
                 },
                 {
                     "type": "file",
@@ -70,14 +60,15 @@
                 {
                     "type": "shell",
                     "commands": [
-                        "sed -i s:/usr/bin/steam:/app/bin/steam: steam.desktop",
+                        "sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop",
+                        "sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop",
                         "sed -i s:/usr/lib/:/app/lib/: steam"
                     ]
                 }
             ],
             "post-install": [
                 "cp /app/share/applications/steam.desktop /app/share/applications/com.valvesoftware.Steam.desktop",
-                "cp steam-wrapper /app/bin",
+                "install -m755 steam-wrapper /app/bin",
                 "cp /usr/bin/cmp /app/bin",
                 "mkdir -p /app/lib/32bit",
                 "ln -s /app/lib/32bit/lib/ld-linux.so.2 /app/lib/ld-linux.so.2",
