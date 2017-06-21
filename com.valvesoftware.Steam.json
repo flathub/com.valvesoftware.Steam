@@ -32,7 +32,8 @@
         "--extension=org.freedesktop.Platform.GL32=download-if=active-gl-driver",
         "--extension=org.freedesktop.Platform.GL32=enable-if=active-gl-driver",
         "--env=LD_LIBRARY_PATH=/app/lib:/app/lib/32bit/lib",
-        "--env=LIBGL_DRIVERS_PATH=/usr/lib/dri:/app/lib/32bit/lib/dri"
+        "--env=LIBGL_DRIVERS_PATH=/usr/lib/dri:/app/lib/32bit/lib/dri",
+        "--env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0"
     ],
     "build-options" : {
         "env": {
