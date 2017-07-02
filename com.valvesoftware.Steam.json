@@ -42,6 +42,18 @@
     },
     "modules": [
         {
+            "name": "s2tc",
+            "config-opts": ["--disable-tools", "--disable-static"],
+            "cleanup": ["/include", "/share", "*.la", "/lib/pkgconfig"],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/divVerent/s2tc.git",
+                    "commit": "f6ec862d7594e29ae80a6e49f66ad4c76cf09abc"
+                }
+            ]
+        },
+        {
             "name": "steam",
             "no-autogen": true,
             "sources": [
