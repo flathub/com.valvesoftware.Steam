@@ -1,15 +1,3 @@
 #!/bin/sh
 
-_STEAM_HOME="$HOME/.var/app/com.valvesoftware.Steam/home"
-
-if [ ! -d "$_STEAM_HOME" ]; then
-    # Create a custom HOME so that games can write wherever they want and it persists
-    mkdir -p $_STEAM_HOME
-    cd $_STEAM_HOME
-    ln -s ../../../../.local .
-    ln -s ../../../../.steam .
-    ln -s ../../../../.var .
-fi
-
-export HOME=$_STEAM_HOME
 exec /app/bin/steam "$@"
