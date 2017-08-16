@@ -1,3 +1,11 @@
 #!/bin/sh
 
+_STEAM_HOME="$HOME/.var/app/com.valvesoftware.Steam/home"
+if [ -d $_STEAM_HOME ]; then
+    export GLOBIGNORE=".:.."
+    cp -a $_STEAM_HOME/* $HOME/
+    rm -r $_STEAM_HOME
+    unset GLOBIGNORE
+fi
+
 exec /app/bin/steam "$@"
