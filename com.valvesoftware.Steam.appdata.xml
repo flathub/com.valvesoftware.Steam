@@ -3,12 +3,33 @@
 <application>
   <id type="desktop">com.valvesoftware.Steam.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>LicenseRef-proprietary</project_license>
-  <summary>Application for managing and playing games on Steam</summary>
+  <name>Steam</name>
+  <summary>Manage and play games distributed by Steam</summary>
   <description>
-    <p>
-      Steam is an appstore and manager for games.
-    </p>
+    <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
+    <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the Linux / SteamOS operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
   </description>
-  <url type="homepage">http://store.steampowered.com/</url>
+  <categories>
+    <category>Game</category>
+    <category>PackageManager</category>
+  </categories>
+  <url type="homepage">https://store.steampowered.com/</url>
+  <url type="help">https://help.steampowered.com/</url>
+  <project_license>LicenseRef-proprietary</project_license>
+  <developer_name>Valve Corporation</developer_name>
+  <screenshots>
+    <screenshot type="default">
+      <caption>The main Steam library window</caption>
+      <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/com.valvesoftware.Steam.screenshot-0.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Steam Store interface</caption>
+      <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/com.valvesoftware.Steam.screenshot-1.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Steam community</caption>
+      <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/com.valvesoftware.Steam.screenshot-2.png</image>
+    </screenshot>
+  </screenshots>
+  <update_contact>tingping_AT_fedoraproject.org</update_contact>
 </application>
