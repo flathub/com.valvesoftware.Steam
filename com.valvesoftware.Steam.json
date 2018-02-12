@@ -15,6 +15,7 @@
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
+        "--filesystem=xdg-music:ro",
         "--device=all",
         "--allow=multiarch",
         "--persist=.",
