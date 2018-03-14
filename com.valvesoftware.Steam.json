@@ -60,8 +60,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_32_RTM/src/nss-3.32.tar.gz",
-                    "sha256": "35c6f381cc96bb25e4f924469f6ba3e57b3a16e0c2fb7e295a284a00d57ed335"
+                    "url": "https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_32_1_RTM/src/nss-3.32.1.tar.gz",
+                    "sha256": "13a4861b9c0f68936ee1f4aa463674bb4729b2574946934994d6fac3b6a17d21"
                 },
                 {
                     "type": "patch",
