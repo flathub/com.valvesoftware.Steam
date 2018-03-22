@@ -46,7 +46,7 @@
                 {
                     "type": "git",
                     "url": "https://chromium.googlesource.com/external/gyp",
-                    "commit": "324dd166b7c0b39d513026fa52d6280ac6d56770"
+                    "commit": "4d467626b0b9f59a85fb81ca4d7ea9eca99b9d8f"
                 }
             ],
             "build-commands": [
@@ -60,8 +60,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_32_1_RTM/src/nss-3.32.1.tar.gz",
-                    "sha256": "13a4861b9c0f68936ee1f4aa463674bb4729b2574946934994d6fac3b6a17d21"
+                    "url": "https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_36_RTM/src/nss-3.36.tar.gz",
+                    "sha256": "a33cc7b8299b5ce3acf03f617c7896932ae26927ff9fb7c71c1b69a200c30095"
                 },
                 {
                     "type": "patch",
