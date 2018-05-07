@@ -8,6 +8,7 @@ if ! [ -s /etc/ld.so.conf ]; then
     export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 fi
 
+# Migration from when $HOME used to be overriden:
 _STEAM_HOME="$HOME/.var/app/com.valvesoftware.Steam/home"
 if [ -d $_STEAM_HOME ]; then
     set -x
@@ -17,5 +18,37 @@ if [ -d $_STEAM_HOME ]; then
     unset GLOBIGNORE
     set +x
 fi
+
+# Workaround for the fact many games, and Steam itself,
+# hardcode xdg paths to the defaults.
+_STEAM_BASE="$HOME/.var/app/com.valvesoftware.Steam"
+_CONFIG=$_STEAM_BASE/.config
+_DATA=$_STEAM_BASE/.local/share
+_CACHE=$_STEAM_BASE/.cache
+
+mkdir -p $_CACHE $_CONFIG $_DATA
+
+# Migrate any old data:
+if [ -n "$(ls -A $XDG_CONFIG_HOME)" ]; then
+  cp -a $XDG_CONFIG_HOME/* $_CONFIG
+  # FIXME: You can't delete $XDG_CONFIG_HOME/user-dirs.dirs
+  # rm -r $XDG_CONFIG_HOME
+  # ln -s $_CONFIG $XDG_CONFIG_HOME
+fi
+if [ ! -L $XDG_DATA_HOME ]; then
+  mv $XDG_DATA_HOME/Steam $_DATA
+  cp -a $XDG_DATA_HOME/* $_DATA
+  rm -r $XDG_DATA_HOME
+  ln -s $_DATA $XDG_DATA_HOME
+fi
+if [ ! -L $XDG_CACHE_HOME ]; then
+  cp -a $XDG_CACHE_HOME/* $_CACHE
+  rm -r $XDG_CACHE_HOME
+  ln -s $_CACHE $XDG_CACHE_HOME
+fi
+
+export XDG_DATA_HOME=$_DATA
+export XDG_CONFIG_HOME=$_CONFIG
+export XDG_CACHE_HOME=$_CACHE
 
 exec /app/bin/steam "$@"
