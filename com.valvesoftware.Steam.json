@@ -23,6 +23,7 @@
         "--device=all",
         "--allow=multiarch",
         "--allow=devel",
+        "--allow=bluetooth",
         "--persist=.",
         "--env=LC_NUMERIC=C",
         "--env=ALSA_CONFIG_PATH=",
