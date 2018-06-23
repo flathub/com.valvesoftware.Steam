@@ -96,6 +96,7 @@
                     "commands": [
                         "sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop",
                         "sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop",
+                        "desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop",
                         "sed -i s:/usr/lib/:/app/lib/: steam"
                     ]
                 },
