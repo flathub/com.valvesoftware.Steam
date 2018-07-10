@@ -17,5 +17,5 @@ if [ -d $_STEAM_HOME ]; then
     unset GLOBIGNORE
     set +x
 fi
-
+unset ALSA_CONFIG_PATH # https://github.com/flathub/com.valvesoftware.Steam/issues/102
 exec /app/bin/steam "$@"
