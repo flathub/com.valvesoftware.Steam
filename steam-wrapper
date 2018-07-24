@@ -29,11 +29,13 @@ _CACHE=$_STEAM_BASE/.cache
 mkdir -p $_CACHE $_CONFIG $_DATA
 
 # Migrate any old data:
-if [ -n "$(ls -A $XDG_CONFIG_HOME)" ]; then
+if [ ! -L $XDG_CONFIG_HOME ]; then
   cp -a $XDG_CONFIG_HOME/* $_CONFIG
-  # FIXME: You can't delete $XDG_CONFIG_HOME/user-dirs.dirs
-  # rm -r $XDG_CONFIG_HOME
-  # ln -s $_CONFIG $XDG_CONFIG_HOME
+  # You can't delete $XDG_CONFIG_HOME/user-dirs.dirs
+  mv $XDG_CONFIG_HOME ${XDG_CONFIG_HOME}.remove_me
+  ln -s $_CONFIG $XDG_CONFIG_HOME
+elif [ -d ${XDG_CONFIG_HOME}.remove_me ]; then
+  rm -r ${XDG_CONFIG_HOME}.remove_me
 fi
 if [ ! -L $XDG_DATA_HOME ]; then
   mv $XDG_DATA_HOME/Steam $_DATA
