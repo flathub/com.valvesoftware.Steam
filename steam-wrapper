@@ -22,9 +22,12 @@ fi
 # Workaround for the fact many games, and Steam itself,
 # hardcode xdg paths to the defaults.
 _STEAM_BASE="$HOME/.var/app/com.valvesoftware.Steam"
-_CONFIG=$_STEAM_BASE/.config
-_DATA=$_STEAM_BASE/.local/share
-_CACHE=$_STEAM_BASE/.cache
+_CONFIG_DIR=.config
+_CONFIG=$_STEAM_BASE/$_CONFIG_DIR
+_DATA_DIR=.local/share
+_DATA=$_STEAM_BASE/$_DATA_DIR
+_CACHE_DIR=.cache
+_CACHE=$_STEAM_BASE/$_CACHE_DIR
 
 mkdir -p $_CACHE $_CONFIG $_DATA
 
@@ -33,7 +36,7 @@ if [ ! -L $XDG_CONFIG_HOME ]; then
   cp -a $XDG_CONFIG_HOME/* $_CONFIG
   # You can't delete $XDG_CONFIG_HOME/user-dirs.dirs
   mv $XDG_CONFIG_HOME ${XDG_CONFIG_HOME}.remove_me
-  ln -s $_CONFIG $XDG_CONFIG_HOME
+  ln -s $_CONFIG_DIR $XDG_CONFIG_HOME
 elif [ -d ${XDG_CONFIG_HOME}.remove_me ]; then
   rm -r ${XDG_CONFIG_HOME}.remove_me
 fi
@@ -41,12 +44,12 @@ if [ ! -L $XDG_DATA_HOME ]; then
   mv $XDG_DATA_HOME/Steam $_DATA
   cp -a $XDG_DATA_HOME/* $_DATA
   rm -r $XDG_DATA_HOME
-  ln -s $_DATA $XDG_DATA_HOME
+  ln -s $_DATA_DIR $XDG_DATA_HOME
 fi
 if [ ! -L $XDG_CACHE_HOME ]; then
   cp -a $XDG_CACHE_HOME/* $_CACHE
   rm -r $XDG_CACHE_HOME
-  ln -s $_CACHE $XDG_CACHE_HOME
+  ln -s $_CACHE_DIR $XDG_CACHE_HOME
 fi
 
 export XDG_DATA_HOME=$_DATA
