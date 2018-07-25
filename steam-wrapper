@@ -33,7 +33,7 @@ mkdir -p $_CACHE $_CONFIG $_DATA
 
 # Migrate any old data:
 if [ ! -L $XDG_CONFIG_HOME ]; then
-  cp -a $XDG_CONFIG_HOME/* $_CONFIG
+  cp -a $XDG_CONFIG_HOME/. $_CONFIG
   # You can't delete $XDG_CONFIG_HOME/user-dirs.dirs
   mv $XDG_CONFIG_HOME ${XDG_CONFIG_HOME}.remove_me
   ln -s $_CONFIG_DIR $XDG_CONFIG_HOME
@@ -41,13 +41,15 @@ elif [ -d ${XDG_CONFIG_HOME}.remove_me ]; then
   rm -r ${XDG_CONFIG_HOME}.remove_me
 fi
 if [ ! -L $XDG_DATA_HOME ]; then
-  mv $XDG_DATA_HOME/Steam $_DATA
-  cp -a $XDG_DATA_HOME/* $_DATA
+  if [ -e $XDG_DATA_HOME/Steam ]; then
+    mv $XDG_DATA_HOME/Steam $_DATA
+  fi
+  cp -a $XDG_DATA_HOME/. $_DATA
   rm -r $XDG_DATA_HOME
   ln -s $_DATA_DIR $XDG_DATA_HOME
 fi
 if [ ! -L $XDG_CACHE_HOME ]; then
-  cp -a $XDG_CACHE_HOME/* $_CACHE
+  cp -a $XDG_CACHE_HOME/. $_CACHE
   rm -r $XDG_CACHE_HOME
   ln -s $_CACHE_DIR $XDG_CACHE_HOME
 fi
