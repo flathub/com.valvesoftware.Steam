@@ -5,10 +5,14 @@
   <metadata_license>CC0-1.0</metadata_license>
   <name>Steam</name>
   <summary>Manage and play games distributed by Steam</summary>
+  <summary xml:lang="pt_BR">Jogue jogos populares e os últimos lançamentos</summary>
+  <summary xml:lang="es">Juega a los juegos populares y los últimos lanzamientos</summary>
   <description>
     <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
-    <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the Linux / SteamOS operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
+    <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the SteamOS/Linux operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
   </description>
+  <description xml:lang="pt_BR"><p>O Steam é uma plataforma popular para comprar, baixar e jogar jogos e conversar com outros jogadores. Muitos jogos exigem uma compra online, mas alguns jogos populares, como o Team Fortress 2, são gratuitos. Ao pesquisar na loja, certifique-se de restringir os resultados pelo sistema operacional SteamOS/Linux. Nem todos os jogos Linux são compatíveis com o seu sistema, portanto, verifique os requisitos antes de comprar jogos.</p></description>
+  <description xml:lang="es"><p>Steam es una plataforma popular para comprar, descargar y jugar juegos y conversar con otros jugadores. Muchos juegos requieren una compra en línea, pero algunos juegos populares, como el Team Fortress 2, son gratuitos. Al buscar en la tienda, asegúrese de restringir los resultados por el sistema operativo SteamOS/Linux. No todos los juegos de Linux son compatibles con su sistema, así que compruebe los requisitos antes de comprar juegos.</p></description>
   <categories>
     <category>Game</category>
     <category>PackageManager</category>
