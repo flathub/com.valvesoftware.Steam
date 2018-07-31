@@ -21,6 +21,7 @@
         "--allow=devel",
         "--allow=bluetooth",
         "--persist=.",
+        "--require-version=0.10.3",
         "--extension=org.freedesktop.Platform.Compat32=directory=lib/32bit",
         "--extension=org.freedesktop.Platform.Compat32=version=1.6",
         "--extension=org.freedesktop.Platform.GL32=directory=lib/32bit/lib/GL",
