@@ -19,7 +19,6 @@
         "--device=all",
         "--allow=multiarch",
         "--allow=devel",
-        "--allow=bluetooth",
         "--persist=.",
         "--extension=org.freedesktop.Platform.Compat32=directory=lib/32bit",
         "--extension=org.freedesktop.Platform.Compat32=version=1.6",
