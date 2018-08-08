@@ -42,7 +42,6 @@
     "modules": [
         {
 	    "name": "libnotify",
-	    "cleanup": ["/bin"],
 	    "config-opts": [
 		"--disable-static",
 		"--disable-tests",
