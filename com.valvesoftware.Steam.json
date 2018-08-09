@@ -42,6 +42,7 @@
     "modules": [
         {
 	    "name": "libnotify",
+	    "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/share/doc/libnotify"],
 	    "config-opts": [
 		"--disable-static",
 		"--disable-tests",
