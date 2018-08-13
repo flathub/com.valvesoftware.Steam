@@ -1,7 +1,7 @@
 {
     "app-id": "com.valvesoftware.Steam",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
     "command": "steam-wrapper",
     "separate-locales": false,
@@ -20,9 +20,12 @@
         "--allow=multiarch",
         "--allow=devel",
         "--persist=.",
-        "--extension=org.freedesktop.Platform.Compat32=directory=lib/32bit",
-        "--extension=org.freedesktop.Platform.Compat32=version=1.6",
-        "--extension=org.freedesktop.Platform.GL32=directory=lib/32bit/lib/GL",
+        "--extension=org.freedesktop.Platform.Compat.i386=directory=lib/i386-linux-gnu",
+        "--extension=org.freedesktop.Platform.Compat.i386=version=18.08",
+        "--extension=org.freedesktop.Platform.Compat.i386.Debug=directory=lib/debug/lib/i386-linux-gnu",
+        "--extension=org.freedesktop.Platform.Compat.i386.Debug=version=18.08",
+        "--extension=org.freedesktop.Platform.Compat.i386.Debug=no-autodownload=true",
+        "--extension=org.freedesktop.Platform.GL32=directory=lib/i386-linux-gnu/GL",
         "--extension=org.freedesktop.Platform.GL32=version=1.4",
         "--extension=org.freedesktop.Platform.GL32=versions=1.6;1.4",
         "--extension=org.freedesktop.Platform.GL32=subdirectories=true",
@@ -65,41 +68,6 @@
 	    }]
 	},
         {
-            "name": "gyp",
-            "buildsystem": "simple",
-            "cleanup": [ "*" ],
-            "sources": [
-                {
-                    "type": "git",
-                    "url": "https://chromium.googlesource.com/external/gyp",
-                    "commit": "324dd166b7c0b39d513026fa52d6280ac6d56770"
-                }
-            ],
-            "build-commands": [
-                "python2 setup.py install --prefix=/app"
-            ]
-        },
-        {
-            "name": "nss",
-            "buildsystem": "simple",
-            "subdir": "nss",
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://ftp.mozilla.org/pub/security/nss/releases/NSS_3_32_RTM/src/nss-3.32.tar.gz",
-                    "sha256": "35c6f381cc96bb25e4f924469f6ba3e57b3a16e0c2fb7e295a284a00d57ed335"
-                },
-                {
-                    "type": "patch",
-                    "path": "gyp-no-parallel.patch"
-                }
-            ],
-            "build-commands": [
-                "./build.sh --system-sqlite --system-nspr --enable-libpkix -v -o",
-                "install -D ../dist/Release/lib/*.so /app/lib"
-            ]
-        },
-        {
             "name": "steam",
             "no-autogen": true,
             "sources": [
@@ -131,11 +99,12 @@
                 }
             ],
             "post-install": [
+                "ln -sf /bin/true /app/bin/steamdeps",
                 "cp /app/share/applications/steam.desktop /app/share/applications/com.valvesoftware.Steam.desktop",
                 "install -m755 steam-wrapper /app/bin",
                 "cp /usr/bin/cmp /app/bin",
-                "mkdir -p /app/lib/32bit",
-                "ln -s /app/lib/32bit/lib/ld-linux.so.2 /app/lib/ld-linux.so.2",
+                "mkdir -p /app/lib/i386-linux-gnu",
+                "mkdir -p /app/lib/debug/lib/i386-linux-gnu",
                 "mkdir -p /app/share/appdata",
                 "cp com.valvesoftware.Steam.appdata.xml /app/share/appdata",
                 "install -Dm644 ld.so.conf /app/etc/ld.so.conf"
