@@ -8,6 +8,7 @@ import fnmatch
 
 
 STEAM_PATH = "/app/bin/steam"
+STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 
 
 def ignored(name, patterns):
@@ -62,6 +63,59 @@ def legacy_support():
         shutil.rmtree(steam_home)
 
 
+def migrate_config():
+    """
+    There's bind-mounted contents inside config dir so we need to
+    1) Relocate, move to temp
+    2) Next start of app, remove temp
+    In theory this should not break everything
+    """
+    source = os.path.expandvars("$XDG_CONFIG_HOME")
+    target = ".config"
+    xdg_config_home = os.path.join(STEAM_ROOT, target)
+    relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
+    if not os.path.islink(source):
+        copytree(source, target)
+        os.rename(source, relocated)
+        os.symlink(target, source)
+    else:
+        if os.path.isdir(relocated):
+            shutil.rmtree(relocated)
+    os.environ["XDG_CONFIG_HOME"] = xdg_config_home
+
+def migrate_data():
+    """
+    Data directory contains a directory Steam which contains all installed
+    games and is massive. It needs to be separately moved
+    """
+    source = os.path.expandvars("$XDG_DATA_HOME")
+    target = ".data"
+    steam_home = os.path.join(source, "Steam")
+    xdg_data_home = os.path.join(STEAM_ROOT, target)
+
+    if not os.path.islink(source):
+        copytree(source, target, ignore=[steam_home])
+        os.makedirs(target, exist_ok=True)
+        if os.path.isdir(steam_home):
+            os.rename(steam_home,
+                      os.path.join(xdg_data_home, "Steam"))
+        shutil.rmtree(source)
+        os.symlink(target, source)
+    os.environ["XDG_DATA_HOME"] = xdg_data_home
+
+def migrate_shared():
+    source = os.path.expandvars("$XDG_CACHE_HOME")
+    target = ".local/share"
+    xdg_cache_home = os.path.join(STEAM_ROOT, target)
+    if not os.path.islink(source):
+        copytree(source, target)
+        shutil.rmtree(source)
+        os.symlink(target, source)
+    os.environ["XDG_CACHE_HOME"] = xdg_cache_home
+
 def main():
     legacy_support()
-    #os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
+    migrate_config()
+    migrate_data()
+    migrate_shared()
+    os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
