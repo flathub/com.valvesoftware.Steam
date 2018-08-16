@@ -67,6 +67,17 @@
 		"sha256": "c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd"
 	    }]
 	},
+	{
+	    "name": "steam_wrapper",
+	    "buildsystem": "simple",
+	    "sources": [{
+		"type": "dir",
+		"path": "steam_wrapper"
+	    }],
+	    "build-commands": [
+		"python3 -mpip install . --prefix=/app"
+	    ]
+	},
         {
             "name": "steam",
             "no-autogen": true,
@@ -75,10 +86,6 @@
                     "type": "archive",
                     "url": "http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz",
                     "sha256": "c303a610ebd7e392f5027b22ee0b64bf178344bd979bef473046c57c3599a1af"
-                },
-                {
-                    "type": "file",
-                    "path": "steam-wrapper"
                 },
                 {
                     "type": "file",
@@ -101,7 +108,6 @@
             "post-install": [
                 "ln -sf /bin/true /app/bin/steamdeps",
                 "cp /app/share/applications/steam.desktop /app/share/applications/com.valvesoftware.Steam.desktop",
-                "install -m755 steam-wrapper /app/bin",
                 "cp /usr/bin/cmp /app/bin",
                 "mkdir -p /app/lib/i386-linux-gnu",
                 "mkdir -p /app/lib/debug/lib/i386-linux-gnu",
