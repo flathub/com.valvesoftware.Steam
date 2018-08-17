@@ -11,18 +11,19 @@ STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 
 def prompt():
-    subprocess.check_call(["zenity", "--question",
-                            ("--text="
-                            "This is com.valvesoftware.Steam cloud sync repair. "
-                            "If you have conflicting local and cloud data for "
-                            "your game, this may result in partial loss of your "
-                            "cloud data. If you instead prefer ensuring cloud data "
-                            "persists, please relocate your "
-                            "~/.var/app/com.valvesoftware.Steam/data/Steam "
-                            "to a secure location, "
-                            "remove ~/.var/app/com.valvesoftware.Steam "
-                            "and put Steam data directory back to avoid needing to "
-                            "re-download games")])
+    p = subprocess.Popen(["zenity", "--question",
+                          ("--text="
+                           "This is com.valvesoftware.Steam cloud sync repair. "
+                           "If you have conflicting local and cloud data for "
+                           "your game, this may result in partial loss of your "
+                           "cloud data. If you instead prefer ensuring cloud data "
+                           "persists, please relocate your "
+                           "~/.var/app/com.valvesoftware.Steam/data/Steam "
+                           "to a secure location, "
+                           "remove ~/.var/app/com.valvesoftware.Steam "
+                           "and put Steam data directory back to avoid needing to "
+                           "re-download games")])
+    return p.wait() == 0
 
 def ignored(name, patterns):
     for pattern in patterns:
@@ -89,11 +90,15 @@ def migrate_config():
     xdg_config_home = os.path.join(STEAM_ROOT, target)
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
+        consent = True
         if os.path.isdir(target):
-            prompt()
+            consent = prompt()
+            if not consent:
+                return consent
         copytree(source, target)
         os.rename(source, relocated)
         os.symlink(target, source)
+        return consent
     else:
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
@@ -131,7 +136,8 @@ def migrate_shared():
 
 def main():
     legacy_support()
-    migrate_config()
-    migrate_data()
-    migrate_shared()
+    consent = migrate_config()
+    if consent:
+        migrate_data()
+        migrate_shared()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
