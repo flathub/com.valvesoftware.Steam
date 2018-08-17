@@ -38,6 +38,7 @@ def copytree(source, target, ignore=None):
             full_target = os.path.join(target, rel_root, f_name)
             print (f"Relocating {full_source} to {full_target}")
             shutil.copy2(full_source, full_target)
+            os.utime(full_target)
 
 def check_nonempty(name):
     try:
