@@ -5,11 +5,24 @@ import sys
 import shutil
 import errno
 import fnmatch
-
+import subprocess
 
 STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 
+def prompt():
+    subprocess.check_call(["zenity", "--question",
+                            ("--text="
+                            "This is com.valvesoftware.Steam cloud sync repair. "
+                            "If you have conflicting local and cloud data for "
+                            "your game, this may result in partial loss of your "
+                            "cloud data. If you instead prefer ensuring cloud data "
+                            "persists, please relocate your "
+                            "~/.var/app/com.valvesoftware.Steam/data/Steam "
+                            "to a secure location, "
+                            "remove ~/.var/app/com.valvesoftware.Steam "
+                            "and put Steam data directory back to avoid needing to "
+                            "re-download games")])
 
 def ignored(name, patterns):
     for pattern in patterns:
@@ -76,6 +89,8 @@ def migrate_config():
     xdg_config_home = os.path.join(STEAM_ROOT, target)
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
+        if os.path.isdir(target):
+            prompt()
         copytree(source, target)
         os.rename(source, relocated)
         os.symlink(target, source)
