@@ -75,7 +75,7 @@
 		"path": "steam_wrapper"
 	    }],
 	    "build-commands": [
-		"python3 -mpip install . --prefix=/app"
+		"python3 -mpip install . --prefix=/app --no-index --find-links ."
 	    ]
 	},
         {
