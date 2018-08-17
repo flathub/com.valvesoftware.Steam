@@ -85,12 +85,12 @@ def migrate_config():
     2) Next start of app, remove temp
     In theory this should not break everything
     """
+    consent = True
     source = os.path.expandvars("$XDG_CONFIG_HOME")
     target = ".config"
     xdg_config_home = os.path.join(STEAM_ROOT, target)
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
-        consent = True
         if os.path.isdir(target):
             consent = prompt()
             if not consent:
@@ -98,11 +98,11 @@ def migrate_config():
         copytree(source, target)
         os.rename(source, relocated)
         os.symlink(target, source)
-        return consent
     else:
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
     os.environ["XDG_CONFIG_HOME"] = xdg_config_home
+    return consent
 
 def migrate_data():
     """
