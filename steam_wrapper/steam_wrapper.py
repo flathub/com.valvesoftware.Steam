@@ -30,7 +30,7 @@ def prompt():
                            "to a secure location, "
                            "remove ~/.var/app/com.valvesoftware.Steam "
                            "and put Steam data directory back to avoid needing to "
-                           "re-download games")])
+                           "re-download games. Do you want to allow the migration?")])
     return p.wait() == 0
 
 def ignored(name, patterns):
