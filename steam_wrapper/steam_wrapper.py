@@ -6,6 +6,7 @@ import shutil
 import errno
 import fnmatch
 import subprocess
+import glob
 
 STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
@@ -17,6 +18,20 @@ def mesa_shader_workaround():
         print (f"Flushing {path}")
         shutil.rmtree(path)
 
+def read_file(path):
+    with open(path, "rb") as f:
+        return f.read()
+
+def timezone_workaround():
+    if os.environ.get("TZ"):
+        return
+    localtime = read_file("/etc/localtime")
+    for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
+        if localtime == read_file(candidate):
+            zone_name = os.path.relpath(candidate, "/usr/share/zoneinfo")
+            print (f"Overriding TZ to {zone_name}")
+            os.environ["TZ"] = zone_name
+            return
 
 def prompt():
     p = subprocess.Popen(["zenity", "--question",
@@ -149,4 +164,5 @@ def main():
         migrate_data()
         migrate_shared()
     mesa_shader_workaround()
+    timezone_workaround()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
