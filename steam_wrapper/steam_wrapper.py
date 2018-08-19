@@ -23,6 +23,8 @@ def read_file(path):
         return f.read()
 
 def timezone_workaround():
+    if os.environ.get("TZ"):
+        return
     localtime = read_file("/etc/localtime")
     for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
         if localtime == read_file(candidate):
