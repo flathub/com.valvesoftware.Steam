@@ -10,6 +10,14 @@ import subprocess
 STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 
+def mesa_shader_workaround():
+    fallback = os.path.expandvars("$XDG_CACHE_HOME/mesa_shader_cache")
+    path = os.environ.get("MESA_GLSL_CACHE_DIR", fallback)
+    if os.path.isdir(path):
+        print (f"Flushing {path}")
+        shutil.rmtree(path)
+
+
 def prompt():
     p = subprocess.Popen(["zenity", "--question",
                           ("--text="
@@ -140,4 +148,5 @@ def main():
     if consent:
         migrate_data()
         migrate_shared()
+    mesa_shader_workaround()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
