@@ -19,8 +19,11 @@ def mesa_shader_workaround():
         shutil.rmtree(path)
 
 def read_file(path):
-    with open(path, "rb") as f:
-        return f.read()
+    try:
+        with open(path, "rb") as f:
+            return f.read()
+    except IsADirectoryError:
+        return b""
 
 def timezone_workaround():
     if os.environ.get("TZ"):
