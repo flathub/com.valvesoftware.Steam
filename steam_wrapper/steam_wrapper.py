@@ -7,16 +7,41 @@ import errno
 import fnmatch
 import subprocess
 import glob
+import configparser
+
 
 STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 
-def mesa_shader_workaround():
-    fallback = os.path.expandvars("$XDG_CACHE_HOME/mesa_shader_cache")
+
+def read_flatpak_info(path):
+    flatpak_info = configparser.ConfigParser()
+    flatpak_info.read(path)
+    return {
+        "runtime-path": flatpak_info.get("Instance", "runtime-path",
+                                         fallback=None),
+        "app-extensions": flatpak_info.get("Instance", "app-extensions",
+                                           fallback=None),
+        "runtime-extensions": flatpak_info.get("Instance",
+                                               "runtime-extensions",
+                                               fallback=None)
+    }
+
+def flush_mesa_cache():
+    fallback = os.path.expandvars("$XDG_DATA_HOME/mesa_cache_dir")
     path = os.environ.get("MESA_GLSL_CACHE_DIR", fallback)
     if os.path.isdir(path):
         print (f"Flushing {path}")
         shutil.rmtree(path)
+
+def mesa_shader_workaround():
+    current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
+    candidate = "/.flatpak-info"
+    if not os.path.isfile(candidate):
+        flush_mesa_cache()
+    elif read_flatpak_info(current) != read_flatpak_info(candidate):
+        flush_mesa_cache()
+        shutil.copy2(candidate, current)
 
 def read_file(path):
     with open(path, "rb") as f:
