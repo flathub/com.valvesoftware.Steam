@@ -25,11 +25,17 @@ def read_file(path):
     except IsADirectoryError:
         return b""
 
+def get_zoneinfo():
+    for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
+        yield candidate
+    for candidate in glob.glob("/usr/share/zoneinfo/*/*/*"):
+        yield candidate
+
 def timezone_workaround():
     if os.environ.get("TZ"):
         return
     localtime = read_file("/etc/localtime")
-    for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
+    for candidate in get_zoneinfo():
         if localtime == read_file(candidate):
             zone_name = os.path.relpath(candidate, "/usr/share/zoneinfo")
             print (f"Overriding TZ to {zone_name}")
