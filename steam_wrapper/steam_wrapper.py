@@ -217,6 +217,7 @@ def repair_broken_migration():
                       os.path.join(data, "Steam"))
         os.unlink(XDG_DATA_HOME)
         os.symlink(data, XDG_DATA_HOME)
+        shutil.rmtree(wrong_data)
 
 def main():
     legacy_support()
