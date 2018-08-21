@@ -149,7 +149,7 @@ def migrate_config():
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
-            consent = prompt()
+            consent = False
             if not consent:
                 return consent
         copytree(source, target)
