@@ -14,6 +14,8 @@ STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
+DATA = ".local/share"
+CACHE = ".cache"
 
 
 def read_flatpak_info(path):
@@ -169,7 +171,7 @@ def migrate_data():
     games and is massive. It needs to be separately moved
     """
     source = os.path.expandvars("$XDG_DATA_HOME")
-    target = ".data"
+    target = DATA
     steam_home = os.path.join(source, "Steam")
     xdg_data_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
@@ -184,7 +186,7 @@ def migrate_data():
 
 def migrate_cache():
     source = os.path.expandvars("$XDG_CACHE_HOME")
-    target = ".local/share"
+    target = CACHE
     xdg_cache_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
         copytree(source, target)
@@ -193,15 +195,27 @@ def migrate_cache():
     os.environ["XDG_CACHE_HOME"] = xdg_cache_home
 
 def repair_broken_migration():
+    cache = CACHE
     wrong_data = ".data"
-    wrong_cache = ".local/share"
+    wrong_cache = DATA
+    data = wrong_cache
     root = os.path.realpath(STEAM_ROOT)
     current_cache = os.path.relpath(os.path.realpath(XDG_CACHE_HOME), root)
-    current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)    
-    if current_cache == wrong_cache:
-        print (f"Broken {current_cache}")
-    if current_data == wrong_data:
-        print (f"Broken {current_data}")
+    current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)
+    if os.path.islink(XDG_CACHE_HOME) and current_cache == wrong_cache:
+        os.makedirs(cache, exist_ok=True)
+        copytree(current_cache, cache)
+        os.unlink(XDG_CACHE_HOME)
+        os.symlink(cache, XDG_CACHE_HOME)
+    if os.path.islink(XDG_DATA_HOME) and current_data == wrong_data:
+        os.makedirs(data, exist_ok=True)
+        steam_home = os.path.join(current_data, "Steam")
+        copytree(current_data, data, [steam_home])
+        if os.path.isdir(steam_home):
+            os.rename(steam_home,
+                      os.path.join(data, "Steam"))
+        os.unlink(XDG_DATA_HOME)
+        os.symlink(data, XDG_DATA_HOME)
 
 def main():
     legacy_support()
@@ -212,5 +226,4 @@ def main():
     repair_broken_migration()
     mesa_shader_workaround()
     timezone_workaround()
-    raise SystemExit()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
