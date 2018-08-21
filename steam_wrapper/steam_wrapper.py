@@ -12,6 +12,8 @@ import configparser
 
 STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
+XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
+XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 
 
 def read_flatpak_info(path):
@@ -149,7 +151,7 @@ def migrate_config():
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
-            consent = False
+            consent = prompt()
             if not consent:
                 return consent
         copytree(source, target)
@@ -170,7 +172,6 @@ def migrate_data():
     target = ".data"
     steam_home = os.path.join(source, "Steam")
     xdg_data_home = os.path.join(STEAM_ROOT, target)
-
     if not os.path.islink(source):
         copytree(source, target, ignore=[steam_home])
         os.makedirs(target, exist_ok=True)
@@ -181,7 +182,7 @@ def migrate_data():
         os.symlink(target, source)
     os.environ["XDG_DATA_HOME"] = xdg_data_home
 
-def migrate_shared():
+def migrate_cache():
     source = os.path.expandvars("$XDG_CACHE_HOME")
     target = ".local/share"
     xdg_cache_home = os.path.join(STEAM_ROOT, target)
@@ -191,12 +192,25 @@ def migrate_shared():
         os.symlink(target, source)
     os.environ["XDG_CACHE_HOME"] = xdg_cache_home
 
+def repair_broken_migration():
+    wrong_data = ".data"
+    wrong_cache = ".local/share"
+    root = os.path.realpath(STEAM_ROOT)
+    current_cache = os.path.relpath(os.path.realpath(XDG_CACHE_HOME), root)
+    current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)    
+    if current_cache == wrong_cache:
+        print (f"Broken {current_cache}")
+    if current_data == wrong_data:
+        print (f"Broken {current_data}")
+
 def main():
     legacy_support()
     consent = migrate_config()
     if consent:
         migrate_data()
-        migrate_shared()
+        migrate_cache()
+    repair_broken_migration()
     mesa_shader_workaround()
     timezone_workaround()
+    raise SystemExit()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
