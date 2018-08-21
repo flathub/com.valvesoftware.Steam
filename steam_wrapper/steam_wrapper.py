@@ -14,6 +14,7 @@ STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
+CONFIG = ".config"
 DATA = ".local/share"
 CACHE = ".cache"
 
@@ -148,7 +149,7 @@ def migrate_config():
     """
     consent = True
     source = os.path.expandvars("$XDG_CONFIG_HOME")
-    target = ".config"
+    target = CONFIG
     xdg_config_home = os.path.join(STEAM_ROOT, target)
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
