@@ -219,6 +219,21 @@ def repair_broken_migration():
         os.symlink(data, XDG_DATA_HOME)
         shutil.rmtree(wrong_data)
 
+
+def sed_proton_python_path():
+    proton_path = os.path.join(XDG_DATA_HOME, "Steam", "steamapps", "common", "Proton 3.7")
+    print(f"PATH: {proton_path}")
+
+    # Proton has hardcoded python paths and we need to sed them to use /app/bin/python2
+    query1 = ["sed", "-i", "s|!/usr/bin/python2.7|!/usr/bin/env python2|", os.path.join(proton_path, "proton")]
+    query2 = ["sed", "-i", "s|!/usr/bin/python2.7|!/usr/bin/env python2|", os.path.join(proton_path, "user_settings.sample.py")]
+    query3 = ["sed", "-i", "s|!/usr/bin/env /<python/>|!/usr/bin/env python2|", os.path.join(proton_path, "filelock.py")]
+
+    subprocess.call(query1)
+    subprocess.call(query2)
+    subprocess.call(query3)
+
+
 def main():
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     legacy_support()
@@ -229,4 +244,5 @@ def main():
     repair_broken_migration()
     mesa_shader_workaround()
     timezone_workaround()
+    sed_proton_python_path()
     os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
