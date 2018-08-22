@@ -220,6 +220,7 @@ def repair_broken_migration():
         shutil.rmtree(wrong_data)
 
 def main():
+    os.chdir(os.environ["HOME"]) # Ensure sane cwd
     legacy_support()
     consent = migrate_config()
     if consent:
