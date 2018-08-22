@@ -157,7 +157,7 @@ def migrate_config():
             consent = prompt()
             if not consent:
                 return consent
-        copytree(source, target)
+        copytree(source, xdg_config_home)
         os.rename(source, relocated)
         os.symlink(target, source)
     else:
