@@ -43,6 +43,7 @@
         }
     },
     "modules": [
+        "shared-modules/python2.7/python-2.7.15.json",
         {
 	    "name": "libnotify",
 	    "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/share/doc/libnotify"],
