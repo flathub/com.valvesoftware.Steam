@@ -104,14 +104,17 @@ def filter_names(root, names, patterns):
 def copytree(source, target, ignore=None):
     for root, d_names, f_names in os.walk(source):
         rel_root = os.path.relpath(root, source)
+        target_root = os.path.normpath(os.path.join(target, rel_root))
+        try:
+            os.mkdir(target_root)
+        except FileExistsError:
+            pass
         if ignore:
             d_names[:] = filter_names(root, d_names, ignore)
             f_names = filter_names(root, f_names, ignore)
-        if f_names:
-            os.makedirs(os.path.join(target, rel_root), exist_ok=True)
         for f_name in f_names:
             full_source = os.path.join(root, f_name)
-            full_target = os.path.join(target, rel_root, f_name)
+            full_target = os.path.join(target_root, f_name)
             print (f"Relocating {full_source} to {full_target}")
             shutil.copy2(full_source, full_target)
             os.utime(full_target)
@@ -177,7 +180,6 @@ def migrate_data():
     xdg_data_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
         copytree(source, target, ignore=[steam_home])
-        os.makedirs(target, exist_ok=True)
         if os.path.isdir(steam_home):
             os.rename(steam_home,
                       os.path.join(xdg_data_home, "Steam"))
@@ -204,12 +206,10 @@ def repair_broken_migration():
     current_cache = os.path.relpath(os.path.realpath(XDG_CACHE_HOME), root)
     current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)
     if os.path.islink(XDG_CACHE_HOME) and current_cache == wrong_cache:
-        os.makedirs(cache, exist_ok=True)
         copytree(current_cache, cache)
         os.unlink(XDG_CACHE_HOME)
         os.symlink(cache, XDG_CACHE_HOME)
     if os.path.islink(XDG_DATA_HOME) and current_data == wrong_data:
-        os.makedirs(data, exist_ok=True)
         steam_home = os.path.join(current_data, "Steam")
         copytree(current_data, data, [steam_home])
         if os.path.isdir(steam_home):
