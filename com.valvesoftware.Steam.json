@@ -15,6 +15,7 @@
         "--talk-name=org.gnome.SettingsDaemon",
         "--talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
+        "--talk-name=com.feralinteractive.GameMode",
         "--filesystem=xdg-music:ro",
         "--filesystem=xdg-pictures:ro",
         "--device=all",
@@ -129,6 +130,20 @@
                 "/share/pkgconfig"
             ]
         },
+	{
+	    "name": "gamemode",
+	    "buildsystem": "meson",
+	    "config-opts": [
+	        "-Dwith-systemd=false",
+	        "-Dwith-daemon=false",
+	        "-Dwith-examples=false"
+	    ],
+	    "sources": [{
+	        "type": "git",
+	        "url": "https://github.com/FeralInteractive/gamemode.git",
+	        "tag": "1.2"
+	    }]
+	},
 	{
 	    "name": "steam_wrapper",
 	    "buildsystem": "simple",
