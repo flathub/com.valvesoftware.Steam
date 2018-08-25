@@ -16,6 +16,7 @@
         "--talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
         "--filesystem=xdg-music:ro",
+        "--filesystem=xdg-pictures:ro",
         "--device=all",
         "--allow=multiarch",
         "--allow=devel",
