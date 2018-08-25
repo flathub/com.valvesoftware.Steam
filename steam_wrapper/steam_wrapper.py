@@ -33,8 +33,10 @@ def read_flatpak_info(path):
     }
 
 def flush_mesa_cache():
-    fallback = os.path.expandvars("$XDG_DATA_HOME/mesa_shader_cache")
-    path = os.environ.get("MESA_GLSL_CACHE_DIR", fallback)
+    fallback = os.path.expandvars("$XDG_CACHE_HOME/mesa_shader_cache")
+    path = os.environ.get("MESA_GLSL_CACHE_DIR")
+    if not path:
+        path = fallback
     if os.path.isdir(path):
         print (f"Flushing {path}")
         shutil.rmtree(path)
