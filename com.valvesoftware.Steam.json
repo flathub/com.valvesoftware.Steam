@@ -140,6 +140,19 @@
                 "cp com.valvesoftware.Steam.appdata.xml /app/share/appdata",
                 "install -Dm644 ld.so.conf /app/etc/ld.so.conf"
             ]
+        },
+        {
+            "name": "lspci",
+            "buildsystem": "simple",
+            "sources": [{
+                "type": "archive",
+                "url": "ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/pciutils-3.6.1.tar.gz",
+                "sha256": "69a555155c9761ad826e74869b2037d0c4c89f52633822aea16317afd48eaab6"
+            }],
+            "build-commands": [
+                "make",
+                "cp lspci /app/bin/lspci"
+            ]
         }
     ]
 }
