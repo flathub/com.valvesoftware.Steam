@@ -37,7 +37,7 @@
         "--extension=org.freedesktop.Platform.GL32=download-if=active-gl-driver",
         "--extension=org.freedesktop.Platform.GL32=enable-if=active-gl-driver",
         "--env=ALSA_CONFIG_PATH=",
-	"--env=MESA_GLSL_CACHE_DIR="
+        "--env=MESA_GLSL_CACHE_DIR="
     ],
     "build-options" : {
         "env": {
