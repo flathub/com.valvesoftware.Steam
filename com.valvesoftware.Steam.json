@@ -76,6 +76,7 @@
             "buildsystem": "meson",
             "config-opts": [
                 "-Drootprefix=/app",
+                "-Dsysconfdir=/etc/app",
 
                 "-Denvironment-d=false",
                 "-Dbinfmt=false",
