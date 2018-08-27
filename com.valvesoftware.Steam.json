@@ -49,29 +49,29 @@
     "modules": [
         "shared-modules/python2.7/python-2.7.15.json",
         {
-	    "name": "libnotify",
-	    "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/share/doc/libnotify"],
-	    "config-opts": [
-		"--disable-static",
-		"--disable-tests",
-		"--disable-introspection"
-	    ],
-	    "sources": [
-		{
-		    "type": "archive",
-		    "url": "https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.7.tar.xz",
-		    "sha256": "9cb4ce315b2655860c524d46b56010874214ec27e854086c1a1d0260137efc04"
-		}
-	    ]
-	},
-	{
-	    "name": "xrandr",
-	    "sources": [{
-		"type": "archive",
-		"url": "https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2",
-		"sha256": "c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd"
-	    }]
-	},
+            "name": "libnotify",
+            "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/share/doc/libnotify"],
+            "config-opts": [
+                "--disable-static",
+                "--disable-tests",
+                "--disable-introspection"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.7.tar.xz",
+                    "sha256": "9cb4ce315b2655860c524d46b56010874214ec27e854086c1a1d0260137efc04"
+                }
+            ]
+        },
+        {
+            "name": "xrandr",
+            "sources": [{
+                "type": "archive",
+                "url": "https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2",
+                "sha256": "c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd"
+            }]
+        },
         {
             "name": "systemd",
             "buildsystem": "meson",
@@ -130,31 +130,31 @@
                 "/share/pkgconfig"
             ]
         },
-	{
-	    "name": "gamemode",
-	    "buildsystem": "meson",
-	    "config-opts": [
-	        "-Dwith-systemd=false",
-	        "-Dwith-daemon=false",
-	        "-Dwith-examples=false"
-	    ],
-	    "sources": [{
-	        "type": "archive",
-	        "url": "https://github.com/FeralInteractive/gamemode/releases/download/1.2/gamemode-1.2.tar.xz",
-	        "sha256": "a7b8d63ffdcbea0dc8b557fda42a9471fa9ab0961a5450d2a15cccca0aaf6a95"
-	    }]
-	},
-	{
-	    "name": "steam_wrapper",
-	    "buildsystem": "simple",
-	    "sources": [{
-		"type": "dir",
-		"path": "steam_wrapper"
-	    }],
-	    "build-commands": [
-		"python3 -mpip install . --prefix=/app --no-index --find-links ."
-	    ]
-	},
+        {
+            "name": "gamemode",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Dwith-systemd=false",
+                "-Dwith-daemon=false",
+                "-Dwith-examples=false"
+            ],
+            "sources": [{
+                "type": "archive",
+                "url": "https://github.com/FeralInteractive/gamemode/releases/download/1.2/gamemode-1.2.tar.xz",
+                "sha256": "a7b8d63ffdcbea0dc8b557fda42a9471fa9ab0961a5450d2a15cccca0aaf6a95"
+            }]
+        },
+        {
+            "name": "steam_wrapper",
+            "buildsystem": "simple",
+            "sources": [{
+                "type": "dir",
+                "path": "steam_wrapper"
+            }],
+            "build-commands": [
+                "python3 -mpip install . --prefix=/app --no-index --find-links ."
+            ]
+        },
         {
             "name": "steam",
             "no-autogen": true,
