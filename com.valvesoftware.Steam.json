@@ -139,9 +139,9 @@
 	        "-Dwith-examples=false"
 	    ],
 	    "sources": [{
-	        "type": "git",
-	        "url": "https://github.com/FeralInteractive/gamemode.git",
-	        "tag": "1.2"
+	        "type": "archive",
+	        "url": "https://github.com/FeralInteractive/gamemode/releases/download/1.2/gamemode-1.2.tar.xz",
+	        "sha256": "a7b8d63ffdcbea0dc8b557fda42a9471fa9ab0961a5450d2a15cccca0aaf6a95"
 	    }]
 	},
 	{
