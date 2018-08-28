@@ -10,7 +10,6 @@
     "finish-args": [
         "--share=ipc", "--socket=x11",
         "--socket=pulseaudio",
-        "--socket=system-bus",
         "--share=network",
         "--talk-name=org.gnome.SettingsDaemon",        
         "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
