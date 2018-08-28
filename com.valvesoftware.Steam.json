@@ -23,21 +23,6 @@
         "--allow=multiarch",
         "--allow=devel",
         "--persist=.",
-        "--extension=org.freedesktop.Platform.Compat.i386=directory=lib/i386-linux-gnu",
-        "--extension=org.freedesktop.Platform.Compat.i386=version=18.08",
-        "--extension=org.freedesktop.Platform.Compat.i386.Debug=directory=lib/debug/lib/i386-linux-gnu",
-        "--extension=org.freedesktop.Platform.Compat.i386.Debug=version=18.08",
-        "--extension=org.freedesktop.Platform.Compat.i386.Debug=no-autodownload=true",
-        "--extension=org.freedesktop.Platform.GL32=directory=lib/i386-linux-gnu/GL",
-        "--extension=org.freedesktop.Platform.GL32=version=1.4",
-        "--extension=org.freedesktop.Platform.GL32=versions=1.6;1.4",
-        "--extension=org.freedesktop.Platform.GL32=subdirectories=true",
-        "--extension=org.freedesktop.Platform.GL32=no-autodownload=true",
-        "--extension=org.freedesktop.Platform.GL32=autodelete=false",
-        "--extension=org.freedesktop.Platform.GL32=add-ld-path=lib",
-        "--extension=org.freedesktop.Platform.GL32=merge-dirs=vulkan/icd.d;glvnd/egl_vendor.d",
-        "--extension=org.freedesktop.Platform.GL32=download-if=active-gl-driver",
-        "--extension=org.freedesktop.Platform.GL32=enable-if=active-gl-driver",
         "--env=LC_NUMERIC=C",
         "--env=ALSA_CONFIG_PATH=",
         "--env=MESA_GLSL_CACHE_DIR="
@@ -45,6 +30,29 @@
     "build-options" : {
         "env": {
             "PREFIX": "/app"
+        }
+    },
+    "add-extensions": {
+        "org.freedesktop.Platform.Compat.i386": {
+            "directory": "lib/i386-linux-gnu",
+            "version": "18.08"
+        },
+        "org.freedesktop.Platform.Compat.i386.Debug": {
+            "directory": "lib/debug/lib/i386-linux-gnu",
+            "version": "18.08",
+            "no-autodownload": true
+        },
+        "org.freedesktop.Platform.GL32": {
+            "directory": "lib/i386-linux-gnu/GL",
+            "version": "1.4",
+            "versions": "1.6;1.4",
+            "subdirectories": true,
+            "no-autodownload": true,
+            "autodelete": false,
+            "add-ld-path": "lib",
+            "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
+            "download-if": "active-gl-driver",
+            "enable-if": "active-gl-driver"
         }
     },
     "modules": [
