@@ -16,6 +16,7 @@
         "--talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
         "--talk-name=com.feralinteractive.GameMode",
+        "--system-talk-name=org.freedesktop.UPower",
         "--filesystem=xdg-music:ro",
         "--filesystem=xdg-pictures:ro",
         "--device=all",
