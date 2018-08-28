@@ -12,7 +12,7 @@
         "--socket=pulseaudio",
         "--socket=system-bus",
         "--share=network",
-        "--talk-name=org.gnome.SettingsDaemon",
+        "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
         "--talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
         "--talk-name=com.feralinteractive.GameMode",
