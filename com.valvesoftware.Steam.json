@@ -162,8 +162,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz",
-                    "sha256": "c303a610ebd7e392f5027b22ee0b64bf178344bd979bef473046c57c3599a1af"
+                    "url": "http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.56.tar.gz",
+                    "sha256": "da15bb347bd286c3a8818c3c910dc5bdbc43a744604d5372260ec79540ba4f06"
                 },
                 {
                     "type": "file",
