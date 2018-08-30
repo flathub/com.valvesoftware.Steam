@@ -192,6 +192,36 @@
             ]
         },
         {
+            "name": "steamcmd",
+            "build-options": {
+                "strip": false,
+                "no-debuginfo": true
+            },
+            "buildsystem": "simple",
+            "build-commands": [
+                "cp -ax steamcmd /app/",
+                "install -Dm755 steamcmd-wrapper.sh /app/bin/steamcmd.sh"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "strip-components": 0,
+                    "dest": "steamcmd",
+                    "url": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz",
+                    "sha256": "cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c"
+                },
+                {
+                    "type": "script",
+                    "dest-filename": "steamcmd-wrapper.sh",
+                    "commands": [
+                        "test -f /app/steamcmd/steamcmd.sh || (echo 'com.valvesoftware.Steam.steamcmd not installed' && exit 1)",
+                        "test -f $XDG_DATA_HOME/steamcmd/steamcmd.sh || cp -ax /app/steamcmd $XDG_DATA_HOME/",
+                        "exec $XDG_DATA_HOME/steamcmd/steamcmd.sh $@"
+                    ]
+                }
+            ]
+        },
+        {
             "name": "lspci",
             "no-autogen": true,
             "make-install-args": [
