@@ -130,7 +130,7 @@ def check_nonempty(name):
             raise
         else:
             return False
-        
+
 def legacy_support():
     if not check_nonempty("/etc/ld.so.conf"):
         # Fallback for flatpak < 0.9.99
@@ -221,7 +221,7 @@ def repair_broken_migration():
         os.symlink(data, XDG_DATA_HOME)
         shutil.rmtree(wrong_data)
 
-def main():
+def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     legacy_support()
     consent = migrate_config()
@@ -231,4 +231,4 @@ def main():
     repair_broken_migration()
     mesa_shader_workaround()
     timezone_workaround()
-    os.execve(STEAM_PATH, [STEAM_PATH] + sys.argv[1:], os.environ)
+    os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)

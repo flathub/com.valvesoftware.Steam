@@ -206,8 +206,7 @@
             "buildsystem": "simple",
             "build-commands": [
                 "cp -ax steamcmd /app/",
-                "install -Dm755 steamcmd-wrapper.sh /app/bin/steamcmd.sh",
-                "ln -s steamcmd.sh /app/bin/steamcmd",
+                "ln -s steamcmd-wrapper /app/bin/steamcmd",
                 "install -Dm644 com.valvesoftware.Steam.cmd.desktop -t /app/share/applications",
                 "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/steamcmd/share/metainfo",
                 "appstream-compose --basename=com.valvesoftware.Steam.cmd --prefix=/app/steamcmd --origin=flatpak com.valvesoftware.Steam.cmd"
@@ -219,15 +218,6 @@
                     "dest": "steamcmd",
                     "url": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz",
                     "sha256": "cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c"
-                },
-                {
-                    "type": "script",
-                    "dest-filename": "steamcmd-wrapper.sh",
-                    "commands": [
-                        "test -f /app/steamcmd/steamcmd.sh || (echo 'com.valvesoftware.Steam.cmd not installed' && exit 1)",
-                        "test -f $XDG_DATA_HOME/steamcmd/steamcmd.sh || cp -ax /app/steamcmd $XDG_DATA_HOME/",
-                        "exec $XDG_DATA_HOME/steamcmd/steamcmd.sh $@"
-                    ]
                 },
                 {
                     "type": "file",

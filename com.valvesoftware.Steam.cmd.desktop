@@ -1,7 +1,8 @@
 [Desktop Entry]
 Type=Application
 Name=SteamCMD
-Exec=steamcmd
+Comment=Command-line Steam client
+Exec=steamcmd-wrapper
 Terminal=true
 Icon=com.valvesoftware.Steam
 Categories=Network;FileTransfer;Game;
