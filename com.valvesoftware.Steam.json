@@ -50,7 +50,7 @@
             "download-if": "active-gl-driver",
             "enable-if": "active-gl-driver"
         },
-        "com.valvesoftware.Steam.steamcmd": {
+        "com.valvesoftware.Steam.cmd": {
             "directory": "steamcmd",
             "bundle": true,
             "autodelete": true,
@@ -206,7 +206,10 @@
             "buildsystem": "simple",
             "build-commands": [
                 "cp -ax steamcmd /app/",
-                "install -Dm755 steamcmd-wrapper.sh /app/bin/steamcmd.sh"
+                "install -Dm755 steamcmd-wrapper.sh /app/bin/steamcmd.sh",
+                "ln -s steamcmd.sh /app/bin/steamcmd",
+                "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/steamcmd/share/metainfo",
+                "appstream-compose --basename=com.valvesoftware.Steam.cmd --prefix=/app/steamcmd --origin=flatpak com.valvesoftware.Steam.cmd"
             ],
             "sources": [
                 {
@@ -220,10 +223,14 @@
                     "type": "script",
                     "dest-filename": "steamcmd-wrapper.sh",
                     "commands": [
-                        "test -f /app/steamcmd/steamcmd.sh || (echo 'com.valvesoftware.Steam.steamcmd not installed' && exit 1)",
+                        "test -f /app/steamcmd/steamcmd.sh || (echo 'com.valvesoftware.Steam.cmd not installed' && exit 1)",
                         "test -f $XDG_DATA_HOME/steamcmd/steamcmd.sh || cp -ax /app/steamcmd $XDG_DATA_HOME/",
                         "exec $XDG_DATA_HOME/steamcmd/steamcmd.sh $@"
                     ]
+                },
+                {
+                    "type": "file",
+                    "path": "com.valvesoftware.Steam.cmd.metainfo.xml"
                 }
             ]
         },
