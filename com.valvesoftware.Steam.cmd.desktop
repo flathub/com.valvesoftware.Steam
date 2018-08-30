@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=SteamCMD
+Exec=steamcmd
+Terminal=true
+Icon=com.valvesoftware.Steam
+Categories=Network;FileTransfer;Game;

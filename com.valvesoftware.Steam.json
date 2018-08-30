@@ -208,6 +208,7 @@
                 "cp -ax steamcmd /app/",
                 "install -Dm755 steamcmd-wrapper.sh /app/bin/steamcmd.sh",
                 "ln -s steamcmd.sh /app/bin/steamcmd",
+                "install -Dm644 com.valvesoftware.Steam.cmd.desktop -t /app/share/applications",
                 "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/steamcmd/share/metainfo",
                 "appstream-compose --basename=com.valvesoftware.Steam.cmd --prefix=/app/steamcmd --origin=flatpak com.valvesoftware.Steam.cmd"
             ],
@@ -231,6 +232,10 @@
                 {
                     "type": "file",
                     "path": "com.valvesoftware.Steam.cmd.metainfo.xml"
+                },
+                {
+                    "type": "file",
+                    "path": "com.valvesoftware.Steam.cmd.desktop"
                 }
             ]
         },
