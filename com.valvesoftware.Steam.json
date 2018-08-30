@@ -49,12 +49,6 @@
             "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
             "download-if": "active-gl-driver",
             "enable-if": "active-gl-driver"
-        },
-        "com.valvesoftware.Steam.cmd": {
-            "directory": "steamcmd",
-            "bundle": true,
-            "autodelete": true,
-            "no-autodownload": true
         }
     },
     "modules": [
@@ -207,9 +201,7 @@
             "build-commands": [
                 "cp -ax steamcmd /app/",
                 "ln -s steamcmd-wrapper /app/bin/steamcmd",
-                "install -Dm644 com.valvesoftware.Steam.cmd.desktop -t /app/share/applications",
-                "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/steamcmd/share/metainfo",
-                "appstream-compose --basename=com.valvesoftware.Steam.cmd --prefix=/app/steamcmd --origin=flatpak com.valvesoftware.Steam.cmd"
+                "install -Dm644 com.valvesoftware.Steam.cmd.desktop -t /app/share/applications"
             ],
             "sources": [
                 {
@@ -218,10 +210,6 @@
                     "dest": "steamcmd",
                     "url": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz",
                     "sha256": "cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c"
-                },
-                {
-                    "type": "file",
-                    "path": "com.valvesoftware.Steam.cmd.metainfo.xml"
                 },
                 {
                     "type": "file",
