@@ -54,7 +54,7 @@
             "directory": "steamcmd",
             "bundle": true,
             "autodelete": true,
-            "no-autodownload": false
+            "no-autodownload": true
         }
     },
     "modules": [
