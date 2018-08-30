@@ -49,6 +49,12 @@
             "merge-dirs": "vulkan/icd.d;glvnd/egl_vendor.d",
             "download-if": "active-gl-driver",
             "enable-if": "active-gl-driver"
+        },
+        "com.valvesoftware.Steam.steamcmd": {
+            "directory": "steamcmd",
+            "bundle": true,
+            "autodelete": true,
+            "no-autodownload": false
         }
     },
     "modules": [
