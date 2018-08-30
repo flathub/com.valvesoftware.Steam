@@ -28,7 +28,6 @@
         "--env=ALSA_CONFIG_PATH=",
         "--env=MESA_GLSL_CACHE_DIR="
     ],
-    },
     "add-extensions": {
         "org.freedesktop.Platform.Compat.i386": {
             "directory": "lib/i386-linux-gnu",
