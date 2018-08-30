@@ -6,6 +6,7 @@
     "command": "steam-wrapper",
     "separate-locales": false,
     "rename-icon": "steam",
+    "rename-desktop-file": "steam.desktop",
     "tags": ["proprietary"],
     "finish-args": [
         "--share=ipc", "--socket=x11",
@@ -42,11 +43,6 @@
         "--env=ALSA_CONFIG_PATH=",
         "--env=MESA_GLSL_CACHE_DIR="
     ],
-    "build-options" : {
-        "env": {
-            "PREFIX": "/app"
-        }
-    },
     "modules": [
         "shared-modules/python2.7/python-2.7.15.json",
         {
@@ -158,7 +154,19 @@
         },
         {
             "name": "steam",
-            "no-autogen": true,
+            "buildsystem": "simple",
+            "build-commands": [
+                "sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop",
+                "sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop",
+                "desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop",
+                "sed -i s:/usr/lib/:/app/lib/: steam",
+                "PREFIX=/app make install",
+                "ln -sf /bin/true /app/bin/steamdeps",
+                "cp /usr/bin/cmp /app/bin",
+                "mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu",
+                "install -Dm644 -t /app/share/appdata com.valvesoftware.Steam.appdata.xml",
+                "install -Dm644 -t /app/etc ld.so.conf"
+            ],
             "sources": [
                 {
                     "type": "archive",
@@ -170,28 +178,9 @@
                     "path": "com.valvesoftware.Steam.appdata.xml"
                 },
                 {
-                    "type": "shell",
-                    "commands": [
-                        "sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop",
-                        "sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop",
-                        "desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop",
-                        "sed -i s:/usr/lib/:/app/lib/: steam"
-                    ]
-                },
-                {
                     "type": "file",
                     "path": "ld.so.conf"
                 }
-            ],
-            "post-install": [
-                "ln -sf /bin/true /app/bin/steamdeps",
-                "cp /app/share/applications/steam.desktop /app/share/applications/com.valvesoftware.Steam.desktop",
-                "cp /usr/bin/cmp /app/bin",
-                "mkdir -p /app/lib/i386-linux-gnu",
-                "mkdir -p /app/lib/debug/lib/i386-linux-gnu",
-                "mkdir -p /app/share/appdata",
-                "cp com.valvesoftware.Steam.appdata.xml /app/share/appdata",
-                "install -Dm644 ld.so.conf /app/etc/ld.so.conf"
             ]
         },
         {
