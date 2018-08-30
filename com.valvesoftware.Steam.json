@@ -164,7 +164,7 @@
                 "ln -sf /bin/true /app/bin/steamdeps",
                 "cp /usr/bin/cmp /app/bin",
                 "mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu",
-                "install -Dm644 -t /app/share/appdata com.valvesoftware.Steam.appdata.xml",
+                "install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml",
                 "install -Dm644 -t /app/etc ld.so.conf"
             ],
             "sources": [
