@@ -4,5 +4,5 @@ Name=SteamCMD
 Comment=Command-line Steam client
 Exec=steamcmd-wrapper
 Terminal=true
-Icon=com.valvesoftware.Steam
+Icon=terminal
 Categories=Network;FileTransfer;Game;
