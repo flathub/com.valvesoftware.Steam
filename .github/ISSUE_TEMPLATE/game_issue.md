@@ -1,6 +1,6 @@
 ---
-name: Bug report about game issues
-about: This report type is speficically meant or issues with games
+name: Bug report about issues with games
+about: Please use this same template for requesting Dbus access for games
 
 ---
 
@@ -25,3 +25,6 @@ about: This report type is speficically meant or issues with games
 **Problem description**
 <!-- Explanation of the problem. Please attach log outputs as separate files
 so the issue history is faster to read through -->
+
+**Does this issue reproduce with native Steam**
+<!-- Yes/No/Have not tested -->
