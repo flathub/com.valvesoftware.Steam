@@ -201,8 +201,7 @@
             "build-commands": [
                 "cp -ax steamcmd /app/",
                 "ln -s steamcmd-wrapper /app/bin/steamcmd",
-                "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/share/metainfo",
-                "install -Dm644 com.valvesoftware.Steam.cmd.desktop -t /app/share/applications"
+                "install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/share/metainfo"
             ],
             "sources": [
                 {
@@ -215,10 +214,6 @@
                 {
                     "type": "file",
                     "path": "com.valvesoftware.Steam.cmd.metainfo.xml"
-                },
-                {
-                    "type": "file",
-                    "path": "com.valvesoftware.Steam.cmd.desktop"
                 }
             ]
         },
