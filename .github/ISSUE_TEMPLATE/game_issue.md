@@ -5,8 +5,7 @@ about: This report type is speficically meant or issues with games
 ---
 
 **Game information**
-<!-- Name of the game or games that do not work
--->
+<!-- Name of the game or games that do not work -->
 
 **Distribution name and version where applicable**
 <!-- Following files may help if you're unsure
@@ -24,4 +23,5 @@ about: This report type is speficically meant or issues with games
 -->
 
 **Problem description**
-<!-- Explanation of the problem. Please attach log outputs as separate files so the issue history is faster to read through -->
+<!-- Explanation of the problem. Please attach log outputs as separate files
+so the issue history is faster to read through -->
