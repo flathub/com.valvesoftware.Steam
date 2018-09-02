@@ -5,14 +5,23 @@ about: This report type is speficically meant or issues with games
 ---
 
 **Game information**
-<!-- Name of the game or games that do not work -->
+<!-- Name of the game or games that do not work
+-->
 
-**Distribution name**
-<!-- If your distribution is versioned, incldue the version. Also preferably last update time -->
+**Distribution name and version where applicable**
+<!-- Following files may help if you're unsure
+  - /etc/redhat-release
+  - /etc/suse-release
+  - /etc/debian-release
+  - /etc/lsb_release
+  - /etc/os-release
+-->
 
 **Flatpak info**
-<!-- Flatpak version -->
+<!-- Output of following commands:
+  flatpak --version
+  flatpak --gl-drivers
+-->
 
 **Problem description**
-<!-- Explanation of the problem. Please attach log outputs as separate files so the issue history
-     is faster to read through -->
+<!-- Explanation of the problem. Please attach log outputs as separate files so the issue history is faster to read through -->
