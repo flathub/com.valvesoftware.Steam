@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=SteamCMD
-Comment=Command-line Steam client
-Exec=steamcmd-wrapper
-Terminal=true
-Icon=utilities-terminal
-Categories=Network;FileTransfer;Game;
