@@ -132,7 +132,8 @@ def check_nonempty(name):
             return False
 
 def legacy_support():
-    if not check_nonempty("/etc/ld.so.conf"):
+    force_legacy = os.environ.get("FLATPAK_STEAM_LEGACY_MODE")
+    if force_legacy or not check_nonempty("/etc/ld.so.conf"):
         # Fallback for flatpak < 0.9.99
         os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
         os.environ["STEAM_RUNTIME_PREFER_HOST_LIBRARIES"] = "0"
