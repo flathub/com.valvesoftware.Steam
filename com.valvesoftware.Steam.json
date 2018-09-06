@@ -27,8 +27,8 @@
         "--persist=.",
         "--env=LC_NUMERIC=C",
         "--env=ALSA_CONFIG_PATH=",
-        "--env=MESA_GLSL_CACHE_DIR="
-	"--require-version=0.10.3",
+        "--env=MESA_GLSL_CACHE_DIR=",
+	"--require-version=0.10.3"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.Compat.i386": {
