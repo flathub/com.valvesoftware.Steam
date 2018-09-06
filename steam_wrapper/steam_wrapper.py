@@ -17,19 +17,18 @@ XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 CONFIG = ".config"
 DATA = ".local/share"
 CACHE = ".cache"
+FLATPAK_INFO = "/.flatpak-info"
 
 
 def read_flatpak_info(path):
     flatpak_info = configparser.ConfigParser()
-    flatpak_info.read(path)
+    with open(path) as f:
+        flatpak_info.read_file(f)
     return {
-        "runtime-path": flatpak_info.get("Instance", "runtime-path",
-                                         fallback=None),
-        "app-extensions": flatpak_info.get("Instance", "app-extensions",
-                                           fallback=None),
-        "runtime-extensions": flatpak_info.get("Instance",
-                                               "runtime-extensions",
-                                               fallback=None)
+        "flatpak-version": flatpak_info.get("Instance", "flatpak-version")
+        "runtime-path": flatpak_info.get("Instance", "runtime-path")
+        "app-extensions": flatpak_info.get("Instance", "app-extensions")
+        "runtime-extensions": flatpak_info.get("Instance", "runtime-extensions")
     }
 
 def flush_mesa_cache():
@@ -43,12 +42,13 @@ def flush_mesa_cache():
 
 def mesa_shader_workaround():
     current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
-    candidate = "/.flatpak-info"
     if not os.path.isfile(candidate):
         flush_mesa_cache()
-    elif read_flatpak_info(current) != read_flatpak_info(candidate):
-        flush_mesa_cache()
-        shutil.copy2(candidate, current)
+    else:
+        current_info = read_flatpak_info(FLATPAK_INFO)
+        if not os.path.isfile(current) or current_info != read_flatpak_info(current):
+            flush_mesa_cache()
+            shutil.copy2(candidate, current)
 
 def read_file(path):
     try:
@@ -132,11 +132,10 @@ def check_nonempty(name):
             return False
 
 def legacy_support():
-    if not check_nonempty("/etc/ld.so.conf"):
-        # Fallback for flatpak < 0.9.99
-        os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
-        os.environ["STEAM_RUNTIME_PREFER_HOST_LIBRARIES"] = "0"
-
+    current_info = read_flatpak_info(FLATPAK_INFO)
+    version = tuple(int(x) for x in current_info["flatpak-version"].split("."))
+    if version < (0, 10, 3):
+        raise SystemExit("Flatpak 0.10.3 or newer required")
     steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
     if os.path.isdir(steam_home):
         # Relocate from old migration
