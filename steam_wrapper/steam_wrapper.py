@@ -8,6 +8,7 @@ import fnmatch
 import subprocess
 import glob
 import configparser
+from distutils.version import StrictVersion
 
 
 STEAM_PATH = "/app/bin/steam"
@@ -133,9 +134,10 @@ def check_nonempty(name):
 
 def legacy_support():
     current_info = read_flatpak_info(FLATPAK_INFO)
-    version = tuple(int(x) for x in current_info["flatpak-version"].split("."))
-    if version < (0, 10, 3):
-        raise SystemExit("Flatpak 0.10.3 or newer required")
+    current_version = current_info["flatpak-version"]
+    required = "0.10.3"
+    if StrictVersion(current_version) < StrictVersion(required):
+        raise SystemExit(f"Flatpak {required} or newer required")
     steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
     if os.path.isdir(steam_home):
         # Relocate from old migration
