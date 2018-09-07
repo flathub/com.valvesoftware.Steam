@@ -26,10 +26,10 @@ def read_flatpak_info(path):
     with open(path) as f:
         flatpak_info.read_file(f)
     return {
-        "flatpak-version": flatpak_info.get("Instance", "flatpak-version")
-        "runtime-path": flatpak_info.get("Instance", "runtime-path")
-        "app-extensions": flatpak_info.get("Instance", "app-extensions")
-        "runtime-extensions": flatpak_info.get("Instance", "runtime-extensions")
+        "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
+        "runtime-path": flatpak_info.get("Instance", "runtime-path"),
+        "app-extensions": flatpak_info.get("Instance", "app-extensions"),
+        "runtime-extensions": flatpak_info.get("Instance", "runtime-extensions"),
     }
 
 def flush_mesa_cache():
@@ -43,7 +43,7 @@ def flush_mesa_cache():
 
 def mesa_shader_workaround():
     current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
-    if not os.path.isfile(candidate):
+    if not os.path.isfile(FLATPAK_INFO):
         flush_mesa_cache()
     else:
         current_info = read_flatpak_info(FLATPAK_INFO)
