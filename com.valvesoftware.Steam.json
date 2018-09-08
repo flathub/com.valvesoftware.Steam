@@ -24,6 +24,7 @@
         "--allow=multiarch",
         "--allow=devel",
         "--persist=.",
+        "--env=TZ=",
         "--env=LC_NUMERIC=C",
         "--env=ALSA_CONFIG_PATH=",
         "--env=MESA_GLSL_CACHE_DIR="
