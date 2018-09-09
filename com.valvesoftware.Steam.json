@@ -23,11 +23,13 @@
         "--device=all",
         "--allow=multiarch",
         "--allow=devel",
+        "--allow=bluetooth",
         "--persist=.",
         "--env=TZ=",
         "--env=LC_NUMERIC=C",
         "--env=ALSA_CONFIG_PATH=",
-        "--env=MESA_GLSL_CACHE_DIR="
+        "--env=MESA_GLSL_CACHE_DIR=",
+        "--require-version=0.10.3"
     ],
     "add-extensions": {
         "org.freedesktop.Platform.Compat.i386": {
