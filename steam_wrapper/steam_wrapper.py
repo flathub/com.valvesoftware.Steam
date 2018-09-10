@@ -28,8 +28,11 @@ def read_flatpak_info(path):
     return {
         "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
         "runtime-path": flatpak_info.get("Instance", "runtime-path"),
-        "app-extensions": flatpak_info.get("Instance", "app-extensions"),
-        "runtime-extensions": flatpak_info.get("Instance", "runtime-extensions")
+        "app-extensions": flatpak_info.get("Instance", "app-extensions",
+                                           fallback=None),
+        "runtime-extensions": flatpak_info.get("Instance",
+                                               "runtime-extensions",
+                                               fallback=None)
     }
 
 def flush_mesa_cache():
