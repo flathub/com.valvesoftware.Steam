@@ -8,6 +8,7 @@ import fnmatch
 import subprocess
 import glob
 import configparser
+from distutils.version import StrictVersion
 
 
 STEAM_PATH = "/app/bin/steam"
@@ -17,14 +18,16 @@ XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 CONFIG = ".config"
 DATA = ".local/share"
 CACHE = ".cache"
+FLATPAK_INFO = "/.flatpak-info"
 
 
 def read_flatpak_info(path):
     flatpak_info = configparser.ConfigParser()
-    flatpak_info.read(path)
+    with open(path) as f:
+        flatpak_info.read_file(f)
     return {
-        "runtime-path": flatpak_info.get("Instance", "runtime-path",
-                                         fallback=None),
+        "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
+        "runtime-path": flatpak_info.get("Instance", "runtime-path"),
         "app-extensions": flatpak_info.get("Instance", "app-extensions",
                                            fallback=None),
         "runtime-extensions": flatpak_info.get("Instance",
@@ -43,12 +46,11 @@ def flush_mesa_cache():
 
 def mesa_shader_workaround():
     current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
-    candidate = "/.flatpak-info"
-    if not os.path.isfile(candidate):
+    if not os.path.isfile(FLATPAK_INFO):
         flush_mesa_cache()
-    elif read_flatpak_info(current) != read_flatpak_info(candidate):
+    elif read_flatpak_info(current) != read_flatpak_info(FLATPAK_INFO):
         flush_mesa_cache()
-        shutil.copy2(candidate, current)
+        shutil.copy2(FLATPAK_INFO, current)
 
 def read_file(path):
     try:
@@ -132,6 +134,12 @@ def check_nonempty(name):
             return False
 
 def legacy_support():
+    current_info = read_flatpak_info(FLATPAK_INFO)
+    current_version = current_info["flatpak-version"]
+    required = "0.9.0"
+    if StrictVersion(current_version) < StrictVersion(required):
+        raise SystemExit(f"Flatpak {required} or newer required")    
+    
     if not check_nonempty("/etc/ld.so.conf"):
         # Fallback for flatpak < 0.9.99
         os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
