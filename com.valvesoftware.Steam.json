@@ -151,6 +151,19 @@
             }]
         },
         {
+            "name": "lspci",
+            "no-autogen": true,
+            "make-install-args": [
+                "PREFIX=/app",
+                "SBINDIR=$(PREFIX)/bin"
+            ],
+            "sources": [{
+                "type": "archive",
+                "url": "https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz",
+                "sha256": "d5f9254f27bbda8243b345633e980144e6bd2af9c786bb8a152b904530aef599"
+            }]
+        },        
+        {
             "name": "steam_wrapper",
             "buildsystem": "simple",
             "sources": [{
@@ -217,19 +230,6 @@
                     "path": "com.valvesoftware.Steam.cmd.metainfo.xml"
                 }
             ]
-        },
-        {
-            "name": "lspci",
-            "no-autogen": true,
-            "make-install-args": [
-                "PREFIX=/app",
-                "SBINDIR=$(PREFIX)/bin"
-            ],
-            "sources": [{
-                "type": "archive",
-                "url": "https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz",
-                "sha256": "d5f9254f27bbda8243b345633e980144e6bd2af9c786bb8a152b904530aef599"
-            }]
         }
     ]
 }
