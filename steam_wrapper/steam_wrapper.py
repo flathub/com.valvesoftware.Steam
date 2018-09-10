@@ -143,7 +143,6 @@ def legacy_support():
     if not check_nonempty("/etc/ld.so.conf"):
         # Fallback for flatpak < 0.9.99
         os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
-        os.environ["STEAM_RUNTIME_PREFER_HOST_LIBRARIES"] = "0"
 
     steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
     if os.path.isdir(steam_home):
