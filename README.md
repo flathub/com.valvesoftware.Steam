@@ -6,3 +6,5 @@ works and what does not.
 If you're having issues, first see
 [frequently asked questions](https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions)
 to see if you're hitting some corner-case that needs manual intervention. If your case isn't listed, file an issue in addition to adding an entry in tested games.
+
+Minimum version required 0.9.0
