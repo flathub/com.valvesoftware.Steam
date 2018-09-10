@@ -230,6 +230,7 @@ def repair_broken_migration():
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
+    print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
     legacy_support()
     consent = migrate_config()
     if consent:
