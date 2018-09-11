@@ -46,8 +46,9 @@ def flush_mesa_cache():
 
 def mesa_shader_workaround():
     current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
-    if not os.path.isfile(FLATPAK_INFO):
+    if not os.path.isfile(current):
         flush_mesa_cache()
+        shutil.copy2(FLATPAK_INFO, current)
     elif read_flatpak_info(current) != read_flatpak_info(FLATPAK_INFO):
         flush_mesa_cache()
         shutil.copy2(FLATPAK_INFO, current)
