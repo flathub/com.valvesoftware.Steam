@@ -8,7 +8,7 @@ import fnmatch
 import subprocess
 import glob
 import configparser
-from distutils.version import StrictVersion
+from distutils.version import LooseVersion
 
 
 STEAM_PATH = "/app/bin/steam"
@@ -138,7 +138,7 @@ def legacy_support():
     current_info = read_flatpak_info(FLATPAK_INFO)
     current_version = current_info["flatpak-version"]
     required = "0.9.0"
-    if StrictVersion(current_version) < StrictVersion(required):
+    if LooseVersion(current_version) < LooseVersion(required):
         raise SystemExit(f"Flatpak {required} or newer required")    
     
     if not check_nonempty("/etc/ld.so.conf"):
