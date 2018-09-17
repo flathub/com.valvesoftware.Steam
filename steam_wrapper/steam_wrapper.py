@@ -35,24 +35,6 @@ def read_flatpak_info(path):
                                                fallback=None)
     }
 
-def flush_mesa_cache():
-    fallback = os.path.expandvars("$XDG_CACHE_HOME/mesa_shader_cache")
-    path = os.environ.get("MESA_GLSL_CACHE_DIR")
-    if not path:
-        path = fallback
-    if os.path.isdir(path):
-        print (f"Flushing {path}")
-        shutil.rmtree(path)
-
-def mesa_shader_workaround():
-    current = os.path.expandvars("$XDG_CONFIG_HOME/.flatpak-info")
-    if not os.path.isfile(current):
-        flush_mesa_cache()
-        shutil.copy2(FLATPAK_INFO, current)
-    elif read_flatpak_info(current) != read_flatpak_info(FLATPAK_INFO):
-        flush_mesa_cache()
-        shutil.copy2(FLATPAK_INFO, current)
-
 def read_file(path):
     try:
         with open(path, "rb") as f:
@@ -238,6 +220,5 @@ def main(steam_binary=STEAM_PATH):
         migrate_data()
         migrate_cache()
     repair_broken_migration()
-    mesa_shader_workaround()
     timezone_workaround()
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
