@@ -1,6 +1,6 @@
 ---
 name: Bug report about issues with games
-about: Please use this same template for requesting Dbus access for games
+about: In addition to reporting issues with games, please also use this same template for requesting Dbus access for games
 
 ---
 
