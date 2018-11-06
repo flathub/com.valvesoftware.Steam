@@ -16,7 +16,6 @@
         "--talk-name=org.gnome.SettingsDaemon.MediaKeys",
         "--system-talk-name=org.freedesktop.NetworkManager",
         "--talk-name=org.kde.StatusNotifierWatcher",
-        "--talk-name=com.feralinteractive.GameMode",
         "--system-talk-name=org.freedesktop.UPower",
         "--filesystem=xdg-music:ro",
         "--filesystem=xdg-pictures:ro",
@@ -79,78 +78,6 @@
                 "type": "archive",
                 "url": "https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2",
                 "sha256": "c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd"
-            }]
-        },
-        {
-            "name": "systemd",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Drootprefix=/app",
-                "-Dsysconfdir=/app/etc",
-
-                "-Denvironment-d=false",
-                "-Dbinfmt=false",
-                "-Dcoredump=false",
-                "-Dlogind=false",
-                "-Dhostnamed=false",
-                "-Dlocaled=false",
-                "-Dmachined=false",
-                "-Dportabled=false",
-                "-Dnetworkd=false",
-                "-Dtimedated=false",
-                "-Dtimesyncd=false",
-                "-Dremote=false",
-                "-Dfirstboot=false",
-                "-Drandomseed=false",
-                "-Dbacklight=false",
-                "-Dvconsole=false",
-                "-Dquotacheck=false",
-                "-Dsysusers=false",
-                "-Dtmpfiles=false",
-                "-Dimportd=false",
-                "-Dhwdb=false",
-                "-Drfkill=false",
-                "-Dman=false",
-                "-Dhtml=false",
-
-                "-Dpam=false",
-                "-Dmicrohttpd=false",
-
-                "-Dbashcompletiondir=no",
-                "-Dzshcompletiondir=no"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/systemd/systemd/archive/v239.tar.gz",
-                    "sha256": "8a11b1b07d620f4c06a16e95bba4dd2a97e90efdf2a5ba47ed0a935085787a14"
-                }
-            ],
-            "cleanup": [
-                "/bin",
-                "/lib/systemd",
-                "/lib/sysctl.d",
-                "/lib/udev/rules.d",
-                "/lib/modprobe.d",
-                "/lib/kernel",
-                "/share/polkit-1",
-                "/include",
-                "/lib/pkgconfig",
-                "/share/pkgconfig"
-            ]
-        },
-        {
-            "name": "gamemode",
-            "buildsystem": "meson",
-            "config-opts": [
-                "-Dwith-systemd=false",
-                "-Dwith-daemon=false",
-                "-Dwith-examples=false"
-            ],
-            "sources": [{
-                "type": "archive",
-                "url": "https://github.com/FeralInteractive/gamemode/releases/download/1.2/gamemode-1.2.tar.xz",
-                "sha256": "a7b8d63ffdcbea0dc8b557fda42a9471fa9ab0961a5450d2a15cccca0aaf6a95"
             }]
         },
         {
