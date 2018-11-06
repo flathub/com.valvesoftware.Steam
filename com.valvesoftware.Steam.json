@@ -31,6 +31,7 @@
         "--env=MESA_GLSL_CACHE_DIR=",
         "--env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=",
         "--env=STEAM_RUNTIME=",
+        "--env=SDL_VIDEODRIVER=",
         "--require-version=0.9.0"
     ],
     "add-extensions": {
