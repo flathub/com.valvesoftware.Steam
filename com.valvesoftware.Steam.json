@@ -95,7 +95,83 @@
                 "url": "https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz",
                 "sha256": "d5f9254f27bbda8243b345633e980144e6bd2af9c786bb8a152b904530aef599"
             }]
-        },        
+        },
+        {
+            "name": "systemd",
+            "buildsystem": "meson",
+            "config-opts": [
+                "-Drootprefix=/app",
+                "-Dsysconfdir=/app/etc",
+                "-Denvironment-d=false",
+                "-Dbinfmt=false",
+                "-Dcoredump=false",
+                "-Dlogind=false",
+                "-Dhostnamed=false",
+                "-Dlocaled=false",
+                "-Dmachined=false",
+                "-Dportabled=false",
+                "-Dnetworkd=false",
+                "-Dtimedated=false",
+                "-Dtimesyncd=false",
+                "-Dremote=false",
+                "-Dfirstboot=false",
+                "-Drandomseed=false",
+                "-Dbacklight=false",
+                "-Dvconsole=false",
+                "-Dquotacheck=false",
+                "-Dsysusers=false",
+                "-Dtmpfiles=false",
+                "-Dimportd=false",
+                "-Dhwdb=false",
+                "-Drfkill=false",
+                "-Dman=false",
+                "-Dhtml=false",
+                "-Dpam=false",
+                "-Dmicrohttpd=false",
+                "-Dbashcompletiondir=no",
+                "-Dzshcompletiondir=no"
+            ],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/systemd/systemd/archive/v239.tar.gz",
+                    "sha256": "8a11b1b07d620f4c06a16e95bba4dd2a97e90efdf2a5ba47ed0a935085787a14"
+                },
+                {
+                    "type": "patch",
+                    "path": "0001-meson-rename-Ddebug-to-Ddebug-extra.patch",
+                    "strip-components": "1"
+                }
+            ],
+            "cleanup": [
+                "/bin",
+                "/lib/systemd",
+                "/lib/sysctl.d",
+                "/lib/udev/rules.d",
+                "/lib/modprobe.d",
+                "/lib/kernel",
+                "/share/polkit-1",
+                "/include",
+                "/lib/pkgconfig",
+                "/share/pkgconfig"
+            ]
+        },
+        {
+            "name": "libusb",
+            "sources": [{
+                "type": "archive",
+                "url": "https://github.com//libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2",
+                "sha256": "75aeb9d59a4fdb800d329a545c2e6799f732362193b465ea198f2aa275518157"
+            }]
+        },
+        {
+            "name": "usbutils",
+            "sources": [{
+                "type": "archive",
+                "url": "https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-010.tar.xz",
+                "sha256": "61c7364bb4986fb05e5067e4ac5585b1299b664c57f761caecd2e9e724794a19"
+            }]
+        },
         {
             "name": "steam_wrapper",
             "buildsystem": "simple",
