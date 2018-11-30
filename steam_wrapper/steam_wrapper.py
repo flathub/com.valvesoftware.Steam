@@ -32,7 +32,9 @@ def read_flatpak_info(path):
                                            fallback=None),
         "runtime-extensions": flatpak_info.get("Instance",
                                                "runtime-extensions",
-                                               fallback=None)
+                                               fallback=None),
+        "filesystems": flatpak_info.get("Context", "filesystems",
+                                        fallback="").split(";")
     }
 
 def read_file(path):
@@ -116,13 +118,29 @@ def check_nonempty(name):
         else:
             return False
 
-def legacy_support():
+def check_bad_filesystem_entries(entries):
+    bad_names = ["home", "host", os.path.expandvars("/var/home/$USER"),
+         "/home/$USER"]
+    found = False
+    for entry in entries:
+        items = entry.split(":")
+        if items[0] in bad_names:
+            print (f"Bad item \"{items[0]}\" found in filesystem overrides")
+            found = True
+    if found:
+        faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki/"
+               "Frequently-asked-questions#i-want-to-add-external-disk-for-steam-libraries")
+        raise SystemExit(f"Please see {faq}")
+
+def check_allowed_to_run():
     current_info = read_flatpak_info(FLATPAK_INFO)
     current_version = current_info["flatpak-version"]
     required = "0.9.0"
     if LooseVersion(current_version) < LooseVersion(required):
         raise SystemExit(f"Flatpak {required} or newer required")    
-    
+
+    check_bad_filesystem_entries(current_info["filesystems"])
+
     if not check_nonempty("/etc/ld.so.conf"):
         # Fallback for flatpak < 0.9.99
         os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
@@ -214,7 +232,7 @@ def repair_broken_migration():
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
-    legacy_support()
+    check_allowed_to_run()
     consent = migrate_config()
     if consent:
         migrate_data()
