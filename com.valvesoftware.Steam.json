@@ -100,6 +100,7 @@
             "name": "systemd",
             "buildsystem": "meson",
             "config-opts": [
+                "--buildtype=plain",
                 "-Drootprefix=/app",
                 "-Dsysconfdir=/app/etc",
                 "-Denvironment-d=false",
