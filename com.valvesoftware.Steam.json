@@ -156,12 +156,16 @@
             ],
             "cleanup": [
                 "/bin",
+                "/etc",
                 "/lib/systemd",
                 "/lib/sysctl.d",
                 "/lib/udev/rules.d",
                 "/lib/modprobe.d",
                 "/lib/kernel",
-                "/share/polkit-1"
+                "/lib/rpm",
+                "/share/polkit-1",
+                "/share/dbus-1",
+                "/share/factory"
             ]
         },
         {
