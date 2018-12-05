@@ -58,10 +58,20 @@
             "enable-if": "active-gl-driver"
         }
     },
+    "cleanup": [
+        "/lib/*.a",
+        "/lib/*.la",
+        "/include",
+        "/lib/pkgconfig",
+        "/share/pkgconfig",
+        "/lib/cmake",
+        "/share/doc",
+        "/share/gtk-doc",
+        "/share/man"
+    ],
     "modules": [
         {
             "name": "libnotify",
-            "cleanup": ["/include", "/lib/*.la", "/lib/pkgconfig", "/share/doc/libnotify"],
             "config-opts": [
                 "--disable-static",
                 "--disable-tests",
@@ -151,10 +161,7 @@
                 "/lib/udev/rules.d",
                 "/lib/modprobe.d",
                 "/lib/kernel",
-                "/share/polkit-1",
-                "/include",
-                "/lib/pkgconfig",
-                "/share/pkgconfig"
+                "/share/polkit-1"
             ]
         },
         {
