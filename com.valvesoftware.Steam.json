@@ -206,6 +206,9 @@
             "config-opts": [
                 "-DBUILD_SHARED_LIBS=ON"
             ],
+            "post-install": [
+                "install -Dm755 examples/send-presence/send-presence -t /app/bin/"
+            ],
             "sources": [{
                 "type": "archive",
                 "url": "https://github.com/discordapp/discord-rpc/archive/v3.4.0.tar.gz",
