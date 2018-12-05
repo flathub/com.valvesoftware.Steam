@@ -141,7 +141,7 @@
                 {
                     "type": "patch",
                     "path": "0001-meson-rename-Ddebug-to-Ddebug-extra.patch",
-                    "strip-components": "1"
+                    "strip-components": 1
                 }
             ],
             "cleanup": [
