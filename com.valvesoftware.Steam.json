@@ -95,10 +95,10 @@
         },
         {
             "name": "lspci",
-            "no-autogen": true,
-            "make-install-args": [
-                "PREFIX=/app",
-                "SBINDIR=$(PREFIX)/bin"
+            "buildsystem": "simple",
+            "build_commands": [
+                "make CFLAGS=\"${CFLAGS}\"",
+                "make install PREFIX=/app SBINDIR=/app/bin"
             ],
             "sources": [{
                 "type": "archive",
