@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import os.path
+import stat
 import sys
 import shutil
 import errno
@@ -214,7 +215,7 @@ def enable_discord_rpc():
         src_rel = os.path.join("discord", f"ipc-{i}")
         src = os.path.join(XDG_RUNTIME_DIR, src_rel)
         dst = os.path.join(XDG_RUNTIME_DIR, f"discord-ipc-{i}")
-        if os.path.isfile(src):
+        if os.path.exists(src) and stat.S_ISSOCK(os.stat(src).st_mode):
             if os.path.islink(dst):
                 os.unlink(dst)
             elif os.path.isfile(dst):
