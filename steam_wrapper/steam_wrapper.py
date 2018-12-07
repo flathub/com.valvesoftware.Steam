@@ -213,15 +213,10 @@ def enable_discord_rpc():
     # Discord can have a socket numbered from 0 to 9
     for i in range(10):
         src_rel = os.path.join("discord", f"ipc-{i}")
-        src = os.path.join(XDG_RUNTIME_DIR, src_rel)
         dst = os.path.join(XDG_RUNTIME_DIR, f"discord-ipc-{i}")
-        if os.path.exists(src) and stat.S_ISSOCK(os.stat(src).st_mode):
-            if os.path.islink(dst):
-                os.unlink(dst)
-            elif os.path.isfile(dst):
-                # The socket of unsandboxed Discord
-                # may be present, don't touch it
-                continue
+        if os.path.exists(dst) or os.path.islink(dst):
+            continue
+        else:
             os.symlink(src=src_rel, dst=dst)
 
 def repair_broken_migration():
