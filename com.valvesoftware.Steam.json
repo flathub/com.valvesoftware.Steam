@@ -34,6 +34,7 @@
         "--env=STEAM_RUNTIME=",
         "--env=SDL_VIDEODRIVER=",
         "--env=DBUS_FATAL_WARNINGS=0",
+        "--env=BASH_ENV=/app/etc/entrapment.sh",
         "--require-version=0.9.0"
     ],
     "add-extensions": {
@@ -209,7 +210,8 @@
                 "cp /usr/bin/cmp /app/bin",
                 "mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu",
                 "install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml",
-                "install -Dm644 -t /app/etc ld.so.conf"
+                "install -Dm644 -t /app/etc ld.so.conf",
+                "install -Dm755 -t /app/etc entrapment.sh"
             ],
             "sources": [
                 {
@@ -224,6 +226,10 @@
                 {
                     "type": "file",
                     "path": "ld.so.conf"
+                },
+                {
+                    "type": "file",
+                    "path": "entrapment.sh"
                 }
             ]
         },
