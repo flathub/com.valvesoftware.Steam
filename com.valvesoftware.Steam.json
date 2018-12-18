@@ -34,6 +34,7 @@
         "--env=STEAM_RUNTIME=",
         "--env=SDL_VIDEODRIVER=",
         "--env=DBUS_FATAL_WARNINGS=0",
+        "--env=SSL_CERT_DIR=/etc/ssl/certs",
         "--require-version=0.9.0"
     ],
     "add-extensions": {
