@@ -216,7 +216,7 @@
                 {
                     "type": "archive",
                     "url": "http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz",
-                    "sha256": "da15bb347bd286c3a8818c3c910dc5bdbc43a744604d5372260ec79540ba4f06"
+                    "sha256": "a5080db949793fc4eb543293a95a24131441a96ccc8f5deebdecd7257cfcd99f"
                 },
                 {
                     "type": "file",
