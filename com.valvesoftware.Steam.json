@@ -147,7 +147,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/systemd/systemd/archive/v239.tar.gz",
+                    "url": "https://github.com/systemd/systemd/archive/v240.tar.gz",
                     "sha256": "8a11b1b07d620f4c06a16e95bba4dd2a97e90efdf2a5ba47ed0a935085787a14"
                 },
                 {
