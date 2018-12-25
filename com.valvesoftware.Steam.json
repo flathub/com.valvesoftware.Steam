@@ -149,12 +149,6 @@
                     "type": "archive",
                     "url": "https://github.com/systemd/systemd/archive/v240.tar.gz",
                     "sha256": "8f15aec1ac926e13a21a04d0ca3fe371f7004951448142a6f8952075c5b5f0b5"
-                },
-                {
-                    "type": "patch",
-                    "path": "0001-meson-rename-Ddebug-to-Ddebug-extra.patch",
-                    "strip-components": 1
-                }
             ],
             "cleanup": [
                 "/bin",
