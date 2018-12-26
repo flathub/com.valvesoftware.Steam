@@ -147,13 +147,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/systemd/systemd/archive/v239.tar.gz",
-                    "sha256": "8a11b1b07d620f4c06a16e95bba4dd2a97e90efdf2a5ba47ed0a935085787a14"
-                },
-                {
-                    "type": "patch",
-                    "path": "0001-meson-rename-Ddebug-to-Ddebug-extra.patch",
-                    "strip-components": 1
+                    "url": "https://github.com/systemd/systemd/archive/v240.tar.gz",
+                    "sha256": "8f15aec1ac926e13a21a04d0ca3fe371f7004951448142a6f8952075c5b5f0b5"
                 }
             ],
             "cleanup": [
@@ -216,7 +211,7 @@
                 {
                     "type": "archive",
                     "url": "http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz",
-                    "sha256": "da15bb347bd286c3a8818c3c910dc5bdbc43a744604d5372260ec79540ba4f06"
+                    "sha256": "a5080db949793fc4eb543293a95a24131441a96ccc8f5deebdecd7257cfcd99f"
                 },
                 {
                     "type": "file",
