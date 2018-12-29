@@ -71,6 +71,9 @@
         "/share/gtk-doc",
         "/share/man"
     ],
+    "cleanup-commands": [
+	"python3 -m compileall --invalidation-mode=unchecked-hash /app"
+    ],
     "modules": [
         {
             "name": "libnotify",
