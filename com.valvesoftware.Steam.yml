@@ -20,6 +20,8 @@ finish-args:
   - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
+  - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.freedesktop.PowerManagement
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
   - --device=all
