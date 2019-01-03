@@ -163,7 +163,6 @@ def migrate_config():
     consent = True
     source = os.path.expandvars("$XDG_CONFIG_HOME")
     target = CONFIG
-    xdg_config_home = os.path.join(STEAM_ROOT, target)
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
@@ -176,7 +175,7 @@ def migrate_config():
     else:
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
-    os.environ["XDG_CONFIG_HOME"] = xdg_config_home
+    os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{CONFIG}")
     return consent
 
 def migrate_data():
@@ -195,17 +194,16 @@ def migrate_data():
                       os.path.join(xdg_data_home, "Steam"))
         shutil.rmtree(source)
         os.symlink(target, source)
-    os.environ["XDG_DATA_HOME"] = xdg_data_home
+    os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DATA}")
 
 def migrate_cache():
     source = os.path.expandvars("$XDG_CACHE_HOME")
     target = CACHE
-    xdg_cache_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
         copytree(source, target)
         shutil.rmtree(source)
         os.symlink(target, source)
-    os.environ["XDG_CACHE_HOME"] = xdg_cache_home
+    os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{CACHE}")
 
 def repair_broken_migration():
     cache = CACHE
