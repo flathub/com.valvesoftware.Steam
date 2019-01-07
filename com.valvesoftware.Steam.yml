@@ -103,7 +103,9 @@ modules:
     buildsystem: simple
     build_commands:
       - make CFLAGS="${CFLAGS}"
-      - make install PREFIX=/app SBINDIR=/app/bin
+      - make install PREFIX=/app
+      - mkdir -p /app/bin
+      - ln -s /app/sbin/lspci /app/bin/lspci
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz
