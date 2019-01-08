@@ -145,7 +145,7 @@ modules:
       - -Dsysusers=false
       - -Dtmpfiles=false
       - -Dimportd=false
-      - -Dhwdb=false
+      - -Dhwdb=true
       - -Drfkill=false
       - -Dman=false
       - -Dhtml=false
@@ -169,6 +169,11 @@ modules:
       - /share/polkit-1
       - /share/dbus-1
       - /share/factory
+
+  - name: systemd-hwdb
+    buildsystem: simple
+    build-commands:
+      - systemd-hwdb update --usr --strict
 
   - name: libusb
     sources:
