@@ -99,10 +99,18 @@ modules:
         url: https://gitlab.freedesktop.org/libbsd/libbsd.git
         commit: 0.9.1-0-g1ca09c18f76a0ed2ef6349463c25d509a55e20ff
 
+  - name: hwdata
+    config-opts:
+      - --datarootdir=/app/share
+    sources:
+      - type: archive
+        url: https://github.com/vcrhonek/hwdata/archive/v0.312.tar.gz
+        sha256: 513d40c38ccc5ca6706d960dca61a9784d05c4a67a5e9c08f71b2d40acebab11
+
   - name: lspci
     buildsystem: simple
     build_commands:
-      - make CFLAGS="${CFLAGS}"
+      - make CFLAGS="${CFLAGS}" IDSDIR=/app/share/hwdata PCI_IDS=pci.ids
       - make install PREFIX=/app
       - mkdir -p /app/bin
       - ln -s /app/sbin/lspci /app/bin/lspci
@@ -169,6 +177,8 @@ modules:
         sha256: 75aeb9d59a4fdb800d329a545c2e6799f732362193b465ea198f2aa275518157
 
   - name: usbutils
+    config-opts:
+      - --datadir=/app/share/hwdata
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-010.tar.xz
