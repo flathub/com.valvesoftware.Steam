@@ -188,6 +188,8 @@ modules:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-010.tar.xz
         sha256: 61c7364bb4986fb05e5067e4ac5585b1299b664c57f761caecd2e9e724794a19
+      - type: patch
+        path: patches/0004-lsusb.py-fix-up-Python-3-conversion.patch
 
   - name: steam_wrapper
     buildsystem: simple
