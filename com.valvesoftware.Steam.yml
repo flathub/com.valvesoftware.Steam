@@ -110,10 +110,12 @@ modules:
   - name: lspci
     buildsystem: simple
     build_commands:
-      - make CFLAGS="${CFLAGS}" IDSDIR=/app/share/hwdata PCI_IDS=pci.ids
-      - make install PREFIX=/app
-      - mkdir -p /app/bin
-      - ln -s /app/sbin/lspci /app/bin/lspci
+      - |
+        set -e
+        make CFLAGS="${CFLAGS}" IDSDIR=/app/share/hwdata PCI_IDS=pci.ids
+        make install PREFIX=/app
+        mkdir -p /app/bin
+        ln -s /app/sbin/lspci /app/bin/lspci
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz
@@ -202,16 +204,18 @@ modules:
   - name: steam
     buildsystem: simple
     build-commands:
-      - 'sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop'
-      - 'sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop'
-      - desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
-      - 'sed -i s:/usr/lib/:/app/lib/: steam'
-      - PREFIX=/app make install
-      - ln -sf /bin/true /app/bin/steamdeps
-      - cp /usr/bin/cmp /app/bin
-      - mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
-      - install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml
-      - install -Dm644 -t /app/etc ld.so.conf
+      - |
+        set -e
+        sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop
+        sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop
+        desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
+        sed -i s:/usr/lib/:/app/lib/: steam
+        PREFIX=/app make install
+        ln -sf /bin/true /app/bin/steamdeps
+        cp /usr/bin/cmp /app/bin
+        mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
+        install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml
+        install -Dm644 -t /app/etc ld.so.conf
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
@@ -227,9 +231,11 @@ modules:
       no-debuginfo: true
     buildsystem: simple
     build-commands:
-      - cp -ax steamcmd /app/
-      - ln -s steamcmd-wrapper /app/bin/steamcmd
-      - install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/share/metainfo
+      - |
+        set -e
+        cp -ax steamcmd /app/
+        ln -s steamcmd-wrapper /app/bin/steamcmd
+        install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/share/metainfo
     sources:
       - type: archive
         strip-components: 0
