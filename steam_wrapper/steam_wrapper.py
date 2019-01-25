@@ -227,6 +227,17 @@ def repair_broken_migration():
         os.symlink(data, XDG_DATA_HOME)
         shutil.rmtree(wrong_data)
 
+def configure_shared_library_guard():
+    mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 0))
+    if not mode:
+        return
+    else:
+        library = "libshared-library-guard.so"
+        os.environ["LD_AUDIT"] = os.pathsep.join((f"/usr/lib/x86-64-linux-gnu/{library}",
+                                                  f"/app/lib/i386-linux-gnu/{library}"))
+        if mode > 1:
+            os.environ["LD_BIND_NOW"] = "1"
+
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
@@ -237,4 +248,5 @@ def main(steam_binary=STEAM_PATH):
         migrate_cache()
     repair_broken_migration()
     timezone_workaround()
+    configure_shared_library_guard()
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)

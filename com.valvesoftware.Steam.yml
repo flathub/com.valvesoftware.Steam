@@ -216,6 +216,7 @@ modules:
         mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml
         install -Dm644 -t /app/etc ld.so.conf
+        install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
@@ -224,6 +225,8 @@ modules:
         path: com.valvesoftware.Steam.appdata.xml
       - type: file
         path: ld.so.conf
+      - type: file
+        path: freedesktop.ld.so.blockedlist
 
   - name: steamcmd
     build-options:
