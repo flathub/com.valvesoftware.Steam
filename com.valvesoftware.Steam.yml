@@ -107,20 +107,6 @@ modules:
         url: https://github.com/vcrhonek/hwdata/archive/v0.312.tar.gz
         sha256: 513d40c38ccc5ca6706d960dca61a9784d05c4a67a5e9c08f71b2d40acebab11
 
-  - name: lspci
-    buildsystem: simple
-    build_commands:
-      - |
-        set -e
-        make CFLAGS="${CFLAGS}" IDSDIR=/app/share/hwdata PCI_IDS=pci.ids
-        make install PREFIX=/app
-        mkdir -p /app/bin
-        ln -s /app/sbin/lspci /app/bin/lspci
-    sources:
-      - type: archive
-        url: https://mirrors.edge.kernel.org/pub/software/utils/pciutils/pciutils-3.6.2.tar.gz
-        sha256: d5f9254f27bbda8243b345633e980144e6bd2af9c786bb8a152b904530aef599
-
   - name: systemd
     buildsystem: meson
     config-opts:
