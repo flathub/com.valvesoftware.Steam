@@ -97,7 +97,7 @@ def try_create(path):
         pass
 
 def copytree(source, target, ignore=None):
-    try_create(target)
+    os.makedirs(target, exist_ok=True)
     for root, d_names, f_names in os.walk(source):
         rel_root = os.path.relpath(root, source)
         target_root = os.path.normpath(os.path.join(target, rel_root))
