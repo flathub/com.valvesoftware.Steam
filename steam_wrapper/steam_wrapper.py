@@ -39,27 +39,20 @@ def read_flatpak_info(path):
 
 def read_file(path):
     try:
-        with open(path, "rb") as f:
+        with open(path, "r") as f:
             return f.read()
-    except IsADirectoryError:
-        return b""
-
-def get_zoneinfo():
-    for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
-        yield candidate
-    for candidate in glob.glob("/usr/share/zoneinfo/*/*/*"):
-        yield candidate
+    except IOError as e:
+        if e.errno == errno.ENOENT:
+            return ""
+        raise
 
 def timezone_workaround():
     if os.environ.get("TZ"):
         return
-    localtime = read_file("/etc/localtime")
-    for candidate in get_zoneinfo():
-        if localtime == read_file(candidate):
-            zone_name = os.path.relpath(candidate, "/usr/share/zoneinfo")
-            print (f"Overriding TZ to {zone_name}")
-            os.environ["TZ"] = zone_name
-            return
+    zone_name = read_file("/etc/timezone")
+    if zone_name and os.path.exists(f"/usr/share/zoneinfo/{zone_name}"):
+        os.environ["TZ"] = zone_name
+        print (f"Overriding TZ to {zone_name}")
 
 def prompt():
     p = subprocess.Popen(["zenity", "--question",
