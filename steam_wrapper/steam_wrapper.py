@@ -83,14 +83,18 @@ def filter_names(root, names, patterns):
             _names.append(name)
     return _names
 
+def try_create(path):
+    try:
+        os.mkdir(target_root)
+    except FileExistsError:
+        pass
+
 def copytree(source, target, ignore=None):
+    os.makedirs(target, exist_ok=True)
     for root, d_names, f_names in os.walk(source):
         rel_root = os.path.relpath(root, source)
         target_root = os.path.normpath(os.path.join(target, rel_root))
-        try:
-            os.mkdir(target_root)
-        except FileExistsError:
-            pass
+        try_create(target_root)
         if ignore:
             d_names[:] = filter_names(root, d_names, ignore)
             f_names = filter_names(root, f_names, ignore)
