@@ -6,7 +6,6 @@ import shutil
 import errno
 import fnmatch
 import subprocess
-import glob
 import configparser
 from distutils.version import LooseVersion
 
@@ -85,7 +84,7 @@ def filter_names(root, names, patterns):
 
 def try_create(path):
     try:
-        os.mkdir(target_root)
+        os.mkdir(path)
     except FileExistsError:
         pass
 
