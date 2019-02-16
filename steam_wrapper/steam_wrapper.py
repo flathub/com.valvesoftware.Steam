@@ -49,7 +49,7 @@ def read_file(path):
 def timezone_workaround():
     if os.environ.get("TZ"):
         return
-    zone_name = read_file("/etc/timezone")
+    zone_name = read_file("/etc/timezone").rstrip()
     if zone_name and os.path.exists(f"/usr/share/zoneinfo/{zone_name}"):
         os.environ["TZ"] = zone_name
         print (f"Overriding TZ to {zone_name}")
