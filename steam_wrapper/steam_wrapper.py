@@ -7,7 +7,6 @@ import shutil
 import errno
 import fnmatch
 import subprocess
-import glob
 import configparser
 from distutils.version import LooseVersion
 
@@ -41,27 +40,20 @@ def read_flatpak_info(path):
 
 def read_file(path):
     try:
-        with open(path, "rb") as f:
+        with open(path, "r") as f:
             return f.read()
-    except IsADirectoryError:
-        return b""
-
-def get_zoneinfo():
-    for candidate in glob.glob("/usr/share/zoneinfo/*/*"):
-        yield candidate
-    for candidate in glob.glob("/usr/share/zoneinfo/*/*/*"):
-        yield candidate
+    except IOError as e:
+        if e.errno == errno.ENOENT:
+            return ""
+        raise
 
 def timezone_workaround():
     if os.environ.get("TZ"):
         return
-    localtime = read_file("/etc/localtime")
-    for candidate in get_zoneinfo():
-        if localtime == read_file(candidate):
-            zone_name = os.path.relpath(candidate, "/usr/share/zoneinfo")
-            print (f"Overriding TZ to {zone_name}")
-            os.environ["TZ"] = zone_name
-            return
+    zone_name = read_file("/etc/timezone").rstrip()
+    if zone_name and os.path.exists(f"/usr/share/zoneinfo/{zone_name}"):
+        os.environ["TZ"] = zone_name
+        print (f"Overriding TZ to {zone_name}")
 
 def prompt():
     p = subprocess.Popen(["zenity", "--question",
@@ -92,14 +84,18 @@ def filter_names(root, names, patterns):
             _names.append(name)
     return _names
 
+def try_create(path):
+    try:
+        os.mkdir(path)
+    except FileExistsError:
+        pass
+
 def copytree(source, target, ignore=None):
+    os.makedirs(target, exist_ok=True)
     for root, d_names, f_names in os.walk(source):
         rel_root = os.path.relpath(root, source)
         target_root = os.path.normpath(os.path.join(target, rel_root))
-        try:
-            os.mkdir(target_root)
-        except FileExistsError:
-            pass
+        try_create(target_root)
         if ignore:
             d_names[:] = filter_names(root, d_names, ignore)
             f_names = filter_names(root, f_names, ignore)
@@ -239,6 +235,17 @@ def repair_broken_migration():
         os.symlink(data, XDG_DATA_HOME)
         shutil.rmtree(wrong_data)
 
+def configure_shared_library_guard():
+    mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 0))
+    if not mode:
+        return
+    else:
+        library = "libshared-library-guard.so"
+        os.environ["LD_AUDIT"] = os.pathsep.join((f"/usr/lib/x86-64-linux-gnu/{library}",
+                                                  f"/app/lib/i386-linux-gnu/{library}"))
+        if mode > 1:
+            os.environ["LD_BIND_NOW"] = "1"
+
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
@@ -249,5 +256,6 @@ def main(steam_binary=STEAM_PATH):
         migrate_cache()
     repair_broken_migration()
     timezone_workaround()
+    configure_shared_library_guard()
     enable_discord_rpc()
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
