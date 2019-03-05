@@ -104,8 +104,8 @@ modules:
       - --datarootdir=/app/share
     sources:
       - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/v0.314-8.0.tar.gz
-        sha256: 526d22d21c0e09e67771f6c8798926c66197688e0399ef10010ed6ea833a19e8
+        url: https://github.com/vcrhonek/hwdata/archive/v0.321.tar.gz
+        sha256: ad2eb9dc146285792922c292a240eea84fda0284ccf560202dfc8f1096dbc61d
 
   - name: systemd
     buildsystem: meson
