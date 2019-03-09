@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import os.path
+import stat
 import sys
 import shutil
 import errno
@@ -14,6 +15,7 @@ STEAM_PATH = "/app/bin/steam"
 STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
+XDG_RUNTIME_DIR = os.environ["XDG_RUNTIME_DIR"]
 CONFIG = ".config"
 DATA = ".local/share"
 CACHE = ".cache"
@@ -201,6 +203,16 @@ def migrate_cache():
         os.symlink(target, source)
     os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{CACHE}")
 
+def enable_discord_rpc():
+    # Discord can have a socket numbered from 0 to 9
+    for i in range(10):
+        src_rel = os.path.join("discord", f"ipc-{i}")
+        dst = os.path.join(XDG_RUNTIME_DIR, f"discord-ipc-{i}")
+        if os.path.exists(dst) or os.path.islink(dst):
+            continue
+        else:
+            os.symlink(src=src_rel, dst=dst)
+
 def repair_broken_migration():
     cache = CACHE
     wrong_data = ".data"
@@ -245,4 +257,5 @@ def main(steam_binary=STEAM_PATH):
     repair_broken_migration()
     timezone_workaround()
     configure_shared_library_guard()
+    enable_discord_rpc()
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
