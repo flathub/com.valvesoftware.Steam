@@ -8,6 +8,7 @@
   <summary xml:lang="pt_BR">Jogue jogos populares e os últimos lançamentos</summary>
   <summary xml:lang="es">Juega a los juegos populares y los últimos lanzamientos</summary>
   <description>
+    <p>This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>  
     <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
     <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the SteamOS/Linux operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
   </description>
