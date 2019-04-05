@@ -108,57 +108,6 @@ modules:
         url: https://github.com/vcrhonek/hwdata/archive/v0.321.tar.gz
         sha256: ad2eb9dc146285792922c292a240eea84fda0284ccf560202dfc8f1096dbc61d
 
-  - name: systemd
-    buildsystem: meson
-    config-opts:
-      - --buildtype=plain
-      - -Drootprefix=/app
-      - -Dsysconfdir=/app/etc
-      - -Denvironment-d=false
-      - -Dbinfmt=false
-      - -Dcoredump=false
-      - -Dlogind=false
-      - -Dhostnamed=false
-      - -Dlocaled=false
-      - -Dmachined=false
-      - -Dportabled=false
-      - -Dnetworkd=false
-      - -Dtimedated=false
-      - -Dtimesyncd=false
-      - -Dremote=false
-      - -Dfirstboot=false
-      - -Drandomseed=false
-      - -Dbacklight=false
-      - -Dvconsole=false
-      - -Dquotacheck=false
-      - -Dsysusers=false
-      - -Dtmpfiles=false
-      - -Dimportd=false
-      - -Dhwdb=true
-      - -Drfkill=false
-      - -Dman=false
-      - -Dhtml=false
-      - -Dpam=false
-      - -Dmicrohttpd=false
-      - -Dbashcompletiondir=no
-      - -Dzshcompletiondir=no
-    sources:
-      - type: archive
-        url: https://github.com/systemd/systemd/archive/v241.tar.gz
-        sha256: b2561a8e1d10a2c248253f0dda31a85dd6d69f2b54177de55e02cd1d2778316e
-    cleanup:
-      - /bin
-      - /etc
-      - /lib/systemd
-      - /lib/sysctl.d
-      - /lib/udev/rules.d
-      - /lib/modprobe.d
-      - /lib/kernel
-      - /lib/rpm
-      - /share/polkit-1
-      - /share/dbus-1
-      - /share/factory
-
   - name: systemd-hwdb
     buildsystem: simple
     build-commands:
