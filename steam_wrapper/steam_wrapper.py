@@ -121,7 +121,7 @@ def check_bad_filesystem_entries(entries):
          "/home/$USER"]
     found = False
     for entry in entries:
-        items = entry.split(":")
+        items = entry.split(";")
         if items[0] in bad_names:
             print (f"Bad item \"{items[0]}\" found in filesystem overrides")
             found = True
