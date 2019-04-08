@@ -225,18 +225,12 @@ modules:
         cp /usr/bin/cmp /app/bin
         mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml
-        install -Dm644 -t /app/etc ld.so.conf
-        install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
         sha256: a5080db949793fc4eb543293a95a24131441a96ccc8f5deebdecd7257cfcd99f
       - type: file
         path: com.valvesoftware.Steam.appdata.xml
-      - type: file
-        path: ld.so.conf
-      - type: file
-        path: freedesktop.ld.so.blockedlist
 
   - name: steamcmd
     build-options:
@@ -257,3 +251,20 @@ modules:
         sha256: cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c
       - type: file
         path: com.valvesoftware.Steam.cmd.metainfo.xml
+
+  - name: platform-bootstrap
+    buildsystem: simple
+    build-commands: 
+      - |
+        set -e
+        mkdir -p /app/bin
+        mkdir -p /app/lib/x86_64-linux-gnu/
+        cp /usr/bin/addr2line /app/bin/
+        cp /usr/lib/x86_64-linux-gnu/libbfd-2.31.1.so /app/lib/x86_64-linux-gnu
+        install -Dm644 -t /app/etc ld.so.conf
+        install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
+    sources:
+      - type: file
+        path: ld.so.conf
+      - type: file
+        path: freedesktop.ld.so.blockedlist
