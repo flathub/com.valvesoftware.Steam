@@ -63,7 +63,7 @@ add-extensions:
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
-  com.valvesoftware.Steam:
+  com.valvesoftware.Steam.Proton:
     subdirectories: true
     directory: proton
 
