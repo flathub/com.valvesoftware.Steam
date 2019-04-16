@@ -1,4 +1,4 @@
-id: com.valvesoftware.Steam.Proton_tkg
+id: com.valvesoftware.Steam.Proton.tkg
 runtime: com.valvesoftware.Steam
 sdk: org.freedesktop.Sdk//18.08
 modules:
