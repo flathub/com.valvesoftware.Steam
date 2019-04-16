@@ -243,6 +243,26 @@ def configure_shared_library_guard():
         if mode > 1:
             os.environ["LD_BIND_NOW"] = "1"
 
+def setup_proton_extensions():
+    # Create root symlink if it doesn't exist
+    src = STEAM_ROOT + '/.local/share/Steam'
+    dst = STEAM_ROOT + '/.steam/root'
+    proton_dest = src + '/compatibilitytools.d'
+
+    if not os.path.isdir(os.path.dirname(dst)):
+        os.makedirs(os.path.dirname(dst))
+    if not os.path.isdir(os.path.dirname(src)):
+        os.symlink(src, dst)
+
+    # Try to create folder if it doesn't exist
+    os.makedirs(proton_dest, exist_ok=True)
+
+    # Copy extensions if they exist
+    subfolders = [f.path for f in os.scandir("/app/proton") if f.is_dir() ]
+
+    for proton in subfolders:
+        shutil.copy(proton, proton_dest)
+
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
@@ -255,4 +275,5 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
+    setup_proton_extensions()
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
