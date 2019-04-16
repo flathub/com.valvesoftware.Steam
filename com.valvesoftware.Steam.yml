@@ -78,6 +78,8 @@ add-extensions:
   com.valvesoftware.Steam.Proton:
     subdirectories: true
     directory: proton
+    no-autodownload: true
+    autodelete: true
 
 cleanup:
   - /lib/*.a
