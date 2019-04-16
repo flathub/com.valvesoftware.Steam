@@ -63,6 +63,10 @@ add-extensions:
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
+  com.valvesoftware.Steam:
+    subdirectories: true
+    directory: proton
+
 cleanup:
   - /lib/*.a
   - /lib/*.la
@@ -251,6 +255,12 @@ modules:
         sha256: cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c
       - type: file
         path: com.valvesoftware.Steam.cmd.metainfo.xml
+
+  - name: proton_extensions
+    buildsystem: simple
+    build-commands:
+      - |
+        mkdir /app/proton
 
   - name: platform-bootstrap
     buildsystem: simple
