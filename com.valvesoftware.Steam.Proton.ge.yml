@@ -1,0 +1,15 @@
+id: com.valvesoftware.Steam.Proton.ge
+runtime: com.valvesoftware.Steam
+sdk: org.freedesktop.Sdk//18.08
+build-extension: true
+modules:
+
+  - name: wine
+    buildsystem: simple
+    build-commands:
+      - "install -d /app/proton/ge"
+      - "cp -r * ${FLATPAK_DEST}"
+    sources:
+      - type: archive
+        url: "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/4.6-GE-1/Proton-4.6-GE-1.tar.gz"
+        sha256: 9dca85fe0ca32cbc58a22b1dac521e30adefb04529062b31513e2aa3c417223a
