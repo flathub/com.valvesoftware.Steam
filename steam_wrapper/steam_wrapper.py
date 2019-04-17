@@ -8,6 +8,7 @@ import errno
 import fnmatch
 import subprocess
 import configparser
+from pathlib import Path
 from distutils.version import LooseVersion
 
 
@@ -249,8 +250,10 @@ def setup_proton_extensions():
     dst = STEAM_ROOT + '/.steam/root'
     proton_dest = src + '/compatibilitytools.d'
 
+    # If directory doesn't exist, make it
     if not os.path.isdir(os.path.dirname(dst)):
         os.makedirs(os.path.dirname(dst))
+    # If directory doesn't exist, symlink it
     if not os.path.isdir(os.path.dirname(src)):
         os.symlink(src, dst)
 
@@ -259,9 +262,15 @@ def setup_proton_extensions():
 
     # Copy extensions if they exist
     subfolders = [f.path for f in os.scandir("/app/proton") if f.is_dir() ]
+    subfolders_names = [f.name for f in os.scandir("/app/proton") if f.is_dir() ]
 
-    for proton in subfolders:
-        shutil.copy(proton, proton_dest)
+    for proton, proton_name in zip(subfolders, subfolders_names):
+        proton_real_dest = proton_dest + "/" + proton_name
+        p = Path(proton_real_dest)
+
+        if p.exists():
+            shutil.rmtree(proton_real_dest)
+        shutil.copytree(proton, proton_real_dest)
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
