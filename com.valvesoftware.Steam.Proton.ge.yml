@@ -7,8 +7,8 @@ modules:
   - name: wine
     buildsystem: simple
     build-commands:
-      - "install -d /app/proton/ge"
-      - "cp -r * ${FLATPAK_DEST}"
+      - "install -d ${FLATPAK_DEST}"
+      - "cp -r dist/* ${FLATPAK_DEST}"
     sources:
       - type: archive
         url: "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/4.6-GE-1/Proton-4.6-GE-1.tar.gz"
