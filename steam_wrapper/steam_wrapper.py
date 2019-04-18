@@ -30,8 +30,9 @@ def read_flatpak_info(path):
     return {
         "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
         "runtime-path": flatpak_info.get("Instance", "runtime-path"),
-        "app-extensions": flatpak_info.get("Instance", "app-extensions",
-                                           fallback=None),
+        "app-extensions": dict((s.split("=")
+                                for s in flatpak_info.get("Instance", "app-extensions",
+                                                          fallback="").split(";"))),
         "runtime-extensions": flatpak_info.get("Instance",
                                                "runtime-extensions",
                                                fallback=None),
@@ -131,8 +132,7 @@ def check_bad_filesystem_entries(entries):
                "Frequently-asked-questions#i-want-to-add-external-disk-for-steam-libraries")
         raise SystemExit(f"Please see {faq}")
 
-def check_allowed_to_run():
-    current_info = read_flatpak_info(FLATPAK_INFO)
+def check_allowed_to_run(current_info):
     current_version = current_info["flatpak-version"]
     required = "0.10.3"
     if LooseVersion(current_version) < LooseVersion(required):
@@ -244,38 +244,38 @@ def configure_shared_library_guard():
         if mode > 1:
             os.environ["LD_BIND_NOW"] = "1"
 
-def setup_proton_extensions():
-    # Create root symlink if it doesn't exist
-    src = STEAM_ROOT + '/.local/share/Steam'
-    dst = STEAM_ROOT + '/.steam/root'
-    proton_dest = src + '/compatibilitytools.d'
-
-    # If directory doesn't exist, make it
-    if not os.path.isdir(os.path.dirname(dst)):
-        os.makedirs(os.path.dirname(dst))
-    # If directory doesn't exist, symlink it
-    if not os.path.isdir(os.path.dirname(src)):
-        os.symlink(src, dst)
-
-    # Try to create folder if it doesn't exist
-    os.makedirs(proton_dest, exist_ok=True)
+def setup_proton_extensions(current_info):
+    proton_dest = Path('.local/share/Steam/compatibilitytools.d')
+    proton_dest.mkdir(parents=True, exist_ok=True)
 
     # Copy extensions if they exist
-    subfolders = [f.path for f in os.scandir("/app/proton") if f.is_dir() ]
-    subfolders_names = [f.name for f in os.scandir("/app/proton") if f.is_dir() ]
+    for proton_ext in Path('/app/proton').iterdir():
+        if not proton_ext.is_dir():
+            continue
 
-    for proton, proton_name in zip(subfolders, subfolders_names):
-        proton_real_dest = proton_dest + "/" + proton_name
-        p = Path(proton_real_dest)
+        proton_ext_id = f'com.valvesoftware.Steam.Proton.{proton_ext.name}'
+        proton_ext_dest = proton_dest / proton_ext.name
+        proton_ext_commit_hash = current_info["app-extensions"][proton_ext_id]
+        proton_ext_commit_file = proton_ext_dest / '.extension-commit'
 
-        if p.exists():
-            shutil.rmtree(proton_real_dest)
-        shutil.copytree(proton, proton_real_dest)
+        if proton_ext_dest.exists():
+            if proton_ext_commit_file.exists():
+                with proton_ext_commit_file.open() as fp:
+                    if fp.read() == proton_ext_commit_hash:
+                        continue
+
+        print(f"Copying extension {proton_ext}")
+        if proton_ext_dest.exists():
+            shutil.rmtree(proton_ext_dest)
+        shutil.copytree(proton_ext, proton_ext_dest, symlinks=True)
+        with proton_ext_commit_file.open('w') as fp:
+            fp.write(proton_ext_commit_hash)
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
-    check_allowed_to_run()
+    current_info = read_flatpak_info(FLATPAK_INFO)
+    check_allowed_to_run(current_info)
     consent = migrate_config()
     if consent:
         migrate_data()
@@ -284,5 +284,5 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
-    setup_proton_extensions()
+    setup_proton_extensions(current_info)
     os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
