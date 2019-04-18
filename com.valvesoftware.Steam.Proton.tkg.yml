@@ -7,8 +7,7 @@ modules:
   - name: wine
     buildsystem: simple
     build-commands:
-      - "bsdtar -xf proton.tar.gz proton_dist.tar.gz"
-      - "bsdtar -C ${FLATPAK_DEST} -xf proton_dist.tar.gz"
+      - "bsdtar -C ${FLATPAK_DEST} -xf proton.tar.gz"
     sources:
       - type: file
         dest-filename: proton.tar.gz
