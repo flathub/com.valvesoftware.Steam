@@ -8,7 +8,6 @@ import errno
 import fnmatch
 import subprocess
 import configparser
-import subprocess
 from pathlib import Path
 from distutils.version import LooseVersion
 
@@ -285,8 +284,5 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
-    n = os.fork()
-    if n == 0:
-        setup_proton_extensions(current_info)
-    elif n > 0:
-        os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
+    p = subprocess.Popen([steam_binary] + sys.argv[1:])
+    setup_proton_extensions(current_info)
