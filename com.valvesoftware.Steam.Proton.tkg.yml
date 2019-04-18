@@ -7,9 +7,10 @@ modules:
   - name: wine
     buildsystem: simple
     build-commands:
-      - "install -d /app/proton/tkg"
-      - "cp -r * ${FLATPAK_DEST}"
+      - "bsdtar -xf proton.tar.gz proton_dist.tar.gz"
+      - "bsdtar -C ${FLATPAK_DEST} -xf proton_dist.tar.gz"
     sources:
-      - type: archive
+      - type: file
+        dest-filename: proton.tar.gz
         url: "https://github.com/Tk-Glitch/PKGBUILDS/releases/download/4.6.r0.g3f8edce5/proton_tkg_4.6.r0.g3f8edce5.tar.gz"
         sha256: dc9d6f067ed36df0dd6ebbcfb09ddc6ba0bd5f003ca675c29289ab7ea4e5ab79
