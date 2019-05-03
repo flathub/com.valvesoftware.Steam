@@ -105,8 +105,8 @@ modules:
       - --datarootdir=/app/share
     sources:
       - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/v0.322.tar.gz
-        sha256: e71b66971a50f9aca5e7f1f2800e37d9015c69f03e68fd69fd1b687d1d1ba508
+        url: https://github.com/vcrhonek/hwdata/archive/v0.323.tar.gz
+        sha256: ab0ad297e30a1fe9d96fe27ef982d6a9f4e04e7b9977225954d9f1890b05d651
 
   - name: systemd
     buildsystem: meson
@@ -144,8 +144,8 @@ modules:
       - -Dzshcompletiondir=no
     sources:
       - type: archive
-        url: https://github.com/systemd/systemd/archive/v241.tar.gz
-        sha256: b2561a8e1d10a2c248253f0dda31a85dd6d69f2b54177de55e02cd1d2778316e
+        url: https://github.com/systemd/systemd/archive/v242.tar.gz
+        sha256: ec22be9a5dd94c9640e6348ed8391d1499af8ca2c2f01109198a414cff6c6cba
     cleanup:
       - /bin
       - /etc
@@ -228,7 +228,7 @@ modules:
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
-        sha256: a5080db949793fc4eb543293a95a24131441a96ccc8f5deebdecd7257cfcd99f
+        sha256: d66413cce9c9ad441f95c4377103b0c71bda4ac4570ecfc7dd2464fe4ef1bd30
       - type: file
         path: com.valvesoftware.Steam.appdata.xml
 
