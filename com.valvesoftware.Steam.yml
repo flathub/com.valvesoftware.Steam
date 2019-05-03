@@ -228,7 +228,7 @@ modules:
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
-        sha256: a5080db949793fc4eb543293a95a24131441a96ccc8f5deebdecd7257cfcd99f
+        sha256: d66413cce9c9ad441f95c4377103b0c71bda4ac4570ecfc7dd2464fe4ef1bd30
       - type: file
         path: com.valvesoftware.Steam.appdata.xml
 
