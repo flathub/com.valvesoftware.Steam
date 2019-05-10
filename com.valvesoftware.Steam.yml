@@ -172,7 +172,10 @@ modules:
       - |
         set -e
         mkdir -p /app/bin
-        mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu/GL
+        mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-2.31.1.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
