@@ -38,6 +38,9 @@
       <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/com.valvesoftware.Steam.screenshot-2.png</image>
     </screenshot>
   </screenshots>
+  <metadata>
+    <value key="GnomeSoftware::popular-background">https://user-images.githubusercontent.com/26097419/57575731-ca1d2e00-7426-11e9-8fee-1dfb09fb7d75.png</value>
+  </metadata>
     <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">intense</content_attribute>
     <content_attribute id="violence-fantasy">intense</content_attribute>
