@@ -39,7 +39,7 @@
     </screenshot>
   </screenshots>
   <metadata>
-    <value key="GnomeSoftware::popular-background">https://user-images.githubusercontent.com/26097419/57575731-ca1d2e00-7426-11e9-8fee-1dfb09fb7d75.png</value>
+    <value key="GnomeSoftware::popular-background">https://raw.githubusercontent.com/flathub/org.geogebra.GeoGebra/master/com.valvesoftware.Steam-thumb.png</value>
   </metadata>
     <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">intense</content_attribute>
