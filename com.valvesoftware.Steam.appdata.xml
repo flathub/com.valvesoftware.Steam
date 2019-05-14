@@ -41,6 +41,9 @@
   <metadata>
     <value key="GnomeSoftware::popular-background">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/com.valvesoftware.Steam-thumb.png</value>
   </metadata>
+  <releases>
+    <release date="2019-04-18" version="1.0.0.61"/>
+  </releases>
     <content_rating type="oars-1.1">
     <content_attribute id="violence-cartoon">intense</content_attribute>
     <content_attribute id="violence-fantasy">intense</content_attribute>
