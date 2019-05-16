@@ -241,7 +241,7 @@ def configure_shared_library_guard():
         return
     else:
         library = "libshared-library-guard.so"
-        os.environ["LD_AUDIT"] = os.pathsep.join((f"/usr/lib/x86-64-linux-gnu/{library}",
+        os.environ["LD_AUDIT"] = os.pathsep.join((f"/usr/lib/x86_64-linux-gnu/{library}",
                                                   f"/app/lib/i386-linux-gnu/{library}"))
         if mode > 1:
             os.environ["LD_BIND_NOW"] = "1"
