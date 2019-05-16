@@ -28,6 +28,7 @@ finish-args:
   - --device=all
   - --allow=multiarch
   - --allow=devel
+  - --allow=bluetooth
   - --persist=.
   - --env=TZ=
   - --env=LC_NUMERIC=C
@@ -39,7 +40,7 @@ finish-args:
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
-  - --require-version=0.9.0
+  - --require-version=0.10.3
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
