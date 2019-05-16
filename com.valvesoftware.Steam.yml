@@ -168,4 +168,4 @@ modules:
       - type: file
         path: resources/ld.so.conf
       - type: file
-        path: freedesktop.ld.so.blockedlist
+        path: resources/freedesktop.ld.so.blockedlist
