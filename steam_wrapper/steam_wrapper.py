@@ -133,15 +133,11 @@ def check_bad_filesystem_entries(entries):
 def check_allowed_to_run():
     current_info = read_flatpak_info(FLATPAK_INFO)
     current_version = current_info["flatpak-version"]
-    required = "0.9.0"
+    required = "0.10.3"
     if LooseVersion(current_version) < LooseVersion(required):
         raise SystemExit(f"Flatpak {required} or newer required")    
 
     check_bad_filesystem_entries(current_info["filesystems"])
-
-    if not check_nonempty("/etc/ld.so.conf"):
-        # Fallback for flatpak < 0.9.99
-        os.environ["LD_LIBRARY_PATH"] = "/app/lib:/app/lib/i386-linux-gnu"
 
     steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
     if os.path.isdir(steam_home):
