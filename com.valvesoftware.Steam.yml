@@ -166,6 +166,6 @@ modules:
         install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
     sources:
       - type: file
-        path: ld.so.conf
+        path: resources/ld.so.conf
       - type: file
         path: freedesktop.ld.so.blockedlist
