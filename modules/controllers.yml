@@ -7,9 +7,9 @@ modules:
     config-opts:
       - --datarootdir=/app/share
     sources:
-      - type: archive
-        url: https://github.com/vcrhonek/hwdata/archive/v0.323.tar.gz
-        sha256: ab0ad297e30a1fe9d96fe27ef982d6a9f4e04e7b9977225954d9f1890b05d651
+      - type: git
+        url: https://github.com/vcrhonek/hwdata
+        commit: v0.323-0-gc5b510d78cfe7cbd2eb274ff1eb5d7faf8e067b9
 
   - name: systemd
     buildsystem: meson
