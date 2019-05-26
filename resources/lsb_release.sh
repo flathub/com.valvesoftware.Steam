@@ -20,26 +20,26 @@ codename() {
 for argument in "$@"
 do
     case $argument in
-	-h|--help)
-	    echo This is a shim that reads from /etc/os-release
-	    ;;
-	-i|--id)
-	    identity
-	    ;;
-	-d|--description)
-	    description
-	    ;;
-	-r|--release)
-	    release
-	    ;;
-	-c|--codename)
-	    codename
-	    ;;
-	-a|--all)
-	    identity
-	    description
-	    release
-	    codename
-	    ;;
-esac
+        -h|--help)
+            echo This is a shim that reads from /etc/os-release
+            ;;
+        -i|--id)
+            identity
+            ;;
+        -d|--description)
+            description
+            ;;
+        -r|--release)
+            release
+            ;;
+        -c|--codename)
+            codename
+            ;;
+        -a|--all)
+            identity
+            description
+            release
+            codename
+            ;;
+    esac
 done
