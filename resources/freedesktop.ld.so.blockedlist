@@ -2,3 +2,17 @@ Torchlight\ II/ModLauncher.bin.x86_64 Torchlight\ II/lib/libfontconfig.so.1
 The\ Stanley\ Parable/stanley_linux The\ Stanley\ Parable/bin/libSDL2-2.0.so.0
 The\ Stanley\ Parable/stanley_linux The\ Stanley\ Parable/bin/libstdc++.so.6
 insurgency2/insurgency_linux insurgency2/bin/libgcc_s.so.1
+ubuntu12_64/steamwebhelper ubuntu12_64/libglib-2.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libpangoft2-1.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libgraphite2.so.3
+ubuntu12_64/steamwebhelper ubuntu12_64/libSDL2-2.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libgobject-2.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libatk-bridge-2.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libharfbuzz.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libthai.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libgio-2.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libatk-1.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libpango-1.0.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libatspi.so.0
+ubuntu12_64/steamwebhelper ubuntu12_64/libdatrie.so.1
+ubuntu12_64/steamwebhelper ubuntu12_64/libpangocairo-1.0.so.0
