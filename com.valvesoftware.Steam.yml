@@ -165,8 +165,11 @@ modules:
         cp /usr/lib/x86_64-linux-gnu/libbfd-2.31.1.so /app/lib/x86_64-linux-gnu
         install -Dm644 -t /app/etc ld.so.conf
         install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
+        install -Dm744 -t /app/bin lsb_release
     sources:
       - type: file
         path: resources/ld.so.conf
       - type: file
         path: resources/freedesktop.ld.so.blockedlist
+      - type: file
+        path: resources/lsb_release
