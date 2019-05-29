@@ -24,7 +24,7 @@ finish-args:
   - --talk-name=org.freedesktop.PowerManagement
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
-  - --filesystem=xdg-run/discord:create
+  - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --device=all
   - --allow=multiarch
   - --allow=devel
@@ -155,7 +155,7 @@ modules:
 
   - name: platform-bootstrap
     buildsystem: simple
-    build-commands: 
+    build-commands:
       - |
         set -e
         mkdir -p /app/bin
