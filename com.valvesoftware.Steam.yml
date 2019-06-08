@@ -105,6 +105,8 @@ modules:
 
   - "modules/discord.yml"
 
+  - "modules/faudio.yml"
+
   - name: steam_wrapper
     buildsystem: simple
     sources:
