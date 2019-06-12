@@ -105,7 +105,7 @@ modules:
 
   - "modules/discord.yml"
 
-  - "modules/faudio.yml"
+  - "modules/proton.yml"
 
   - name: steam_wrapper
     buildsystem: simple
