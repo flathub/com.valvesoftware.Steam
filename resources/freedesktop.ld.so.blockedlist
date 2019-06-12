@@ -93,3 +93,13 @@ Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libxslt.so.1
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libXtst.so.6
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libXxf86vm.so.1
+Proton\ 3.7/dist/bin/wine64 Proton\ 3.7/dist/lib64/libFAudio.so
+Proton\ 3.7/dist/bin/wine64-preloader Proton\ 3.7/dist/lib64/libFAudio.so
+Proton\ 3.7\ Beta/dist/bin/wine64 Proton\ 3.7\ Beta/dist/lib64/libFAudio.so
+Proton\ 3.7\ Beta/dist/bin/wine64-preloader Proton\ 3.7\ Beta/dist/lib64/libFAudio.so
+Proton\ 3.16/dist/bin/wine64 Proton\ 3.16/dist/lib64/libFAudio.so
+Proton\ 3.16/dist/bin/wine64-preloader Proton\ 3.16/dist/lib64/libFAudio.so
+Proton\ 3.16\ Beta/dist/bin/wine64 Proton\ 3.16\ Beta/dist/lib64/libFAudio.so
+Proton\ 3.16\ Beta/dist/bin/wine64-preloader Proton\ 3.16\ Beta/dist/lib64/libFAudio.so
+Proton\ 4.2/dist/bin/wine64 Proton\ 4.2/dist/lib64/libFAudio.so.0.19.06
+Proton\ 4.2/dist/bin/wine64-preloader Proton\ 4.2/dist/lib64/libFAudio.so.0.19.06
