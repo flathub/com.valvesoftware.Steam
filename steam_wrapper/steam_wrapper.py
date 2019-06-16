@@ -244,32 +244,32 @@ def configure_shared_library_guard():
         if mode > 1:
             os.environ["LD_BIND_NOW"] = "1"
 
-def setup_proton_extensions(current_info):
-    proton_dest = Path('.local/share/Steam/compatibilitytools.d')
-    proton_dest.mkdir(parents=True, exist_ok=True)
+def setup_compat_tool_extensions(current_info):
+    compat_tool_dest = Path('.local/share/Steam/compatibilitytools.d')
+    compat_tool_dest.mkdir(parents=True, exist_ok=True)
 
     # Copy extensions if they exist
-    for proton_ext in Path('/app/proton').iterdir():
-        if not proton_ext.is_dir():
+    for compat_tool_ext in Path('/app/compatibilitytools.d').iterdir():
+        if not compat_tool_ext.is_dir():
             continue
 
-        proton_ext_id = f'com.valvesoftware.Steam.Proton.{proton_ext.name}'
-        proton_ext_dest = proton_dest / proton_ext.name
-        proton_ext_commit_hash = current_info["app-extensions"][proton_ext_id]
-        proton_ext_commit_file = proton_ext_dest / '.extension-commit'
+        compat_tool_ext_id = f'com.valvesoftware.Steam.CompatibilityTool.{compat_tool_ext.name}'
+        compat_tool_ext_dest = compat_tool_dest / compat_tool_ext.name
+        compat_tool_ext_commit_hash = current_info["app-extensions"][compat_tool_ext_id]
+        compat_tool_ext_commit_file = compat_tool_ext_dest / '.extension-commit'
 
-        if proton_ext_dest.exists():
-            if proton_ext_commit_file.exists():
-                with proton_ext_commit_file.open() as fp:
-                    if fp.read() == proton_ext_commit_hash:
+        if compat_tool_ext_dest.exists():
+            if compat_tool_ext_commit_file.exists():
+                with compat_tool_ext_commit_file.open() as fp:
+                    if fp.read() == compat_tool_ext_commit_hash:
                         continue
 
-        print(f"Copying extension {proton_ext}")
-        if proton_ext_dest.exists():
-            shutil.rmtree(proton_ext_dest)
-        shutil.copytree(proton_ext, proton_ext_dest, symlinks=True)
-        with proton_ext_commit_file.open('w') as fp:
-            fp.write(proton_ext_commit_hash)
+        print(f"Copying extension {compat_tool_ext}")
+        if compat_tool_ext_dest.exists():
+            shutil.rmtree(compat_tool_ext_dest)
+        shutil.copytree(compat_tool_ext, compat_tool_ext_dest, symlinks=True)
+        with compat_tool_ext_commit_file.open('w') as fp:
+            fp.write(compat_tool_ext_commit_hash)
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
@@ -285,4 +285,4 @@ def main(steam_binary=STEAM_PATH):
     configure_shared_library_guard()
     enable_discord_rpc()
     p = subprocess.Popen([steam_binary] + sys.argv[1:])
-    setup_proton_extensions(current_info)
+    setup_compat_tool_extensions(current_info)
