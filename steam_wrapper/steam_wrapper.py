@@ -135,7 +135,7 @@ def check_allowed_to_run():
     current_version = current_info["flatpak-version"]
     required = "0.10.3"
     if LooseVersion(current_version) < LooseVersion(required):
-        raise SystemExit(f"Flatpak {required} or newer required")    
+        raise SystemExit(f"Flatpak {required} or newer required")
 
     check_bad_filesystem_entries(current_info["filesystems"])
 
@@ -202,8 +202,9 @@ def migrate_cache():
 def enable_discord_rpc():
     # Discord can have a socket numbered from 0 to 9
     for i in range(10):
-        src_rel = os.path.join("discord", f"ipc-{i}")
-        dst = os.path.join(XDG_RUNTIME_DIR, f"discord-ipc-{i}")
+        rpc_socket = f"discord-ipc-{i}"
+        src_rel = os.path.join("app", "com.discordapp.Discord", rpc_socket)
+        dst = os.path.join(XDG_RUNTIME_DIR, rpc_socket)
         if os.path.exists(dst) or os.path.islink(dst):
             continue
         else:
