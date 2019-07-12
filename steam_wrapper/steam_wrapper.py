@@ -8,6 +8,7 @@ import errno
 import fnmatch
 import subprocess
 import configparser
+import vdf
 from pathlib import Path
 from distutils.version import LooseVersion
 
@@ -264,12 +265,19 @@ def setup_compat_tool_extensions(current_info):
                     if fp.read() == compat_tool_ext_commit_hash:
                         continue
 
-        print(f"Copying extension {compat_tool_ext}")
-        if compat_tool_ext_dest.exists():
-            shutil.rmtree(compat_tool_ext_dest)
-        shutil.copytree(compat_tool_ext, compat_tool_ext_dest, symlinks=True)
-        with compat_tool_ext_commit_file.open('w') as fp:
-            fp.write(compat_tool_ext_commit_hash)
+        src_vdf = f'{compat_tool_ext}/compatibilitytool.vdf'
+        dst_vdf = f'{compat_tool_ext_dest}/compatibilitytool.vdf'
+
+        with open(src_vdf, 'r') as sf:
+            compat_tool_vdf = vdf.load(sf)
+        for v in compat_tool_vdf['compatibilitytools']['compat_tools'].values():
+            v['install_path'] = compat_tool_ext
+
+        print(f'Writing {dst_vdf}')
+        os.makedirs(os.path.dirname(dst_vdf), exist_ok=True)
+        with open(dst_vdf, 'w') as df:
+            vdf.dump(compat_tool_vdf, df, pretty=True)
+
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd

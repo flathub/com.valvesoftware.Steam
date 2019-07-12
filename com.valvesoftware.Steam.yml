@@ -142,6 +142,16 @@ modules:
         path: steam_wrapper
     build-commands:
       - python3 -mpip install . --prefix=/app --no-index --find-links .
+    modules:
+
+      - name: python-vdf
+        buildsystem: simple
+        build-commands:
+          - python3 setup.py install --prefix=/app --root=/
+        sources:
+          - type: archive
+            url: "https://github.com/ValvePython/vdf/archive/v3.1.tar.gz"
+            sha256: 6f7e87e0d1921a170032720b3e1e3ce260170faada2ee606539cb4ab022f52a3
 
   - name: steam
     buildsystem: simple
