@@ -278,6 +278,9 @@ def setup_compat_tool_extensions(current_info):
         with open(dst_vdf, 'w') as df:
             vdf.dump(compat_tool_vdf, df, pretty=True)
 
+        with compat_tool_ext_commit_file.open('w') as fp:
+            fp.write(compat_tool_ext_commit_hash)
+
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
