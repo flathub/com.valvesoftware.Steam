@@ -265,17 +265,17 @@ def setup_compat_tool_extensions(current_info):
                     if fp.read() == compat_tool_ext_commit_hash:
                         continue
 
-        src_vdf = f'{compat_tool_ext}/compatibilitytool.vdf'
-        dst_vdf = f'{compat_tool_ext_dest}/compatibilitytool.vdf'
+        src_vdf = compat_tool_ext / 'compatibilitytool.vdf'
+        dst_vdf = compat_tool_ext_dest / 'compatibilitytool.vdf'
 
-        with open(src_vdf, 'r') as sf:
+        with src_vdf.open('r') as sf:
             compat_tool_vdf = vdf.load(sf)
         for v in compat_tool_vdf['compatibilitytools']['compat_tools'].values():
             v['install_path'] = compat_tool_ext
 
         print(f'Writing {dst_vdf}')
         os.makedirs(os.path.dirname(dst_vdf), exist_ok=True)
-        with open(dst_vdf, 'w') as df:
+        with dst_vdf.open('w') as df:
             vdf.dump(compat_tool_vdf, df, pretty=True)
 
         with compat_tool_ext_commit_file.open('w') as fp:
