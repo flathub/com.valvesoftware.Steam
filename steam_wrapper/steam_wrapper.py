@@ -296,4 +296,4 @@ def main(steam_binary=STEAM_PATH):
     configure_shared_library_guard()
     enable_discord_rpc()
     setup_compat_tool_extensions(current_info)
-    os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
+    os.execv(steam_binary, [steam_binary] + sys.argv[1:])
