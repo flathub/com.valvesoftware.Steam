@@ -135,7 +135,7 @@ def check_bad_filesystem_entries(entries):
 
 def check_allowed_to_run(current_info):
     current_version = current_info["flatpak-version"]
-    required = "0.10.3"
+    required = "1.0.0"
     if LooseVersion(current_version) < LooseVersion(required):
         raise SystemExit(f"Flatpak {required} or newer required")
 
