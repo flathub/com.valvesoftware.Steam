@@ -15,7 +15,6 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
-  - --talk-name=org.gnome.SettingsDaemon
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.kde.StatusNotifierWatcher
@@ -40,7 +39,7 @@ finish-args:
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
-  - --require-version=0.10.3
+  - --require-version=1.0.0
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
