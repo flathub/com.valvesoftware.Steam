@@ -9,6 +9,10 @@ rename-desktop-file: steam.desktop
 tags:
   - proprietary
 
+sdk-extensions:
+  - org.freedesktop.Sdk.Compat.i386
+  - org.freedesktop.Sdk.Extension.toolchain-i386
+
 finish-args:
   - --share=ipc
   - --socket=wayland
@@ -122,6 +126,8 @@ modules:
   - "modules/discord.yml"
 
   - "modules/proton.yml"
+
+  - "modules/compat-libraries-32bit.yml"
 
   - name: gamemode
     buildsystem: meson
