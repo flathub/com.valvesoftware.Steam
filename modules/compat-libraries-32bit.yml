@@ -19,4 +19,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: perftools-1.6-0-gfd52267cb91a42f839c7be6a348e014cfdbcaca9
+        commit: 0b87a55895a184bcc529b4ce13c46c0411182b85
+        tag: google-perftools-1.8.3
