@@ -4,7 +4,7 @@ x-compat-i386-opts: &compat_i386_opts
   prepend-path: /usr/lib/sdk/toolchain-i386/bin
   env:
     CC: i686-unknown-linux-gnu-gcc
-    CXX: i686-unknown-linu-gnu-gcc
+    CXX: i686-unknown-linux-gnu-g++
     libdir: /app/lib32
 
 name: compat-libraries-32bit
