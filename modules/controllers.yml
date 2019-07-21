@@ -9,7 +9,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        commit: v0.323-0-gc5b510d78cfe7cbd2eb274ff1eb5d7faf8e067b9
+        commit: v0.325-0-054d19d3a925fc3adee7099951b75a327caa519a
 
   - name: systemd
     buildsystem: meson
