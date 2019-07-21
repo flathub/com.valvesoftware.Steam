@@ -110,7 +110,14 @@ modules:
       - type: archive
         url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
         sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
+    modules:
 
+      - name: gnome-common
+        sources:
+          - type: archive
+            url: "https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz"
+            sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+            
   - name: libbsd
     sources:
       - type: git
