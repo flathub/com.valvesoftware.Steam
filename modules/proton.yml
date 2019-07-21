@@ -4,7 +4,7 @@ config-opts:
   - -DFFMPEG=ON
 sources:
   - type: archive
-    url: https://github.com/FNA-XNA/FAudio/archive/19.07.tar.gz"
+    url: https://github.com/FNA-XNA/FAudio/archive/19.07.tar.gz
     sha256: b05ca9cbdaf943deadae124dcc437e1106d525ab7f54b62c74dcb2eaead21178
 modules:
   - name: ffmpeg
