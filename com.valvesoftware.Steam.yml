@@ -139,7 +139,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/FeralInteractive/gamemode
-        commit: 76a6fb709f61f90d794ec5c12cc2896eb89aa811
+        commit: 7ced21f4b30cc4ceb67928889bc57af8784f1009
 
   - name: steam_wrapper
     buildsystem: simple
