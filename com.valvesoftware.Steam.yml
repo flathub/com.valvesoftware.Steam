@@ -102,15 +102,22 @@ modules:
       - --disable-introspection
     sources:
       - type: archive
-        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.7.tar.xz
-        sha256: 9cb4ce315b2655860c524d46b56010874214ec27e854086c1a1d0260137efc04
+        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.8.tar.xz
+        sha256: 69209e0b663776a00c7b6c0e560302a8dbf66b2551d55616304f240bba66e18c
+    modules:
 
+      - name: gnome-common
+        sources:
+          - type: archive
+            url: "https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz"
+            sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+         
   - name: xrandr
     sources:
       - type: archive
         url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
         sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
-
+   
   - name: libbsd
     sources:
       - type: git
@@ -132,7 +139,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/FeralInteractive/gamemode
-        commit: 76a6fb709f61f90d794ec5c12cc2896eb89aa811
+        commit: 7ced21f4b30cc4ceb67928889bc57af8784f1009
 
   - name: steam_wrapper
     buildsystem: simple
