@@ -3,6 +3,7 @@
 <application>
   <id type="desktop">com.valvesoftware.Steam.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <translation type="gettext">Valve Corporation</translation>
   <name>Steam</name>
   <summary>Manage and play games distributed by Steam</summary>
   <summary xml:lang="pt_BR">Jogue jogos populares e os últimos lançamentos</summary>
