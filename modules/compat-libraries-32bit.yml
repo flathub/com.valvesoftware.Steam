@@ -9,8 +9,9 @@ x-compat-i386-opts: &compat_i386_opts
 
 name: compat-libraries-32bit
 buildsystem: simple
-commands: []
+build-commands: []
 modules:
+
   - name: google-perfools
     buildsystem: autotools
     build-options:
