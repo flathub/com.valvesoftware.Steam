@@ -1,0 +1,26 @@
+x-compat-i386-opts: &compat_i386_opts
+  prepend-pkg-config-path: /app/lib32/pkgconfig:/usr/lib/i386-linux-gnu/pkgconfig
+  ldflags: -L/app/lib32
+  prepend-path: /usr/lib/sdk/toolchain-i386/bin
+  env:
+    CC: i686-unknown-linux-gnu-gcc
+    CXX: i686-unknown-linux-gnu-g++
+  libdir: /app/lib32
+
+name: compat-libraries-32bit
+buildsystem: simple
+build-commands: []
+modules:
+
+  - name: google-perfools
+    buildsystem: autotools
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+      cflags: -fpermissive -Wno-error=narrowing
+      cxxflags: -fpermissive -Wno-error=narrowing
+    sources:
+      - type: git
+        url: https://github.com/gperftools/gperftools.git
+        commit: 0b87a55895a184bcc529b4ce13c46c0411182b85
+        tag: google-perftools-1.8.3
