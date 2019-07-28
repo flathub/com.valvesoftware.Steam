@@ -16,6 +16,8 @@ modules:
     build-options:
       arch:
         x86_64: *compat_i386_opts
+      cflags: -fpermissive -Wno-error=narrowing
+      cxxflags: -fpermissive -Wno-error=narrowing
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
