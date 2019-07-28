@@ -5,7 +5,7 @@ x-compat-i386-opts: &compat_i386_opts
   env:
     CC: i686-unknown-linux-gnu-gcc
     CXX: i686-unknown-linux-gnu-g++
-    libdir: /app/lib32
+  libdir: /app/lib32
 
 name: compat-libraries-32bit
 buildsystem: simple
