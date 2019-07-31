@@ -1,0 +1,178 @@
+name: modules
+buildsystem: simple
+build-commands:
+ - systemd-hwdb update --usr --strict
+modules:
+
+# -- controllers --
+
+  - name: hwdata
+    config-opts:
+      - --datarootdir=/app/share
+    sources:
+      - type: git
+        url: https://github.com/vcrhonek/hwdata
+        commit: 054d19d3a925fc3adee7099951b75a327caa519a
+
+    name: systemd
+    buildsystem: meson
+    config-opts:
+      - -Drootprefix=/app
+      - -Dsysconfdir=/app/etc
+      - -Denvironment-d=false
+      - -Dbinfmt=false
+      - -Dcoredump=false
+      - -Dlogind=false
+      - -Dhostnamed=false
+      - -Dlocaled=false
+      - -Dmachined=false
+      - -Dportabled=false
+      - -Dnetworkd=false
+      - -Dtimedated=false
+      - -Dtimesyncd=false
+      - -Dremote=false
+      - -Dfirstboot=false
+      - -Drandomseed=false
+      - -Dbacklight=false
+      - -Dvconsole=false
+      - -Dquotacheck=false
+      - -Dsysusers=false
+      - -Dtmpfiles=false
+      - -Dimportd=false
+      - -Dhwdb=true
+      - -Drfkill=false
+      - -Dman=false
+      - -Dhtml=false
+      - -Dpam=false
+      - -Dmicrohttpd=false
+      - -Dbashcompletiondir=no
+      - -Dzshcompletiondir=no
+    sources:
+      - type: archive
+        url: https://github.com/systemd/systemd/archive/v242.tar.gz
+        sha256: ec22be9a5dd94c9640e6348ed8391d1499af8ca2c2f01109198a414cff6c6cba
+    cleanup:
+      - /bin
+      - /etc
+      - /lib/systemd
+      - /lib/sysctl.d
+      - /lib/udev/rules.d
+      - /lib/modprobe.d
+      - /lib/kernel
+      - /lib/rpm
+      - /share/polkit-1
+      - /share/dbus-1
+      - /share/factory
+
+  - name: libusb
+    sources:
+      - type: archive
+        url: https://github.com//libusb/libusb/releases/download/v1.0.22/libusb-1.0.22.tar.bz2
+        sha256: 75aeb9d59a4fdb800d329a545c2e6799f732362193b465ea198f2aa275518157
+
+  - name: usbutils
+    config-opts:
+      - --datadir=/app/share/hwdata
+    sources:
+      - type: git
+        url: https://github.com/gregkh/usbutils
+        commit: v012-0-gf3a05e2e368cf17f9882c8d358f2fa205eb1ead6
+
+# -- end controllers --
+
+# -- discord --
+
+  - name: rapidjson
+    buildsystem: cmake-ninja
+    config-opts:
+    - -DRAPIDJSON_BUILD_DOC=OFF
+    - -DRAPIDJSON_BUILD_EXAMPLES=OFF
+    - -DRAPIDJSON_BUILD_TESTS=OFF
+    - -DRAPIDJSON_BUILD_THIRDPARTY_GTEST=OFF
+    sources:
+      - type: archive
+        url: https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
+        sha256: bf7ced29704a1e696fbccf2a2b4ea068e7774fa37f6d7dd4039d0787f8bed98e
+
+  - name: discord-rpc
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+    post-install:
+      - install -Dm755 examples/send-presence/send-presence -t /app/bin/
+    sources:
+      - type: archive
+        url: https://github.com/discordapp/discord-rpc/archive/v3.4.0.tar.gz
+        sha256: e13427019027acd187352dacba6c65953af66fdf3c35fcf38fc40b454a9d7855
+
+# -- end discord --
+
+
+# -- faudio --
+
+  - name: ffmpeg
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --enable-gnutls
+      - --disable-doc
+      - --disable-programs
+      - --disable-encoders
+      - --disable-muxers
+      - --disable-libv4l2
+      - --disable-stripping
+    sources:
+      - type: archive
+        url: https://ffmpeg.org/releases/ffmpeg-4.1.tar.xz
+        sha256: a38ec4d026efb58506a99ad5cd23d5a9793b4bf415f2c4c2e9c1bb444acd1994
+    cleanup:
+      - /share/ffmpeg/examples
+
+  - name: FAudio
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DFFMPEG=ON
+    sources:
+      - type: archive
+        url: https://github.com/FNA-XNA/FAudio/archive/19.06.07.tar.gz
+        sha256: 3a062ac74e787d2c50a5d178e9021ca4b2d4dddbbea6d36b82c767eb7f957128
+      - type: patch
+        path: patches/faudio-sdl2-use-pkg-config.patch
+
+# -- end faudio --
+
+  - name: libnotify
+    config-opts:
+      - --disable-static
+      - --disable-tests
+      - --disable-introspection
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.8.tar.xz
+        sha256: 69209e0b663776a00c7b6c0e560302a8dbf66b2551d55616304f240bba66e18c
+      - type: archive
+        url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
+        sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+
+  - name: xrandr
+    sources:
+      - type: archive
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
+        sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
+
+  - name: libbsd
+    sources:
+      - type: git
+        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
+        commit: 0.9.1-0-g1ca09c18f76a0ed2ef6349463c25d509a55e20ff
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts:
+      - -Dwith-systemd=false
+      - -Dwith-daemon=false
+      - -Dwith-examples=false
+    sources:
+      - type: git
+        url: https://github.com/FeralInteractive/gamemode
+        commit: 7ced21f4b30cc4ceb67928889bc57af8784f1009
