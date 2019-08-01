@@ -176,3 +176,11 @@ modules:
       - -Dwith-examples=false
     sources:
       - "sources/gamemode-git.json"
+
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install gamemoderun /app/bin
+    sources:
+      - type: file
+        path: resources/gamemoderun
