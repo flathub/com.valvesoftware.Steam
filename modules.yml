@@ -76,7 +76,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: v012-0-gf3a05e2e368cf17f9882c8d358f2fa205eb1ead6
+        commit: f3a05e2e368cf17f9882c8d358f2fa205eb1ead6
+        tag: v012
 
 # -- end controllers --
 
@@ -164,7 +165,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: 0.9.1-0-g1ca09c18f76a0ed2ef6349463c25d509a55e20ff
+        commit: 1ca09c18f76a0ed2ef6349463c25d509a55e20ff
+        tag: 0.9.1
 
   - name: gamemode
     buildsystem: meson
