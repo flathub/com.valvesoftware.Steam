@@ -34,6 +34,10 @@ modules:
     build-options:
       arch:
         x86_64: *compat_i386_opts
+      config-opts:
+        - --enable-cross-compile
+        - --cc=i686-unknown-linux-gnu-gcc
+        - --cxx=i686-unknown-linux-gnu-g++
     config-opts:
       - --enable-shared
       - --disable-static
