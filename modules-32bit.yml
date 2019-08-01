@@ -25,6 +25,22 @@ modules:
         commit: 0b87a55895a184bcc529b4ce13c46c0411182b85
         tag: google-perftools-1.8.3
 
+# -- discord --
+
+  - name: discord-rpc-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+    post-install:
+      - install -Dm755 examples/send-presence/send-presence -t /app/bin/
+    sources:
+      - "sources/discord-rpc-archive.json"
+
+# -- end discord --
+
 # -- faudio --
 
   - name: ffmpeg-32bit

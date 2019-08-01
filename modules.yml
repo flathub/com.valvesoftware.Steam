@@ -102,9 +102,7 @@ modules:
     post-install:
       - install -Dm755 examples/send-presence/send-presence -t /app/bin/
     sources:
-      - type: archive
-        url: https://github.com/discordapp/discord-rpc/archive/v3.4.0.tar.gz
-        sha256: e13427019027acd187352dacba6c65953af66fdf3c35fcf38fc40b454a9d7855
+      - "sources/discord-rpc-archive.json"
 
 # -- end discord --
 
