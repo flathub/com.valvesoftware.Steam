@@ -87,10 +87,14 @@ add-extensions:
 cleanup:
   - /lib/*.a
   - /lib/*.la
+  - /lib32/*.a
+  - /lib32/*.la
   - /include
   - /lib/pkgconfig
+  - /lib32/pkgconfig
   - /share/pkgconfig
   - /lib/cmake
+  - /lib32/cmake
   - /share/doc
   - /share/gtk-doc
   - /share/man
@@ -99,53 +103,10 @@ cleanup-commands:
   - python3 -m compileall --invalidation-mode=unchecked-hash /app
 
 modules:
-  - name: libnotify
-    config-opts:
-      - --disable-static
-      - --disable-tests
-      - --disable-introspection
-    sources:
-      - type: archive
-        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.8.tar.xz
-        sha256: 69209e0b663776a00c7b6c0e560302a8dbf66b2551d55616304f240bba66e18c
-    modules:
 
-      - name: gnome-common
-        sources:
-          - type: archive
-            url: "https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz"
-            sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
-         
-  - name: xrandr
-    sources:
-      - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
-        sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
-   
-  - name: libbsd
-    sources:
-      - type: git
-        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: 0.9.1-0-g1ca09c18f76a0ed2ef6349463c25d509a55e20ff
+  - "modules.yml"
 
-  - "modules/controllers.yml"
-
-  - "modules/discord.yml"
-
-  - "modules/proton.yml"
-
-  - "modules/compat-libraries-32bit.yml"
-
-  - name: gamemode
-    buildsystem: meson
-    config-opts:
-      - -Dwith-systemd=false
-      - -Dwith-daemon=false
-      - -Dwith-examples=false
-    sources:
-      - type: git
-        url: https://github.com/FeralInteractive/gamemode
-        commit: 7ced21f4b30cc4ceb67928889bc57af8784f1009
+  - "modules-32bit.yml"
 
   - name: steam_wrapper
     buildsystem: simple
