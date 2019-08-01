@@ -3,6 +3,6 @@
 
 GAMEMODEAUTO="libgamemodeauto.so.0"
 
-LD_PRELOAD="${GAMEMODEAUTO}${LD_PRELOAD:+:$LD_PRELOAD}"
+export LD_PRELOAD="${GAMEMODEAUTO}${LD_PRELOAD:+:$LD_PRELOAD}"
 
-exec env LD_PRELOAD="${LD_PRELOAD}" "$@"
+exec "$@"
