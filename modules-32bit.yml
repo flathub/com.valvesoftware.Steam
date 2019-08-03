@@ -7,10 +7,75 @@ x-compat-i386-opts: &compat_i386_opts
     CXX: i686-unknown-linux-gnu-g++
   libdir: /app/lib32
 
-name: compat-libraries-32bit
+name: modules-32bit
 buildsystem: simple
 build-commands: []
 modules:
+
+# -- discord --
+
+  - name: discord-rpc-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+    post-install:
+      - install -Dm755 examples/send-presence/send-presence -t /app/bin/
+    sources:
+      - "sources/discord-rpc-archive.json"
+
+# -- end discord --
+
+# -- faudio --
+
+  - name: ffmpeg-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+      config-opts:
+        - --enable-cross-compile
+        - --cc=i686-unknown-linux-gnu-gcc
+        - --cxx=i686-unknown-linux-gnu-g++
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --enable-gnutls
+      - --disable-doc
+      - --disable-programs
+      - --disable-encoders
+      - --disable-muxers
+      - --disable-libv4l2
+      - --disable-stripping
+    sources:
+      - "sources/ffmpeg-archive.json"
+    cleanup:
+      - /share/ffmpeg/examples
+
+  - name: FAudio-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DFFMPEG=ON
+    sources:
+      - "sources/FAudio-archive.json"
+
+# -- end faudio --
+
+  - name: gamemode-32bit
+    build-options:
+     arch:
+       x86_64: *compat_i386_opts
+    buildsystem: meson
+    config-opts:
+      - -Dwith-systemd=false
+      - -Dwith-daemon=false
+      - -Dwith-examples=false
+    sources:
+      - "sources/gamemode-git.json"
 
   - name: google-perfools
     buildsystem: autotools
@@ -24,15 +89,3 @@ modules:
         url: https://github.com/gperftools/gperftools.git
         commit: 0b87a55895a184bcc529b4ce13c46c0411182b85
         tag: google-perftools-1.8.3
-
-  - name: gamemode-32bit
-    buildsystem: meson
-    build-options:
-     arch:
-       x86_64: *compat_i386_opts
-    config-opts:
-      - -Dwith-systemd=false
-      - -Dwith-daemon=false
-      - -Dwith-examples=false
-    sources:
-      - "sources/gamemode-git.json"
