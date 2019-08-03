@@ -44,6 +44,7 @@ modules:
       - -Dmicrohttpd=false
       - -Dbashcompletiondir=no
       - -Dzshcompletiondir=no
+      - -Dresolve=false
     sources:
       - type: archive
         url: https://github.com/systemd/systemd/archive/v242.tar.gz
