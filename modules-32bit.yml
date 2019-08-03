@@ -87,5 +87,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: 0b87a55895a184bcc529b4ce13c46c0411182b85
-        tag: google-perftools-1.8.3
+        commit: 9608fa3bcf8020d35f59fbf70cd3cbe4b015b972
+        tag: gperftools-2.7
