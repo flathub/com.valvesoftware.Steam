@@ -45,6 +45,9 @@ modules:
       - -Dbashcompletiondir=no
       - -Dzshcompletiondir=no
       - -Dresolve=false
+      - -Dnss-resolve=false
+      - -Dnss-myhostname=false
+      - -Dnss-systemd=false
     sources:
       - type: archive
         url: https://github.com/systemd/systemd/archive/v242.tar.gz
