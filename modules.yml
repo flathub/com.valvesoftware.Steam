@@ -45,6 +45,10 @@ modules:
       - -Dhtml=false
       - -Dpam=false
       - -Dmicrohttpd=false
+      - -Dresolve=false
+      - -Dnss-resolve=false
+      - -Dnss-myhostname=false
+      - -Dnss-systemd=false
       - -Dbashcompletiondir=no
       - -Dzshcompletiondir=no
     sources:
