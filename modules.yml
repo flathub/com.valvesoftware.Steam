@@ -65,7 +65,6 @@ modules:
 
 # -- end discord --
 
-
 # -- faudio --
 
   - name: ffmpeg
@@ -92,6 +91,21 @@ modules:
       - "sources/FAudio-archive.json"
 
 # -- end faudio --
+
+# -- vkd3d --
+
+  - name: SPIRV-Headers
+    buildsystem: cmake-ninja
+    sources:
+      - type: archive
+        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.4.1.tar.gz"
+        sha256: a244f0629f75eb450e090cd773d30e22367cb231e964c7492588eb9000201fd1
+
+  - name: vkd3d
+    sources:
+      - sources/vkd3d-archive.json
+
+# -- end vkd3d --
 
   - name: libnotify
     config-opts:

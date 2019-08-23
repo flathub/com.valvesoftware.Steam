@@ -76,6 +76,17 @@ modules:
 
 # -- end faudio --
 
+# -- vkd3d --
+
+  - name: vkd3d-32bit
+    build-options:
+     arch:
+       x86_64: *compat_i386_opts
+    sources:
+      - sources/vkd3d-archive.json
+
+# -- end vkd3d --
+
   - name: gamemode-32bit
     build-options:
      arch:
