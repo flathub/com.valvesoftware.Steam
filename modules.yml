@@ -180,3 +180,10 @@ modules:
     sources:
       - type: file
         path: resources/gamemoderun
+
+  - name: shared-library-guard
+    buildsystem: meson
+    config-opts:
+      - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
+    sources:
+      - "sources/shared-library-guard-git.json"

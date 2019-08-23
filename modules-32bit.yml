@@ -89,3 +89,13 @@ modules:
         url: https://github.com/gperftools/gperftools.git
         commit: 9608fa3bcf8020d35f59fbf70cd3cbe4b015b972
         tag: gperftools-2.7
+
+  - name: shared-library-guard-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    buildsystem: meson
+    config-opts:
+      - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
+    sources:
+      - "sources/shared-library-guard-git.json"
