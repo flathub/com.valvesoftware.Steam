@@ -12,6 +12,17 @@ buildsystem: simple
 build-commands: []
 modules:
 
+  - name: eudev-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    cleanup:
+      - /bin
+      - /sbin
+      - /lib*/udev
+    sources:
+      - sources/eudev-archive.json
+
 # -- discord --
 
   - name: discord-rpc-32bit
