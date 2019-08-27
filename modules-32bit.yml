@@ -95,6 +95,7 @@ modules:
       arch:
         x86_64: *compat_i386_opts
     buildsystem: meson
+    subdir: shared-library-guard
     config-opts:
       - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
