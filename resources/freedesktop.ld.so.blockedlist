@@ -5,20 +5,6 @@ Torchlight\ II/ModLauncher.bin.x86 Torchlight\ II/lib/libSDL2-2.0.so.0
 The\ Stanley\ Parable/stanley_linux The\ Stanley\ Parable/bin/libSDL2-2.0.so.0
 The\ Stanley\ Parable/stanley_linux The\ Stanley\ Parable/bin/libstdc++.so.6
 insurgency2/insurgency_linux insurgency2/bin/libgcc_s.so.1
-ubuntu12_64/steamwebhelper ubuntu12_64/libglib-2.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libpangoft2-1.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libgraphite2.so.3
-ubuntu12_64/steamwebhelper ubuntu12_64/libSDL2-2.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libgobject-2.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libatk-bridge-2.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libharfbuzz.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libthai.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libgio-2.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libatk-1.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libpango-1.0.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libatspi.so.0
-ubuntu12_64/steamwebhelper ubuntu12_64/libdatrie.so.1
-ubuntu12_64/steamwebhelper ubuntu12_64/libpangocairo-1.0.so.0
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/Civ6 Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libfreetype.so.6
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/Civ6 Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libdbus-1.so.3
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/Civ6 Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libEGL.so.1
