@@ -183,6 +183,7 @@ modules:
 
   - name: shared-library-guard
     buildsystem: meson
+    subdir: shared-library-guard
     config-opts:
       - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
