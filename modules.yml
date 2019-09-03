@@ -161,8 +161,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: 1ca09c18f76a0ed2ef6349463c25d509a55e20ff
-        tag: 0.9.1
+        commit: a11c98a6b5f57666260a5a4792404d81d59e418d
+        tag: 0.10.0
 
   - name: gamemode
     buildsystem: meson
