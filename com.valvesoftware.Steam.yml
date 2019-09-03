@@ -123,8 +123,8 @@ modules:
           - python3 setup.py install --prefix=/app --root=/
         sources:
           - type: archive
-            url: "https://github.com/ValvePython/vdf/archive/v3.1.tar.gz"
-            sha256: 6f7e87e0d1921a170032720b3e1e3ce260170faada2ee606539cb4ab022f52a3
+            url: "https://github.com/ValvePython/vdf/archive/v3.2.tar.gz"
+            sha256: ad790a34a20d9c5f36b8bd9e93658f85a9e90be7c84bb3a24f893b531a94e3ca
 
   - name: steam
     buildsystem: simple
