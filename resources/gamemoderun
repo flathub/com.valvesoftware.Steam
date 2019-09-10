@@ -1,0 +1,8 @@
+#!/bin/bash
+# Helper script to launch games with gamemode
+
+GAMEMODEAUTO="libgamemodeauto.so.0"
+
+export LD_PRELOAD="${GAMEMODEAUTO}${LD_PRELOAD:+:$LD_PRELOAD}"
+
+exec "$@"

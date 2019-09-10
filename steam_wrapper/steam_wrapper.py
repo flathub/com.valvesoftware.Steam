@@ -8,6 +8,8 @@ import errno
 import fnmatch
 import subprocess
 import configparser
+import vdf
+from pathlib import Path
 from distutils.version import LooseVersion
 
 
@@ -29,8 +31,9 @@ def read_flatpak_info(path):
     return {
         "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
         "runtime-path": flatpak_info.get("Instance", "runtime-path"),
-        "app-extensions": flatpak_info.get("Instance", "app-extensions",
-                                           fallback=None),
+        "app-extensions": dict((s.split("=")
+                                for s in flatpak_info.get("Instance", "app-extensions",
+                                                          fallback="").split(";"))),
         "runtime-extensions": flatpak_info.get("Instance",
                                                "runtime-extensions",
                                                fallback=None),
@@ -130,10 +133,9 @@ def check_bad_filesystem_entries(entries):
                "Frequently-asked-questions#i-want-to-add-external-disk-for-steam-libraries")
         raise SystemExit(f"Please see {faq}")
 
-def check_allowed_to_run():
-    current_info = read_flatpak_info(FLATPAK_INFO)
+def check_allowed_to_run(current_info):
     current_version = current_info["flatpak-version"]
-    required = "0.10.3"
+    required = "1.0.0"
     if LooseVersion(current_version) < LooseVersion(required):
         raise SystemExit(f"Flatpak {required} or newer required")
 
@@ -238,15 +240,51 @@ def configure_shared_library_guard():
         return
     else:
         library = "libshared-library-guard.so"
-        os.environ["LD_AUDIT"] = os.pathsep.join((f"/usr/lib/x86_64-linux-gnu/{library}",
-                                                  f"/app/lib/i386-linux-gnu/{library}"))
-        if mode > 1:
-            os.environ["LD_BIND_NOW"] = "1"
+        os.environ["LD_AUDIT"] = os.pathsep.join((f"/app/lib/{library}",
+                                                  f"/app/lib32/{library}"))
+
+def setup_compat_tool_extensions(current_info):
+    compat_tool_dest = Path('.local/share/Steam/compatibilitytools.d')
+    compat_tool_dest.mkdir(parents=True, exist_ok=True)
+
+    # Copy extensions if they exist
+    for compat_tool_ext in Path('/app/compatibilitytools.d').iterdir():
+        if not compat_tool_ext.is_dir():
+            continue
+
+        compat_tool_ext_id = f'com.valvesoftware.Steam.CompatibilityTool.{compat_tool_ext.name}'
+        compat_tool_ext_dest = compat_tool_dest / compat_tool_ext.name
+        compat_tool_ext_commit_hash = current_info["app-extensions"][compat_tool_ext_id]
+        compat_tool_ext_commit_file = compat_tool_ext_dest / '.extension-commit'
+
+        if compat_tool_ext_dest.exists():
+            if compat_tool_ext_commit_file.exists():
+                with compat_tool_ext_commit_file.open() as fp:
+                    if fp.read() == compat_tool_ext_commit_hash:
+                        continue
+
+        src_vdf = compat_tool_ext / 'compatibilitytool.vdf'
+        dst_vdf = compat_tool_ext_dest / 'compatibilitytool.vdf'
+
+        with src_vdf.open('r') as sf:
+            compat_tool_vdf = vdf.load(sf)
+        for v in compat_tool_vdf['compatibilitytools']['compat_tools'].values():
+            v['install_path'] = compat_tool_ext
+
+        print(f'Writing {dst_vdf}')
+        os.makedirs(os.path.dirname(dst_vdf), exist_ok=True)
+        with dst_vdf.open('w') as df:
+            vdf.dump(compat_tool_vdf, df, pretty=True)
+
+        with compat_tool_ext_commit_file.open('w') as fp:
+            fp.write(compat_tool_ext_commit_hash)
+
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
-    check_allowed_to_run()
+    current_info = read_flatpak_info(FLATPAK_INFO)
+    check_allowed_to_run(current_info)
     consent = migrate_config()
     if consent:
         migrate_data()
@@ -255,4 +293,5 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
-    os.execve(steam_binary, [steam_binary] + sys.argv[1:], os.environ)
+    setup_compat_tool_extensions(current_info)
+    os.execv(steam_binary, [steam_binary] + sys.argv[1:])

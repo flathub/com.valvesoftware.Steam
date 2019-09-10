@@ -1,0 +1,190 @@
+name: modules
+buildsystem: simple
+build-commands:
+ - systemd-hwdb update --usr --strict
+modules:
+
+# -- controllers --
+
+  - name: hwdata
+    config-opts:
+      - --datarootdir=/app/share
+    sources:
+      - type: git
+        url: https://github.com/vcrhonek/hwdata
+        commit: 874f7831c64de7ea2203cfcd1b3fc336bc27e468
+
+    name: systemd
+    buildsystem: meson
+    config-opts:
+      - -Drootprefix=/app
+      - -Dsysconfdir=/app/etc
+      - -Denvironment-d=false
+      - -Dbinfmt=false
+      - -Dcoredump=false
+      - -Dlogind=false
+      - -Dhostnamed=false
+      - -Dlocaled=false
+      - -Dmachined=false
+      - -Dportabled=false
+      - -Dnetworkd=false
+      - -Dtimedated=false
+      - -Dtimesyncd=false
+      - -Dremote=false
+      - -Dfirstboot=false
+      - -Drandomseed=false
+      - -Dbacklight=false
+      - -Dvconsole=false
+      - -Dquotacheck=false
+      - -Dsysusers=false
+      - -Dtmpfiles=false
+      - -Dimportd=false
+      - -Dhwdb=true
+      - -Drfkill=false
+      - -Dman=false
+      - -Dhtml=false
+      - -Dpam=false
+      - -Dmicrohttpd=false
+      - -Dresolve=false
+      - -Dnss-resolve=false
+      - -Dnss-myhostname=false
+      - -Dnss-systemd=false
+      - -Dbashcompletiondir=no
+      - -Dzshcompletiondir=no
+    sources:
+      - type: archive
+        url: https://github.com/systemd/systemd/archive/v242.tar.gz
+        sha256: ec22be9a5dd94c9640e6348ed8391d1499af8ca2c2f01109198a414cff6c6cba
+    cleanup:
+      - /bin
+      - /etc
+      - /lib/systemd
+      - /lib/sysctl.d
+      - /lib/udev/rules.d
+      - /lib/modprobe.d
+      - /lib/kernel
+      - /lib/rpm
+      - /share/polkit-1
+      - /share/dbus-1
+      - /share/factory
+
+  - name: libusb
+    sources:
+      - type: archive
+        url: https://github.com//libusb/libusb/releases/download/v1.0.23/libusb-1.0.23.tar.bz2
+        sha256: db11c06e958a82dac52cf3c65cb4dd2c3f339c8a988665110e0d24d19312ad8d
+
+  - name: usbutils
+    config-opts:
+      - --datadir=/app/share/hwdata
+    sources:
+      - type: git
+        url: https://github.com/gregkh/usbutils
+        commit: f3a05e2e368cf17f9882c8d358f2fa205eb1ead6
+        tag: v012
+
+# -- end controllers --
+
+# -- discord --
+
+  - name: rapidjson
+    buildsystem: cmake-ninja
+    config-opts:
+    - -DRAPIDJSON_BUILD_DOC=OFF
+    - -DRAPIDJSON_BUILD_EXAMPLES=OFF
+    - -DRAPIDJSON_BUILD_TESTS=OFF
+    - -DRAPIDJSON_BUILD_THIRDPARTY_GTEST=OFF
+    sources:
+      - type: archive
+        url: https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
+        sha256: bf7ced29704a1e696fbccf2a2b4ea068e7774fa37f6d7dd4039d0787f8bed98e
+
+  - name: discord-rpc
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DBUILD_SHARED_LIBS=ON
+    post-install:
+      - install -Dm755 examples/send-presence/send-presence -t /app/bin/
+    sources:
+      - "sources/discord-rpc-archive.json"
+
+# -- end discord --
+
+
+# -- faudio --
+
+  - name: ffmpeg
+    config-opts:
+      - --enable-shared
+      - --disable-static
+      - --enable-gnutls
+      - --disable-doc
+      - --disable-programs
+      - --disable-encoders
+      - --disable-muxers
+      - --disable-libv4l2
+      - --disable-stripping
+    sources:
+      - "sources/ffmpeg-archive.json"
+    cleanup:
+      - /share/ffmpeg/examples
+
+  - name: FAudio
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DFFMPEG=ON
+    sources:
+      - "sources/FAudio-archive.json"
+
+# -- end faudio --
+
+  - name: libnotify
+    config-opts:
+      - --disable-static
+      - --disable-tests
+      - --disable-introspection
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.8.tar.xz
+        sha256: 69209e0b663776a00c7b6c0e560302a8dbf66b2551d55616304f240bba66e18c
+      - type: archive
+        url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
+        sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+
+  - name: xrandr
+    sources:
+      - type: archive
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
+        sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
+
+  - name: libbsd
+    sources:
+      - type: git
+        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
+        commit: a11c98a6b5f57666260a5a4792404d81d59e418d
+        tag: 0.10.0
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts:
+      - -Dwith-systemd=false
+      - -Dwith-daemon=false
+      - -Dwith-examples=false
+    sources:
+      - "sources/gamemode-git.json"
+
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install gamemoderun /app/bin
+    sources:
+      - type: file
+        path: resources/gamemoderun
+
+  - name: shared-library-guard
+    buildsystem: meson
+    subdir: shared-library-guard
+    config-opts:
+      - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
+    sources:
+      - "sources/shared-library-guard-git.json"

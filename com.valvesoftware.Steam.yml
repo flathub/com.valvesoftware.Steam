@@ -1,6 +1,6 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: '18.08'
+runtime-version: '19.08'
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -9,13 +9,16 @@ rename-desktop-file: steam.desktop
 tags:
   - proprietary
 
+sdk-extensions:
+  - org.freedesktop.Sdk.Compat.i386
+  - org.freedesktop.Sdk.Extension.toolchain-i386
+
 finish-args:
   - --share=ipc
   - --socket=wayland
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
-  - --talk-name=org.gnome.SettingsDaemon
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.kde.StatusNotifierWatcher
@@ -40,22 +43,22 @@ finish-args:
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
-  - --require-version=0.10.3
+  - --require-version=1.0.0
 
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '18.08'
+    version: '19.08'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '18.08'
+    version: '19.08'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 18.08;1.4
+    versions: 19.08;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -64,13 +67,34 @@ add-extensions:
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
+  org.freedesktop.Platform.VAAPI.Intel.i386:
+    directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
+    version: '19.08'
+    versions: '19.08'
+    subdirectories: true
+    no-autodownload: true
+    autodelete: false
+    add-ld-path: lib
+    download-if: active-gl-driver
+    enable-if: active-gl-driver
+
+  com.valvesoftware.Steam.CompatibilityTool:
+    subdirectories: true
+    directory: compatibilitytools.d
+    no-autodownload: true
+    autodelete: true
+
 cleanup:
   - /lib/*.a
   - /lib/*.la
+  - /lib32/*.a
+  - /lib32/*.la
   - /include
   - /lib/pkgconfig
+  - /lib32/pkgconfig
   - /share/pkgconfig
   - /lib/cmake
+  - /lib32/cmake
   - /share/doc
   - /share/gtk-doc
   - /share/man
@@ -79,33 +103,10 @@ cleanup-commands:
   - python3 -m compileall --invalidation-mode=unchecked-hash /app
 
 modules:
-  - name: libnotify
-    config-opts:
-      - --disable-static
-      - --disable-tests
-      - --disable-introspection
-    sources:
-      - type: archive
-        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.7.tar.xz
-        sha256: 9cb4ce315b2655860c524d46b56010874214ec27e854086c1a1d0260137efc04
 
-  - name: xrandr
-    sources:
-      - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
-        sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
+  - "modules.yml"
 
-  - name: libbsd
-    sources:
-      - type: git
-        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: 0.9.1-0-g1ca09c18f76a0ed2ef6349463c25d509a55e20ff
-
-  - "modules/controllers.yml"
-
-  - "modules/discord.yml"
-
-  - "modules/proton.yml"
+  - "modules-32bit.yml"
 
   - name: steam_wrapper
     buildsystem: simple
@@ -114,6 +115,16 @@ modules:
         path: steam_wrapper
     build-commands:
       - python3 -mpip install . --prefix=/app --no-index --find-links .
+    modules:
+
+      - name: python-vdf
+        buildsystem: simple
+        build-commands:
+          - python3 setup.py install --prefix=/app --root=/
+        sources:
+          - type: archive
+            url: "https://github.com/ValvePython/vdf/archive/v3.2.tar.gz"
+            sha256: ad790a34a20d9c5f36b8bd9e93658f85a9e90be7c84bb3a24f893b531a94e3ca
 
   - name: steam
     buildsystem: simple
@@ -161,12 +172,16 @@ modules:
       - |
         set -e
         mkdir -p /app/bin
-        mkdir -p /app/lib/i386-linux-gnu /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/i386-linux-gnu/GL
+        mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
         cp /usr/bin/addr2line /app/bin/
-        cp /usr/lib/x86_64-linux-gnu/libbfd-2.31.1.so /app/lib/
+        cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
         install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
+        mkdir /app/compatibilitytools.d
     sources:
       - type: file
         path: resources/ld.so.conf
