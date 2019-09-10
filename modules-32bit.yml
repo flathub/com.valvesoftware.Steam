@@ -12,6 +12,17 @@ buildsystem: simple
 build-commands: []
 modules:
 
+  - name: eudev-32bit
+    build-options:
+      arch:
+        x86_64: *compat_i386_opts
+    cleanup:
+      - /bin
+      - /sbin
+      - /lib*/udev
+    sources:
+      - sources/eudev-archive.json
+
 # -- discord --
 
   - name: discord-rpc-32bit
@@ -64,6 +75,17 @@ modules:
       - "sources/FAudio-archive.json"
 
 # -- end faudio --
+
+# -- vkd3d --
+
+  - name: vkd3d-32bit
+    build-options:
+     arch:
+       x86_64: *compat_i386_opts
+    sources:
+      - sources/vkd3d-archive.json
+
+# -- end vkd3d --
 
   - name: gamemode-32bit
     build-options:
