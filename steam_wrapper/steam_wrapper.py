@@ -235,7 +235,7 @@ def repair_broken_migration():
         shutil.rmtree(wrong_data)
 
 def configure_shared_library_guard():
-    mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 0))
+    mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
     if not mode:
         return
     else:
