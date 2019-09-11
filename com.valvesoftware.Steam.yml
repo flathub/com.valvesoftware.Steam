@@ -176,6 +176,9 @@ modules:
         install -Dm644 -t /app/etc freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir /app/compatibilitytools.d
+        mkdir /app/links
+        ln -s /app/lib /app/links/x86_64-linux-gnu
+        ln -s /app/lib32 /app/links/i386-linux-gnu
     sources:
       - type: file
         path: resources/ld.so.conf
