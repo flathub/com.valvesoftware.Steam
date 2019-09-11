@@ -239,9 +239,7 @@ def configure_shared_library_guard():
     if not mode:
         return
     else:
-        library = "libshared-library-guard.so"
-        os.environ["LD_AUDIT"] = os.pathsep.join((f"/app/lib/{library}",
-                                                  f"/app/lib32/{library}"))
+        os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
 
 def setup_compat_tool_extensions(current_info):
     compat_tool_dest = Path('.local/share/Steam/compatibilitytools.d')
