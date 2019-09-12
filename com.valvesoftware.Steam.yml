@@ -179,13 +179,13 @@ modules:
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
-        install -Dm644 -t /app/etc freedesktop.ld.so.blockedlist
+        install -Dm644 -t /app/etc freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir /app/compatibilitytools.d
     sources:
       - type: file
         path: resources/ld.so.conf
       - type: file
-        path: resources/freedesktop.ld.so.blockedlist
+        path: resources/freedesktop-sdk.ld.so.blockedlist
       - type: file
         path: resources/lsb_release
