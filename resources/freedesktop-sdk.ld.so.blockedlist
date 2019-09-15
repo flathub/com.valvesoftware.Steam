@@ -80,15 +80,3 @@ Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libXtst.so.6
 Sid\ Meier\'s\ Civilization\ VI/GameGuide/libexec/QtWebEngineProcess Sid\ Meier\'s\ Civilization\ VI/GameGuide/lib/libXxf86vm.so.1
 ShadowOfMordor/bin/ShadowOfMordor steam-runtime/amd64/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.9.0
-Proton\ 3.7/dist/bin/wine64 Proton\ 3.7/dist/lib64/libFAudio.so
-Proton\ 3.7/dist/bin/wine64-preloader Proton\ 3.7/dist/lib64/libFAudio.so
-Proton\ 3.7\ Beta/dist/bin/wine64 Proton\ 3.7\ Beta/dist/lib64/libFAudio.so
-Proton\ 3.7\ Beta/dist/bin/wine64-preloader Proton\ 3.7\ Beta/dist/lib64/libFAudio.so
-Proton\ 3.16/dist/bin/wine64 Proton\ 3.16/dist/lib64/libFAudio.so
-Proton\ 3.16/dist/bin/wine64-preloader Proton\ 3.16/dist/lib64/libFAudio.so
-Proton\ 3.16\ Beta/dist/bin/wine64 Proton\ 3.16\ Beta/dist/lib64/libFAudio.so
-Proton\ 3.16\ Beta/dist/bin/wine64-preloader Proton\ 3.16\ Beta/dist/lib64/libFAudio.so
-Proton\ 4.2/dist/bin/wine64 Proton\ 4.2/dist/lib64/libFAudio.so.0.19.06
-Proton\ 4.2/dist/bin/wine64-preloader Proton\ 4.2/dist/lib64/libFAudio.so.0.19.06
-Proton\ 4.11/dist/bin/wine64 Proton\ 4.11/dist/lib64/libFAudio.so.0.19.08
-Proton\ 4.11/dist/bin/wine64-preloader Proton\ 4.11/dist/lib64/libFAudio.so.0.19.08
