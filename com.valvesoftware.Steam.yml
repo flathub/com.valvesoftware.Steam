@@ -167,18 +167,15 @@ modules:
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
         install -Dm644 -t /app/etc freedesktop-sdk.ld.so.blockedlist
-        ./gen-proton-blocklist.sh >> /app/etc/freedesktop-sdk.ld.so.blockedlist
+        for name in blocklist/*
+        do
+        shared-library-guard-config-converter $name >> /app/etc/freedesktop-sdk.ld.so.blockedlist
+        done
         install -Dm744 -t /app/bin lsb_release
         mkdir /app/compatibilitytools.d
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu
     sources:
-      - type: file
-        path: resources/ld.so.conf
-      - type: file
-        path: resources/freedesktop-sdk.ld.so.blockedlist
-      - type: file
-        path: resources/gen-proton-blocklist.sh
-      - type: file
-        path: resources/lsb_release
+      - type: dir
+        path: resources
