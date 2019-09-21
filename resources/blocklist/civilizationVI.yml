@@ -1,0 +1,86 @@
+entries:
+  - basedir: "*(/*)/Sid Meier's Civilization\ VI/GameGuide"
+    blocklists:
+      - binaries:
+          - path: civ6
+            libdir: lib
+        libraries:
+          - path: libfreetype.so.6
+          - path: libdbus-1.so.3
+          - path: libEGL.so.1
+          - path: libffi.so.6
+          - path: libfreebl3.so
+          - path: libgbm.so.1
+          - path: libglapi.so.0
+          - path: libgthread-2.0.so.0
+          - path: libnspr4.so
+          - path: libnss3.so
+          - path: libnssckbi.so
+          - path: libnssdbm3.so
+          - path: libnssutil3.so
+          - path: libplc4.so
+          - path: libplds4.so
+          - path: libSDL2-2.0.so.0
+          - path: libsmime3.so
+          - path: libsoftokn3.so
+          - path: libwayland-client.so.0
+          - path: libwayland-server.so.0
+          - path: libX11-xcb.so.1
+          - path: libXau.so.6
+          - path: libxcb-dri2.so.0
+          - path: libxcb-glx.so.0
+          - path: libxcb-xfixes.so.0
+          - path: libXcomposite.so.1
+          - path: libXcursor.so.1
+          - path: libXdamage.so.1
+          - path: libXdmcp.so.6
+          - path: libXext.so.6
+          - path: libXfixes.so.3
+          - path: libXi.so.6
+          - path: libxml2.so.2
+          - path: libXrender.so.1
+          - path: libxslt.so.1
+          - path: libXtst.so.6
+          - path: libXxf86vm.so.1
+
+      - binaries:
+          - path: libexec/QtWebEngineProcess
+            libdir: lib
+        libraries:
+          - path: libfreetype.so.6
+          - path: libdbus-1.so.3
+          - path: libEGL.so.1
+          - path: libffi.so.6
+          - path: libfreebl3.so
+          - path: libgbm.so.1
+          - path: libglapi.so.0
+          - path: libgthread-2.0.so.0
+          - path: libnspr4.so
+          - path: libnss3.so
+          - path: libnssckbi.so
+          - path: libnssdbm3.so
+          - path: libnssutil3.so
+          - path: libplc4.so
+          - path: libplds4.so
+          - path: libSDL2-2.0.so.0
+          - path: libsmime3.so
+          - path: libsoftokn3.so
+          - path: libwayland-client.so.0
+          - path: libwayland-server.so.0
+          - path: libX11-xcb.so.1
+          - path: libXau.so.6
+          - path: libxcb-dri2.so.0
+          - path: libxcb-glx.so.0
+          - path: libxcb-xfixes.so.0
+          - path: libXcomposite.so.1
+          - path: libXcursor.so.1
+          - path: libXdamage.so.1
+          - path: libXdmcp.so.6
+          - path: libXext.so.6
+          - path: libXfixes.so.3
+          - path: libXi.so.6
+          - path: libxml2.so.2
+          - path: libXrender.so.1
+          - path: libxslt.so.1
+          - path: libXtst.so.6
+          - path: libXxf86vm.so.1
