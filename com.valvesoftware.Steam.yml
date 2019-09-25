@@ -63,7 +63,7 @@ add-extensions:
     no-autodownload: true
     autodelete: false
     add-ld-path: lib
-    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d
+    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
@@ -102,6 +102,8 @@ modules:
 
   - "modules-32bit.yml"
 
+  - "python-dependencies.json"
+
   - name: steam_wrapper
     buildsystem: simple
     sources:
@@ -110,15 +112,6 @@ modules:
     build-commands:
       - python3 -mpip install . --prefix=/app --no-index --find-links .
     modules:
-
-      - name: python-vdf
-        buildsystem: simple
-        build-commands:
-          - python3 setup.py install --prefix=/app --root=/
-        sources:
-          - type: archive
-            url: "https://github.com/ValvePython/vdf/archive/v3.2.tar.gz"
-            sha256: ad790a34a20d9c5f36b8bd9e93658f85a9e90be7c84bb3a24f893b531a94e3ca
 
   - name: steam
     buildsystem: simple
@@ -173,16 +166,12 @@ modules:
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
-        install -Dm644 -t /app/etc freedesktop-sdk.ld.so.blockedlist
+        shared-library-guard-config-converter blocklist/* 
         install -Dm744 -t /app/bin lsb_release
         mkdir /app/compatibilitytools.d
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu
     sources:
-      - type: file
-        path: resources/ld.so.conf
-      - type: file
-        path: resources/freedesktop-sdk.ld.so.blockedlist
-      - type: file
-        path: resources/lsb_release
+      - type: dir
+        path: resources
