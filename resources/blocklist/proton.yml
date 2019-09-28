@@ -2,10 +2,6 @@ entries:
   - basedir: "*(/*)/Proton 3.7/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
@@ -16,10 +12,6 @@ entries:
   - basedir: "*(/*)/Proton 3.7 Beta/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
@@ -30,10 +22,6 @@ entries:
   - basedir: "*(/*)/Proton 3.16/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
@@ -44,10 +32,6 @@ entries:
   - basedir: "*(/*)/Proton 3.16 Beta/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
@@ -58,10 +42,6 @@ entries:
   - basedir: "*(/*)/Proton 4.2/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
@@ -72,10 +52,6 @@ entries:
   - basedir: "*(/*)/Proton 4.11/dist"
     blocklists:
       - binaries:
-          - path: bin/wine
-            libdir: lib
-          - path: bin/wine-preloader
-            libdir: lib
           - path: bin/wine64
             libdir: lib64
           - path: bin/wine64-preloader
