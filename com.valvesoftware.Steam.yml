@@ -166,7 +166,7 @@ modules:
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
-        shared-library-guard-config-converter blocklist/* 
+        shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir /app/compatibilitytools.d
         mkdir /app/links
