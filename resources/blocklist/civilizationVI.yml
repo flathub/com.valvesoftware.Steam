@@ -2,7 +2,7 @@ entries:
   - basedir: "*(/*)/Sid Meier's Civilization VI/GameGuide"
     blocklists:
       - binaries:
-          - path: civ6
+          - path: Civ6
             libdir: lib
         libraries:
           - path: libfreetype.so.6
