@@ -1,5 +1,5 @@
 entries:
-  - basedir: "*(/*)/Torchlight II"
+  - basedir: "*(/*|/.*)/Torchlight II"
     blocklists:
       - binaries:
           - path: ModLauncher.bin.x86_64
@@ -10,7 +10,7 @@ entries:
           - path: libfontconfig.so.1
           - path: libSDL2-2.0.so.0
 
-  - basedir: "*(/*)/The Stanley Parable"
+  - basedir: "*(/*|/.*)/The Stanley Parable"
     blocklists:
       - binaries:
           - path: stanley_linux
@@ -19,14 +19,15 @@ entries:
           - path: libSDL2-2.0.so.0
           - path: libstdc++.so.6
 
-  - basedir: "*(/*)/insurgency2"
+  - basedir: "*(/*|/.*)/insurgency2"
     blocklists:
       - binaries:
           - path: insurgency_linux
             libdir: bin
         libraries:
           - path: libgcc_s.so.1
-  - basedir: "*(/*)/ShadowOfMordor"
+
+  - basedir: "*(/*|/.*)/ShadowOfMordor"
     blocklists:
       - binaries:
           - path: bin/ShadowOfMordor

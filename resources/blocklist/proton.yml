@@ -1,5 +1,5 @@
 entries:
-  - basedir: "*(/*)/Proton 3.7/dist"
+  - basedir: "*(/*|/.*)/Proton 3.7/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
@@ -9,7 +9,7 @@ entries:
         libraries:
           - path: libFAudio.so
 
-  - basedir: "*(/*)/Proton 3.7 Beta/dist"
+  - basedir: "*(/*|/.*)/Proton 3.7 Beta/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
@@ -19,7 +19,7 @@ entries:
         libraries:
           - path: libFAudio.so
 
-  - basedir: "*(/*)/Proton 3.16/dist"
+  - basedir: "*(/*|/.*)/Proton 3.16/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
@@ -29,7 +29,7 @@ entries:
         libraries:
           - path: libFAudio.so
 
-  - basedir: "*(/*)/Proton 3.16 Beta/dist"
+  - basedir: "*(/*|/.*)/Proton 3.16 Beta/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
@@ -39,7 +39,7 @@ entries:
         libraries:
           - path: libFAudio.so
 
-  - basedir: "*(/*)/Proton 4.2/dist"
+  - basedir: "*(/*|/.*)/Proton 4.2/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
@@ -49,7 +49,7 @@ entries:
         libraries:
           - path: libFAudio.so.0.19.06
 
-  - basedir: "*(/*)/Proton 4.11/dist"
+  - basedir: "*(/*|/.*)/Proton 4.11/dist"
     blocklists:
       - binaries:
           - path: bin/wine64
