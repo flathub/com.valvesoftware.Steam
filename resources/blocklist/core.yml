@@ -27,10 +27,10 @@ entries:
         libraries:
           - path: libgcc_s.so.1
 
-  - basedir: "*(/*|/.*)/ShadowOfMordor"
+  - basedir: "*(/*|/.*)/steamapps/common*(/*)"
     blocklists:
       - binaries:
-          - path: bin/ShadowOfMordor
+          - path: "*"
         libraries:
-          - path: "*(/*)/steam-runtime/amd64/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0.9.0"
+          - path: "*(/*|/.*)/steam-runtime+(/*)/libSDL2-2.0.so.0.9.0"
             no-prefix: true
