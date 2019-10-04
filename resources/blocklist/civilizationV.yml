@@ -1,0 +1,7 @@
+entries:
+  - basedir: "*(/*|/.*)/Sid Meier's Civilization V"
+    blocklists:
+      - binaries:
+          - path: Civ5XP
+        libraries:
+          - path: libopenal.so.1.13.0
