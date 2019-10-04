@@ -1,11 +1,13 @@
 ---
 name: Bug report about issues with games
-about: In addition to reporting issues with games, please also use this same template for requesting Dbus access for games
+about: In addition to reporting issues with games, please also use this same template for requesting Dbus access for games 
 
 ---
 
 **Game information**
-<!-- Name of the game or games that do not work -->
+<!-- Name of the game or games that do not work 
+https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions#my-game-is-giving-strange-errors-about-missing-symbols-in-libraries might be helpful for fixing some game issues for good
+-->
 
 **Distribution name and version where applicable**
 <!-- Following files may help if you're unsure
