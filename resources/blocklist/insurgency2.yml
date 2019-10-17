@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/insurgency2"
+    blocklists:
+      - binaries:
+          - path: insurgency_linux
+            libdir: bin
+        libraries:
+          - path: libgcc_s.so.1
