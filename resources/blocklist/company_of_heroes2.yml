@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Company of Heroes 2/bin"
+    blocklists:
+      - binaries:
+          - path: "CompanyOfHeroes2"
+        libraries:
+          - path: "*(/*|/.*)/steam-runtime+(/*)/libSDL2-2.0.so.0.9.0"
+            no-prefix: true

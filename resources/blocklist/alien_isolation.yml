@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Alien Isolation/bin"
+    blocklists:
+      - binaries:
+          - path: "AlienIsolation"
+        libraries:
+          - path: "*(/*|/.*)/steam-runtime+(/*)/libSDL2-2.0.so.0.9.0"
+            no-prefix: true
