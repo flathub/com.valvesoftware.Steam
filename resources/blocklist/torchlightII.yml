@@ -1,0 +1,11 @@
+entries:
+  - basedir: "*(/*|/.*)/Torchlight II"
+    blocklists:
+      - binaries:
+          - path: ModLauncher.bin.x86_64
+            libdir: lib64
+          - path: ModLauncher.bin.x86
+            libdir: lib
+        libraries:
+          - path: libfontconfig.so.1
+          - path: libSDL2-2.0.so.0
