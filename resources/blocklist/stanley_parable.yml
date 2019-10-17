@@ -1,0 +1,9 @@
+entries:
+  - basedir: "*(/*|/.*)/The Stanley Parable"
+    blocklists:
+      - binaries:
+          - path: stanley_linux
+            libdir: bin
+        libraries:
+          - path: libSDL2-2.0.so.0
+          - path: libstdc++.so.6
