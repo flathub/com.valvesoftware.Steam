@@ -43,6 +43,7 @@ finish-args:
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
+  - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
   - --require-version=1.0.0
 
 add-extensions:
@@ -80,7 +81,7 @@ add-extensions:
 
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
-    directory: compatibilitytools.d
+    directory: share/steam/compatibilitytools.d
     no-autodownload: true
     autodelete: true
 
@@ -168,7 +169,7 @@ modules:
         install -Dm644 -t /app/etc ld.so.conf
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
-        mkdir /app/compatibilitytools.d
+        mkdir -p /app/share/steam/compatibilitytools.d
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu

@@ -241,43 +241,6 @@ def configure_shared_library_guard():
     else:
         os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
 
-def setup_compat_tool_extensions(current_info):
-    compat_tool_dest = Path('.local/share/Steam/compatibilitytools.d')
-    compat_tool_dest.mkdir(parents=True, exist_ok=True)
-
-    # Copy extensions if they exist
-    for compat_tool_ext in Path('/app/compatibilitytools.d').iterdir():
-        if not compat_tool_ext.is_dir():
-            continue
-
-        compat_tool_ext_id = f'com.valvesoftware.Steam.CompatibilityTool.{compat_tool_ext.name}'
-        compat_tool_ext_dest = compat_tool_dest / compat_tool_ext.name
-        compat_tool_ext_commit_hash = current_info["app-extensions"][compat_tool_ext_id]
-        compat_tool_ext_commit_file = compat_tool_ext_dest / '.extension-commit'
-
-        if compat_tool_ext_dest.exists():
-            if compat_tool_ext_commit_file.exists():
-                with compat_tool_ext_commit_file.open() as fp:
-                    if fp.read() == compat_tool_ext_commit_hash:
-                        continue
-
-        src_vdf = compat_tool_ext / 'compatibilitytool.vdf'
-        dst_vdf = compat_tool_ext_dest / 'compatibilitytool.vdf'
-
-        with src_vdf.open('r') as sf:
-            compat_tool_vdf = vdf.load(sf)
-        for v in compat_tool_vdf['compatibilitytools']['compat_tools'].values():
-            v['install_path'] = compat_tool_ext
-
-        print(f'Writing {dst_vdf}')
-        os.makedirs(os.path.dirname(dst_vdf), exist_ok=True)
-        with dst_vdf.open('w') as df:
-            vdf.dump(compat_tool_vdf, df, pretty=True)
-
-        with compat_tool_ext_commit_file.open('w') as fp:
-            fp.write(compat_tool_ext_commit_hash)
-
-
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
@@ -291,5 +254,4 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
-    setup_compat_tool_extensions(current_info)
     os.execv(steam_binary, [steam_binary] + sys.argv[1:])
