@@ -44,6 +44,8 @@ finish-args:
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
+  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
+  - --env=PYTHONPATH=/app/utils/lib/python3.7/site-packages
   - --require-version=1.0.0
 
 add-extensions:
@@ -82,6 +84,14 @@ add-extensions:
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
+    no-autodownload: true
+    autodelete: true
+
+  com.valvesoftware.Steam.Utility:
+    subdirectories: true
+    directory: utils
+    add-ld-path: lib
+    merge-dirs: bin;lib/python3.7/site-packages;
     no-autodownload: true
     autodelete: true
 
@@ -170,6 +180,7 @@ modules:
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir -p /app/share/steam/compatibilitytools.d
+        mkdir -p /app/utils
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu
