@@ -128,10 +128,11 @@ modules:
 
   - name: libbsd
     sources:
-      - type: git
-        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: a11c98a6b5f57666260a5a4792404d81d59e418d
-        tag: 0.10.0
+      - type: archive
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz
+        mirror-urls:
+          - http://deb.debian.org/debian/pool/main/libb/libbsd/libbsd_0.10.0.orig.tar.xz
+        sha256: 34b8adc726883d0e85b3118fa13605e179a62b31ba51f676136ecb2d0bc1a887
 
   - name: gamemode
     buildsystem: meson
