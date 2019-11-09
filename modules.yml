@@ -98,8 +98,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.4.1.tar.gz"
-        sha256: a244f0629f75eb450e090cd773d30e22367cb231e964c7492588eb9000201fd1
+        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.5.1.corrected.tar.gz"
+        sha256: 2b6a0ce1c02b9fe7b9ef727369168fe579e5256f1ea013993acdb8d8f06b7e89
 
   - name: vkd3d
     sources:
