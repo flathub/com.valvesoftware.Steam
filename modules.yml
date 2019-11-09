@@ -11,7 +11,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        commit: 874f7831c64de7ea2203cfcd1b3fc336bc27e468
+        commit: 3b93b226177b6a8d219fa5edee2a417758cf74db
 
   - name: eudev
     cleanup:
