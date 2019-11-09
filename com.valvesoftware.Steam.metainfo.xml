@@ -28,15 +28,20 @@
   <screenshots>
     <screenshot type="default">
       <caption>The main Steam library window</caption>
-      <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam.screenshot-0.png</image>
+      <image type="source" width="1200" height="1026">https://steamcdn-a.akamaihd.net/steamcommunity/public/images/clans/27766192/27b935179076c418c2f62f9440aba9c06161e4c0.jpg</image>
     </screenshot>
     <screenshot>
       <caption>Steam Store interface</caption>
       <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam.screenshot-1.png</image>
     </screenshot>
     <screenshot>
-      <caption>Steam community</caption>
-      <image type="source" width="1280" height="720">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam.screenshot-2.png</image>
+      <image type="source" width="1200" height="582">https://steamcdn-a.akamaihd.net/steamcommunity/public/images/clans/27766192/ac26dea63042eec4886d5fa27854517ce374b11e.jpg</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1200" height="717">https://steamcdn-a.akamaihd.net/steamcommunity/public/images/clans/27766192/85bab8a696ad635859ae5e84b4339db95bcdf47d.jpg</image>
+    </screenshot>
+    <screenshot>
+      <image type="source" width="1200" height="535">https://steamcdn-a.akamaihd.net/steamcommunity/public/images/clans/27766192/563daff788965a9f0aa4525190ef12d8c10832d6.jpg</image>
     </screenshot>
   </screenshots>
   <metadata>

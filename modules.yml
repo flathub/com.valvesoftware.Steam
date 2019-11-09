@@ -11,7 +11,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        commit: 874f7831c64de7ea2203cfcd1b3fc336bc27e468
+        commit: 3b93b226177b6a8d219fa5edee2a417758cf74db
 
   - name: eudev
     cleanup:
@@ -98,8 +98,8 @@ modules:
     buildsystem: cmake-ninja
     sources:
       - type: archive
-        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.4.1.tar.gz"
-        sha256: a244f0629f75eb450e090cd773d30e22367cb231e964c7492588eb9000201fd1
+        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.5.1.corrected.tar.gz"
+        sha256: 2b6a0ce1c02b9fe7b9ef727369168fe579e5256f1ea013993acdb8d8f06b7e89
 
   - name: vkd3d
     sources:
@@ -123,15 +123,16 @@ modules:
   - name: xrandr
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.0.tar.bz2
-        sha256: c1cfd4e1d4d708c031d60801e527abc9b6d34b85f2ffa2cadd21f75ff38151cd
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
+        sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
 
   - name: libbsd
     sources:
-      - type: git
-        url: https://gitlab.freedesktop.org/libbsd/libbsd.git
-        commit: a11c98a6b5f57666260a5a4792404d81d59e418d
-        tag: 0.10.0
+      - type: archive
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz
+        mirror-urls:
+          - http://deb.debian.org/debian/pool/main/libb/libbsd/libbsd_0.10.0.orig.tar.xz
+        sha256: 34b8adc726883d0e85b3118fa13605e179a62b31ba51f676136ecb2d0bc1a887
 
   - name: gamemode
     buildsystem: meson

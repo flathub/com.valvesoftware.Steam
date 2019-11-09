@@ -44,6 +44,8 @@ finish-args:
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
+  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
+  - --env=PYTHONPATH=/app/utils/lib/python3.7/site-packages
   - --require-version=1.0.0
 
 add-extensions:
@@ -82,6 +84,14 @@ add-extensions:
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
+    no-autodownload: true
+    autodelete: true
+
+  com.valvesoftware.Steam.Utility:
+    subdirectories: true
+    directory: utils
+    add-ld-path: lib
+    merge-dirs: bin;lib/python3.7/site-packages;
     no-autodownload: true
     autodelete: true
 
@@ -126,13 +136,13 @@ modules:
         PREFIX=/app make install
         ln -sf /bin/true /app/bin/steamdeps
         cp /usr/bin/cmp /app/bin
-        install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.appdata.xml
+        install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
     sources:
       - type: archive
         url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
         sha256: d66413cce9c9ad441f95c4377103b0c71bda4ac4570ecfc7dd2464fe4ef1bd30
       - type: file
-        path: com.valvesoftware.Steam.appdata.xml
+        path: com.valvesoftware.Steam.metainfo.xml
 
   - name: steamcmd
     build-options:
@@ -170,6 +180,7 @@ modules:
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir -p /app/share/steam/compatibilitytools.d
+        mkdir -p /app/utils
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu
