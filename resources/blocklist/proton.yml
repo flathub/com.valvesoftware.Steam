@@ -60,3 +60,4 @@ entries:
           - path: libFAudio.so.0.19.08
           - path: libFAudio.so.0.19.09
           - path: libFAudio.so.0.19.11
+          - path: libFAudio.so.0.19.12
