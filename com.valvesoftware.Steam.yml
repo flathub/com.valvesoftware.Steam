@@ -109,11 +109,11 @@ cleanup-commands:
 
 modules:
 
-  - "modules.yml"
+  - modules.yml
 
-  - "modules-32bit.yml"
+  - modules-32bit.yml
 
-  - "python-dependencies.json"
+  - python-dependencies.json
 
   - name: steam_wrapper
     buildsystem: simple
@@ -139,13 +139,14 @@ modules:
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
     sources:
       - type: archive
-        url: http://repo.steampowered.com/steam/archive/precise/steam_latest.tar.gz
+        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.61.tar.gz
         sha256: d66413cce9c9ad441f95c4377103b0c71bda4ac4570ecfc7dd2464fe4ef1bd30
         x-checker-data:
           type: html
-          url: "http://repo.steampowered.com/steam/archive/precise/"
+          url: http://repo.steampowered.com/steam/archive/precise/
           version-pattern: steam_([\d.-]+).tar.gz
           url-pattern: (steam_[\d.-]+.tar.gz)
+        size: 2875970
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
