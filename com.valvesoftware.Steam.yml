@@ -91,14 +91,7 @@ add-extensions:
     subdirectories: true
     directory: utils
     add-ld-path: lib
-    merge-dirs: bin;lib/python3.7/site-packages;
-    no-autodownload: true
-    autodelete: true
-
-  com.valvesoftware.Steam.VulkanLayer:
-    directory: layers
-    subdirectories: true
-    merge-dirs: share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
+    merge-dirs: bin;lib/python3.7/site-packages;share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
     no-autodownload: true
     autodelete: true
 
@@ -193,10 +186,9 @@ modules:
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         install -Dm744 -t /app/bin lsb_release
         mkdir -p /app/share/steam/compatibilitytools.d
-        mkdir -p /app/utils
-        mkdir -p /app/layers /app/share/vulkan
-        ln -srv /app/{layers/,}share/vulkan/explicit_layer.d
-        ln -srv /app/{layers/,}share/vulkan/implicit_layer.d
+        mkdir -p /app/utils /app/share/vulkan
+        ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
+        ln -srv /app/{utils/,}share/vulkan/implicit_layer.d
         mkdir /app/links
         ln -s /app/lib /app/links/x86_64-linux-gnu
         ln -s /app/lib32 /app/links/i386-linux-gnu
