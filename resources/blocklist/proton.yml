@@ -62,3 +62,14 @@ entries:
           - path: libFAudio.so.0.19.11
           - path: libFAudio.so.0.19.12
           - path: libFAudio.so.0.20.02
+
+  - basedir: "*(/*|/.*)/Proton 5.0/dist"
+    blocklists:
+      - binaries:
+          - path: bin/wine64
+            libdir: lib64
+          - path: bin/wine64-preloader
+            libdir: lib64
+        libraries:
+          - path: libFAudio.so.0.20.02
+          - path: libFAudio.so.0.20.03
