@@ -46,6 +46,7 @@ finish-args:
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
   - --env=PYTHONPATH=/app/utils/lib/python3.7/site-packages
+  - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --require-version=1.0.0
 
 add-extensions:
