@@ -172,6 +172,15 @@ modules:
       - type: file
         path: com.valvesoftware.Steam.cmd.metainfo.xml
 
+  - name: lsb-release-compat
+    buildsystem: simple
+    build-commands:
+      - make install PREFIX=/app
+    sources:
+      - type: git
+        url: https://gitlab.com/nanonyme/lsb-release-compat.git
+        commit: 5751a93f4cd3885a9c3c92aa86026255851ad670
+
   - name: platform-bootstrap
     buildsystem: simple
     build-commands:
@@ -186,7 +195,6 @@ modules:
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
-        install -Dm744 -t /app/bin lsb_release
         mkdir -p /app/share/steam/compatibilitytools.d
         mkdir -p /app/utils /app/share/vulkan
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
