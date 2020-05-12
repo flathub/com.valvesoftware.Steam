@@ -108,10 +108,11 @@ modules:
 # -- end vkd3d --
 
   - name: libnotify
+    buildsystem: meson
     config-opts:
-      - --disable-static
-      - --disable-tests
-      - --disable-introspection
+      - -Dtests=false
+      - -Dintrospection=disabled
+      - -Dman=false
     sources:
       - type: archive
         url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.8.tar.xz
