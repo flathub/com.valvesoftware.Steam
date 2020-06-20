@@ -142,14 +142,14 @@ modules:
         ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.62.tar.gz
-        sha256: 83cbff7379b3ef8115e651fb1b627be5f9b38d0e8b405e8bcd91871df5f588df
+        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.63.tar.gz
+        sha256: e322506fc7de1e2de6641edb34888829d82081984b582640aac638ac122272e9
         x-checker-data:
           type: html
           url: http://repo.steampowered.com/steam/archive/precise/
           version-pattern: steam_([\d.-]+).tar.gz
           url-pattern: (steam_[\d.-]+.tar.gz)
-        size: 3000116
+        size: 3012371
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
