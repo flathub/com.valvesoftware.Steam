@@ -84,6 +84,8 @@ modules:
        x86_64: *compat_i386_opts
     sources:
       - sources/vkd3d-archive.json
+      - type: patch
+        path: patches/0001-vkd3d-Introduce-our-own-pipeline-bind-point-enumerat.patch
 
 # -- end vkd3d --
 
