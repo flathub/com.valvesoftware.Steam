@@ -1,6 +1,6 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: '19.08'
+runtime-version: '20.08beta'
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -53,17 +53,17 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '19.08'
+    version: '20.08beta'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '19.08'
+    version: '20.08beta'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 19.08;1.4
+    versions: 20.08beta;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -74,8 +74,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '19.08'
-    versions: '19.08'
+    version: '20.08beta'
+    versions: '20.08beta'
     subdirectories: true
     no-autodownload: true
     autodelete: false

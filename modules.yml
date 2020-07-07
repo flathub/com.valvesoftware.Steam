@@ -88,21 +88,6 @@ modules:
 
 # -- end faudio --
 
-# -- vkd3d --
-
-  - name: SPIRV-Headers
-    buildsystem: cmake-ninja
-    sources:
-      - type: archive
-        url: "https://github.com/KhronosGroup/SPIRV-Headers/archive/1.5.3.tar.gz"
-        sha256: eece8a9e147d37997d425d5d2eeb2e757ad25adc30d6651467094f3b18609b5a
-
-  - name: vkd3d
-    sources:
-      - sources/vkd3d-archive.json
-
-# -- end vkd3d --
-
   - name: libnotify
     buildsystem: meson
     config-opts:
