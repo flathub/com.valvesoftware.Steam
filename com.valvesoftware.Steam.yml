@@ -1,6 +1,6 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: '20.08beta'
+runtime-version: 20.08beta
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -53,11 +53,11 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '20.08beta'
+    version: 20.08beta
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '20.08beta'
+    version: 20.08beta
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
@@ -74,8 +74,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '20.08beta'
-    versions: '20.08beta'
+    version: 20.08beta
+    versions: 20.08beta
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -142,14 +142,14 @@ modules:
         ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.64.tar.gz
-        sha256: 72d39dcb818484eb688d0ceaf77dd586d39dfb0c5fa936ca0ac2069b9e7d7ca6
+        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.66.tar.gz
+        sha256: 738c855f73168d0bce0b9297c75d9dbf56419b722264d8ca3f7737657754c710
         x-checker-data:
           type: html
           url: http://repo.steampowered.com/steam/archive/precise/
           version-pattern: steam_([\d.-]+).tar.gz
           url-pattern: (steam_[\d.-]+.tar.gz)
-        size: 3013735
+        size: 3014360
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
