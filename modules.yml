@@ -63,26 +63,10 @@ modules:
 
 # -- faudio --
 
-  - name: ffmpeg
-    config-opts:
-      - --enable-shared
-      - --disable-static
-      - --enable-gnutls
-      - --disable-doc
-      - --disable-programs
-      - --disable-encoders
-      - --disable-muxers
-      - --disable-libv4l2
-      - --disable-stripping
-    sources:
-      - "sources/ffmpeg-archive.json"
-    cleanup:
-      - /share/ffmpeg/examples
-
   - name: FAudio
     buildsystem: cmake-ninja
     config-opts:
-      - -DFFMPEG=ON
+      - -DGSTREAMER=ON
     sources:
       - "sources/FAudio-archive.json"
 
