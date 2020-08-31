@@ -41,51 +41,17 @@ modules:
 
 # -- faudio --
 
-  - name: ffmpeg-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-      config-opts:
-        - --enable-cross-compile
-        - --cc=i686-unknown-linux-gnu-gcc
-        - --cxx=i686-unknown-linux-gnu-g++
-    config-opts:
-      - --enable-shared
-      - --disable-static
-      - --enable-gnutls
-      - --disable-doc
-      - --disable-programs
-      - --disable-encoders
-      - --disable-muxers
-      - --disable-libv4l2
-      - --disable-stripping
-    sources:
-      - "sources/ffmpeg-archive.json"
-    cleanup:
-      - /share/ffmpeg/examples
-
   - name: FAudio-32bit
     build-options:
       arch:
         x86_64: *compat_i386_opts
     buildsystem: cmake-ninja
     config-opts:
-      - -DFFMPEG=ON
+      - -DGSTREAMER=ON
     sources:
       - "sources/FAudio-archive.json"
 
 # -- end faudio --
-
-# -- vkd3d --
-
-  - name: vkd3d-32bit
-    build-options:
-     arch:
-       x86_64: *compat_i386_opts
-    sources:
-      - sources/vkd3d-archive.json
-
-# -- end vkd3d --
 
   - name: gamemode-32bit
     build-options:
