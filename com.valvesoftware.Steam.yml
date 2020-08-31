@@ -20,6 +20,9 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
+  # Steam in -steamos mode uses Network Manager for network settings, e.g.
+  # connecting to wifi and so on.
+  # In normal mode, it probably just gets info about current connection status.
   - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
