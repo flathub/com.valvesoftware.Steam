@@ -11,7 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        commit: 335f72f8ed4ad0cf335526d3c6c4701f7e58f45b
+        tag: v0.339
+        commit: 1cd8ee29eb2dcb954961be008b96cfbf982f0700
 
   - name: eudev
     cleanup:
@@ -86,12 +87,6 @@ modules:
         url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
         sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
 
-  - name: xrandr
-    sources:
-      - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
-        sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
-
   - name: libbsd
     sources:
       - type: archive
@@ -103,19 +98,10 @@ modules:
   - name: gamemode
     buildsystem: meson
     config-opts:
-      - -Dwith-systemd=false
-      - -Dwith-daemon=false
+      - -Dwith-sd-bus-provider=no-daemon
       - -Dwith-examples=false
     sources:
       - "sources/gamemode-git.json"
-
-  - name: gamemoderun
-    buildsystem: simple
-    build-commands:
-      - install gamemoderun /app/bin
-    sources:
-      - type: file
-        path: resources/gamemoderun
 
   - name: shared-library-guard
     buildsystem: meson

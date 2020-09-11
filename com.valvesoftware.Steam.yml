@@ -20,6 +20,9 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
+  # Steam in -steamos mode uses Network Manager for network settings, e.g.
+  # connecting to wifi and so on.
+  # In normal mode, it probably just gets info about current connection status.
   - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
@@ -47,6 +50,7 @@ finish-args:
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
   - --env=PYTHONPATH=/app/utils/lib/python3.7/site-packages
+  - --env=PROTON_DEBUG_DIR=/var/tmp
   - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --require-version=1.0.0
 
