@@ -98,19 +98,10 @@ modules:
   - name: gamemode
     buildsystem: meson
     config-opts:
-      - -Dwith-systemd=false
-      - -Dwith-daemon=false
+      - -Dwith-sd-bus-provider=no-daemon
       - -Dwith-examples=false
     sources:
       - "sources/gamemode-git.json"
-
-  - name: gamemoderun
-    buildsystem: simple
-    build-commands:
-      - install gamemoderun /app/bin
-    sources:
-      - type: file
-        path: resources/gamemoderun
 
   - name: shared-library-guard
     buildsystem: meson

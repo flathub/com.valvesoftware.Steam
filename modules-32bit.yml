@@ -59,8 +59,7 @@ modules:
        x86_64: *compat_i386_opts
     buildsystem: meson
     config-opts:
-      - -Dwith-systemd=false
-      - -Dwith-daemon=false
+      - -Dwith-sd-bus-provider=no-daemon
       - -Dwith-examples=false
     sources:
       - "sources/gamemode-git.json"
