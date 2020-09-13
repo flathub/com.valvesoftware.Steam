@@ -103,6 +103,13 @@ modules:
     sources:
       - "sources/gamemode-git.json"
 
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 data/gamemoderun -t /app/bin
+    sources:
+      - "sources/gamemode-git.json"
+
   - name: shared-library-guard
     buildsystem: meson
     subdir: shared-library-guard
