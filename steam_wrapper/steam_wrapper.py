@@ -212,28 +212,6 @@ def enable_discord_rpc():
         else:
             os.symlink(src=src_rel, dst=dst)
 
-def repair_broken_migration():
-    cache = CACHE
-    wrong_data = ".data"
-    wrong_cache = DATA
-    data = wrong_cache
-    root = os.path.realpath(STEAM_ROOT)
-    current_cache = os.path.relpath(os.path.realpath(XDG_CACHE_HOME), root)
-    current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)
-    if os.path.islink(XDG_CACHE_HOME) and current_cache == wrong_cache:
-        copytree(current_cache, cache)
-        os.unlink(XDG_CACHE_HOME)
-        os.symlink(cache, XDG_CACHE_HOME)
-    if os.path.islink(XDG_DATA_HOME) and current_data == wrong_data:
-        steam_home = os.path.join(current_data, "Steam")
-        copytree(current_data, data, [steam_home])
-        if os.path.isdir(steam_home):
-            os.rename(steam_home,
-                      os.path.join(data, "Steam"))
-        os.unlink(XDG_DATA_HOME)
-        os.symlink(data, XDG_DATA_HOME)
-        shutil.rmtree(wrong_data)
-
 def configure_shared_library_guard():
     mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
     if not mode:
@@ -250,7 +228,6 @@ def main(steam_binary=STEAM_PATH):
     if consent:
         migrate_data()
         migrate_cache()
-    repair_broken_migration()
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
