@@ -1,15 +1,11 @@
 #!/usr/bin/python3
 import os
 import os.path
-import stat
 import sys
 import shutil
 import errno
 import fnmatch
-import subprocess
 import configparser
-import vdf
-from pathlib import Path
 from distutils.version import LooseVersion
 
 
@@ -93,16 +89,6 @@ def copytree(source, target, ignore=None):
             print (f"Relocating {full_source} to {full_target}")
             shutil.copy2(full_source, full_target)
             os.utime(full_target)
-
-def check_nonempty(name):
-    try:
-        with open(name) as file:
-            return len(file.read()) > 0
-    except IOError as e:
-        if e.errno != errno.ENOENT:
-            raise
-        else:
-            return False
 
 def check_bad_filesystem_entries(entries):
     bad_names = ["home", "host", os.path.expandvars("/var/home/$USER"),
