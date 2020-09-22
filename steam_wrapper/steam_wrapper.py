@@ -58,21 +58,6 @@ def timezone_workaround():
         os.environ["TZ"] = zone_name
         print (f"Overriding TZ to {zone_name}")
 
-def prompt():
-    p = subprocess.Popen(["zenity", "--question",
-                          ("--text="
-                           "This is com.valvesoftware.Steam cloud sync repair. "
-                           "If you have conflicting local and cloud data for "
-                           "your game, this may result in partial loss of your "
-                           "cloud data. If you instead prefer ensuring cloud data "
-                           "persists, please relocate your "
-                           "~/.var/app/com.valvesoftware.Steam/data/Steam "
-                           "to a secure location, "
-                           "remove ~/.var/app/com.valvesoftware.Steam "
-                           "and put Steam data directory back to avoid needing to "
-                           "re-download games. Do you want to allow the migration?")])
-    return p.wait() == 0
-
 def ignored(name, patterns):
     for pattern in patterns:
         if fnmatch.fnmatch(name, pattern):
@@ -156,15 +141,10 @@ def migrate_config():
     2) Next start of app, remove temp
     In theory this should not break everything
     """
-    consent = True
     source = os.path.expandvars("$XDG_CONFIG_HOME")
     target = CONFIG
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
-        if os.path.isdir(target):
-            consent = prompt()
-            if not consent:
-                return consent
         copytree(source, target)
         os.rename(source, relocated)
         os.symlink(target, source)
@@ -172,7 +152,6 @@ def migrate_config():
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{CONFIG}")
-    return consent
 
 def migrate_data():
     """
@@ -224,10 +203,9 @@ def main(steam_binary=STEAM_PATH):
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    consent = migrate_config()
-    if consent:
-        migrate_data()
-        migrate_cache()
+    migrate_config()
+    migrate_data()
+    migrate_cache()
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
