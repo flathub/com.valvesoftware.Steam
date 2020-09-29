@@ -149,18 +149,19 @@ def migrate_data():
     """
     source = os.path.expandvars("$XDG_DATA_HOME")
     target = DATA
-    backup = f'{DATA}.bak'
-    steam_home = os.path.join(source, "Steam")
+    staging = f'{DATA}.staging'
     xdg_data_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
-        if os.path.isdir(target):
-            copytree(target, backup)
-        copytree(source, target, ignore=[steam_home])
+        if os.path.exists(source):
+            os.rename(source, staging)
+        os.symlink(target, source)
+    if os.path.isdir(staging):
+        steam_home = os.path.join(staging, "Steam")
+        copytree(staging, target, ignore=[steam_home])
         if os.path.isdir(steam_home):
             os.rename(steam_home,
                       os.path.join(xdg_data_home, "Steam"))
-        shutil.rmtree(source)
-        os.symlink(target, source)
+        shutil.rmtree(staging)
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DATA}")
 
 def migrate_cache():
