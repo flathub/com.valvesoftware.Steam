@@ -1,15 +1,11 @@
 #!/usr/bin/python3
 import os
 import os.path
-import stat
 import sys
 import shutil
 import errno
 import fnmatch
-import subprocess
 import configparser
-import vdf
-from pathlib import Path
 from distutils.version import LooseVersion
 
 
@@ -58,21 +54,6 @@ def timezone_workaround():
         os.environ["TZ"] = zone_name
         print (f"Overriding TZ to {zone_name}")
 
-def prompt():
-    p = subprocess.Popen(["zenity", "--question",
-                          ("--text="
-                           "This is com.valvesoftware.Steam cloud sync repair. "
-                           "If you have conflicting local and cloud data for "
-                           "your game, this may result in partial loss of your "
-                           "cloud data. If you instead prefer ensuring cloud data "
-                           "persists, please relocate your "
-                           "~/.var/app/com.valvesoftware.Steam/data/Steam "
-                           "to a secure location, "
-                           "remove ~/.var/app/com.valvesoftware.Steam "
-                           "and put Steam data directory back to avoid needing to "
-                           "re-download games. Do you want to allow the migration?")])
-    return p.wait() == 0
-
 def ignored(name, patterns):
     for pattern in patterns:
         if fnmatch.fnmatch(name, pattern):
@@ -108,16 +89,6 @@ def copytree(source, target, ignore=None):
             print (f"Relocating {full_source} to {full_target}")
             shutil.copy2(full_source, full_target)
             os.utime(full_target)
-
-def check_nonempty(name):
-    try:
-        with open(name) as file:
-            return len(file.read()) > 0
-    except IOError as e:
-        if e.errno != errno.ENOENT:
-            raise
-        else:
-            return False
 
 def check_bad_filesystem_entries(entries):
     bad_names = ["home", "host", os.path.expandvars("/var/home/$USER"),
@@ -156,15 +127,13 @@ def migrate_config():
     2) Next start of app, remove temp
     In theory this should not break everything
     """
-    consent = True
     source = os.path.expandvars("$XDG_CONFIG_HOME")
     target = CONFIG
+    backup = f'{CONFIG}.bak'
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
-            consent = prompt()
-            if not consent:
-                return consent
+            copytree(target, backup)
         copytree(source, target)
         os.rename(source, relocated)
         os.symlink(target, source)
@@ -172,7 +141,6 @@ def migrate_config():
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{CONFIG}")
-    return consent
 
 def migrate_data():
     """
@@ -181,9 +149,13 @@ def migrate_data():
     """
     source = os.path.expandvars("$XDG_DATA_HOME")
     target = DATA
+    backup = f'{DATA}.bak'
     steam_home = os.path.join(source, "Steam")
     xdg_data_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
+        if os.path.isdir(target):
+            copytree(target, backup,
+                     ignore=[os.path.join(target, "Steam")])
         copytree(source, target, ignore=[steam_home])
         if os.path.isdir(steam_home):
             os.rename(steam_home,
@@ -212,28 +184,6 @@ def enable_discord_rpc():
         else:
             os.symlink(src=src_rel, dst=dst)
 
-def repair_broken_migration():
-    cache = CACHE
-    wrong_data = ".data"
-    wrong_cache = DATA
-    data = wrong_cache
-    root = os.path.realpath(STEAM_ROOT)
-    current_cache = os.path.relpath(os.path.realpath(XDG_CACHE_HOME), root)
-    current_data = os.path.relpath(os.path.realpath(XDG_DATA_HOME), root)
-    if os.path.islink(XDG_CACHE_HOME) and current_cache == wrong_cache:
-        copytree(current_cache, cache)
-        os.unlink(XDG_CACHE_HOME)
-        os.symlink(cache, XDG_CACHE_HOME)
-    if os.path.islink(XDG_DATA_HOME) and current_data == wrong_data:
-        steam_home = os.path.join(current_data, "Steam")
-        copytree(current_data, data, [steam_home])
-        if os.path.isdir(steam_home):
-            os.rename(steam_home,
-                      os.path.join(data, "Steam"))
-        os.unlink(XDG_DATA_HOME)
-        os.symlink(data, XDG_DATA_HOME)
-        shutil.rmtree(wrong_data)
-
 def configure_shared_library_guard():
     mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
     if not mode:
@@ -246,11 +196,9 @@ def main(steam_binary=STEAM_PATH):
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    consent = migrate_config()
-    if consent:
-        migrate_data()
-        migrate_cache()
-    repair_broken_migration()
+    migrate_config()
+    migrate_data()
+    migrate_cache()
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
