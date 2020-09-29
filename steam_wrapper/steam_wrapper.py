@@ -154,7 +154,8 @@ def migrate_data():
     xdg_data_home = os.path.join(STEAM_ROOT, target)
     if not os.path.islink(source):
         if os.path.isdir(target):
-            copytree(target, backup)
+            copytree(target, backup,
+                     ignore=[os.path.join(target, "Steam")])
         copytree(source, target, ignore=[steam_home])
         if os.path.isdir(steam_home):
             os.rename(steam_home,
