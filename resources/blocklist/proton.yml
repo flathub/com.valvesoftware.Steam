@@ -69,6 +69,7 @@ entries:
           - path: libFAudio.so.0.20.07
           - path: libFAudio.so.0.20.08
           - path: libFAudio.so.0.20.09
+          - path: libFAudio.so.0.20.10
 
   - basedir: "*(/*|/.*)/Proton 5.0/dist"
     blocklists:
