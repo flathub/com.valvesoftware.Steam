@@ -48,8 +48,6 @@ finish-args:
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
-  - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
-  - --env=PYTHONPATH=/app/utils/lib/python3.8/site-packages
   - --env=PROTON_DEBUG_DIR=/var/tmp
   - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --require-version=1.0.0
@@ -97,7 +95,7 @@ add-extensions:
     subdirectories: true
     directory: utils
     add-ld-path: lib
-    merge-dirs: bin;lib/python3.8/site-packages;share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
+    merge-dirs: share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
     no-autodownload: true
     autodelete: true
 

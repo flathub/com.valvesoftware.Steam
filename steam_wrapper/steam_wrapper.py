@@ -18,6 +18,13 @@ CONFIG = ".config"
 DATA = ".local/share"
 CACHE = ".cache"
 FLATPAK_INFO = "/.flatpak-info"
+PYTHON_VERSION = f"{sys.version_info.major}.{sys.version_info.minor}"
+UTIL_EXT_BASE_ID = "com.valvesoftware.Steam.Utility"
+UTIL_EXT_BASE_DIR = "/app/utils"
+UTIL_EXT_PATHS = {
+    "PATH": ["bin"],
+    "PYTHONPATH": [f"lib/python{PYTHON_VERSION}/site-packages"],
+}
 
 
 def read_flatpak_info(path):
@@ -191,6 +198,23 @@ def configure_shared_library_guard():
     else:
         os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
 
+
+def enable_extensions(flatpak_info):
+    for ext_id in flatpak_info["app-extensions"]:
+        if not ext_id.startswith(f"{UTIL_EXT_BASE_ID}."):
+            continue
+        ext_name = ext_id.lstrip(f"{UTIL_EXT_BASE_ID}.")
+        ext_dir = os.path.join(UTIL_EXT_BASE_DIR, ext_name)
+        for env, subdirs in UTIL_EXT_PATHS.items():
+            paths = [i for i in os.environ.get(env, "").split(os.pathsep) if i]
+            for subdir in subdirs:
+                ext_path = os.path.join(ext_dir, subdir)
+                if os.path.isdir(ext_path):
+                    paths.append(ext_path)
+            if paths:
+                os.environ[env] = os.pathsep.join(paths)
+
+
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
@@ -202,4 +226,5 @@ def main(steam_binary=STEAM_PATH):
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
+    enable_extensions(current_info)
     os.execv(steam_binary, [steam_binary] + sys.argv[1:])
