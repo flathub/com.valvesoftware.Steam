@@ -38,8 +38,13 @@ finish-args:
   - --allow=bluetooth
   - --persist=.
   - --env=TZ=
-  - --env=LC_NUMERIC=C
+  - --env=LC_ADDRESS=C
   - --env=LC_COLLATE=C
+  - --env=LC_MONETARY=C
+  - --env=LC_MEASUREMENT=C
+  - --env=LC_NAME=C
+  - --env=LC_NUMERIC=C
+  - --env=LC_TELEPHONE=C
   - --env=ALSA_CONFIG_PATH=
   - --env=MESA_GLSL_CACHE_DIR=
   - --env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=
