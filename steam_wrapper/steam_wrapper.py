@@ -44,6 +44,11 @@ def read_flatpak_info(path):
                                         fallback="").split(";")
     }
 
+def strip_prefix(string, prefix):
+    if not string.startswith(prefix):
+        raise ValueError(f"{string} doesn't match prefix {prefix}")
+    return string[len(prefix):]
+
 def read_file(path):
     try:
         with open(path, "r") as f:
@@ -203,7 +208,7 @@ def enable_extensions(flatpak_info):
     for ext_id in flatpak_info["app-extensions"]:
         if not ext_id.startswith(f"{UTIL_EXT_BASE_ID}."):
             continue
-        ext_name = ext_id.lstrip(f"{UTIL_EXT_BASE_ID}.")
+        ext_name = strip_prefix(ext_id, f"{UTIL_EXT_BASE_ID}.")
         ext_dir = os.path.join(UTIL_EXT_BASE_DIR, ext_name)
         for env, subdirs in UTIL_EXT_PATHS.items():
             paths = [i for i in os.environ.get(env, "").split(os.pathsep) if i]
