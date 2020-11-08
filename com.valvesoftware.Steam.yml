@@ -88,12 +88,16 @@ add-extensions:
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
+    version: beta
+    versions: beta;test
     no-autodownload: true
     autodelete: true
 
   com.valvesoftware.Steam.Utility:
     subdirectories: true
     directory: utils
+    version: beta
+    versions: beta;test
     add-ld-path: lib
     merge-dirs: share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
     no-autodownload: true
