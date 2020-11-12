@@ -219,3 +219,11 @@ modules:
     sources:
       - type: dir
         path: resources
+
+  - name: prime-run
+    buildsystem: simple
+    sources:
+      - type: file
+        path: prime-run
+    build-commands:
+      - install -Dm755 -t /app/bin prime-run
