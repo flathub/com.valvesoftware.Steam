@@ -27,6 +27,8 @@ modules:
     build-options:
       arch:
         x86_64: *compat_i386_opts
+      ldflags: -L/app/lib32 -Wl,-z,relro,-z,now -Wl,--as-needed
+      ldflags-override: true
     sources:
       - sources/libusb-archive.json
 
