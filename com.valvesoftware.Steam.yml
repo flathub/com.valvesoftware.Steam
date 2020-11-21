@@ -92,6 +92,18 @@ add-extensions:
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
+  org.freedesktop.Platform.ffmpeg-full:
+    directory: lib/ffmpeg
+    add-ld-path: "."
+    version: "20.08"
+    autodelete: false
+
+  org.freedesktop.Platform.ffmpeg_full.i386:
+    directory: lib32/ffmpeg
+    add-ld-path: "."
+    version: "20.08"
+    autodelete: false
+
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
@@ -137,7 +149,6 @@ modules:
         path: steam_wrapper
     build-commands:
       - python3 -mpip install . --prefix=/app --no-index --find-links .
-    modules:
 
   - name: steam
     buildsystem: simple
@@ -209,6 +220,7 @@ modules:
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
+        mkdir -p /app/lib{,32}/ffmpeg
         mkdir -p /app/share/steam/compatibilitytools.d
         mkdir -p /app/utils /app/share/vulkan
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
