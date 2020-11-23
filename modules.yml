@@ -24,7 +24,9 @@ modules:
     sources:
       - sources/eudev-archive.json
 
-  - shared-modules/libusb/libusb.json
+  - name: libusb
+    sources:
+      - sources/libusb-archive.json
 
   - name: usbutils
     config-opts:
