@@ -1,64 +1,44 @@
 {
-    "name": "python-requirements.json",
+    "name": "python-dependencies",
     "buildsystem": "simple",
-    "build-commands": [],
-    "modules": [
+    "build-commands": [
+        "pip3 install --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} jsonschema PyYAML vdf"
+    ],
+    "sources": [
         {
-            "name": "python3-jsonschema",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} jsonschema"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl",
-                    "sha256": "69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79"
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/73/fb/00a976f728d0d1fecfe898238ce23f502a721c0ac0ecfedb80e0d88c64e9/six-1.12.0-py2.py3-none-any.whl",
-                    "sha256": "3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c"
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/b9/66/b2638d96a2d128b168d0dba60fdc77b7800a9b4a5340cefcc5fc4eae6295/pyrsistent-0.15.4.tar.gz",
-                    "sha256": "34b47fa169d6006b32e99d4b3c4031f155e6e68ebcc107d6454852e8e0ee6533"
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/54/48/f5f11003ceddcd4ad292d4d9b5677588e9169eef41f88e38b2888e7ec6c4/jsonschema-3.0.2-py2.py3-none-any.whl",
-                    "sha256": "5f9c0a719ca2ce14c5de2fd350a64fd2d13e8539db29836a86adc990bb1a068f"
-                }
-            ]
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/c3/aa/cb45262569fcc047bf070b5de61813724d6726db83259222cd7b4c79821a/attrs-20.3.0-py2.py3-none-any.whl",
+            "sha256": "31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6"
         },
         {
-            "name": "python3-PyYAML",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} PyYAML"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/e3/e8/b3212641ee2718d556df0f23f78de8303f068fe29cdaa7a91018849582fe/PyYAML-5.1.2.tar.gz",
-                    "sha256": "01adf0b6c6f61bd11af6e10ca52b7d4057dd0be0343eb9283c878cf3af56aee4"
-                }
-            ]
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/6d/38/c21ef5034684ffc0412deefbb07d66678332290c14bb5269c85145fbd55e/setuptools-50.3.2-py3-none-any.whl",
+            "sha256": "2c242a0856fbad7efbe560df4a7add9324f340cf48df43651e9604924466794a"
         },
         {
-            "name": "python3-vdf",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} vdf"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/f1/34/27cbd1fce02029f470554cf56dc19e0180bb14927dedd35375be691d4d2d/vdf-3.2-py2.py3-none-any.whl",
-                    "sha256": "8e0d33ebe0bafd991be3236ce1bd211e368e9a2b8bc376dacd5f6b77066afb90"
-                }
-            ]
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/ee/ff/48bde5c0f013094d729fe4b0316ba2a24774b3ff1c52d924a8a4cb04078a/six-1.15.0-py2.py3-none-any.whl",
+            "sha256": "8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/4d/70/fd441df751ba8b620e03fd2d2d9ca902103119616f0f6cc42e6405035062/pyrsistent-0.17.3.tar.gz",
+            "sha256": "2e636185d9eb976a18a8a8e96efce62f2905fea90041958d8cc2a189756ebf3e"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/c5/8f/51e89ce52a085483359217bc72cdbf6e75ee595d5b1d4b5ade40c7e018b8/jsonschema-3.2.0-py2.py3-none-any.whl",
+            "sha256": "4e5b3cf8216f577bee9ce139cbe72eca3ea4f292ec60928ff24758ce626cd163"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/64/c2/b80047c7ac2478f9501676c988a5411ed5572f35d1beff9cae07d321512c/PyYAML-5.3.1.tar.gz",
+            "sha256": "b8eac752c5e14d3eca0e6dd9199cd627518cb5ec06add0de9d32baeee6fe645d"
+        },
+        {
+            "type": "file",
+            "url": "https://files.pythonhosted.org/packages/1d/d3/b115bd86fdefa50cd035d5d7bb0a299088711218c8eca1dd163cf07508ed/vdf-3.3-py2.py3-none-any.whl",
+            "sha256": "f88db3a3e66e7264da7fdacf0ffa1d99be52dd30510b2c1a1340171b227472e4"
         }
     ]
 }
