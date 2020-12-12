@@ -20,7 +20,7 @@
     <category>PackageManager</category>
   </categories>
   <url type="homepage">https://store.steampowered.com/</url>
-  <url type="help">https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions</url>
+  <url type="help">https://github.com/flathub/com.valvesoftware.Steam/wiki</url>
   <url type="bugtracker">https://github.com/flathub/com.valvesoftware.Steam/issues</url>
   <project_license>LicenseRef-proprietary</project_license>
   <developer_name>Valve Corporation</developer_name>

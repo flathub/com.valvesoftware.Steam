@@ -100,8 +100,8 @@ def check_bad_filesystem_entries(entries):
             print (f"Bad item \"{items[0]}\" found in filesystem overrides")
             found = True
     if found:
-        faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki/"
-               "Frequently-asked-questions#i-want-to-add-external-disk-for-steam-libraries")
+        faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki"
+               "#i-want-to-add-external-disk-for-steam-libraries")
         raise SystemExit(f"Please see {faq}")
 
 def check_allowed_to_run(current_info):
@@ -193,7 +193,7 @@ def configure_shared_library_guard():
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
-    print ("https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions")
+    print ("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
     migrate_config()
