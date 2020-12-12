@@ -20,7 +20,7 @@
     <category>PackageManager</category>
   </categories>
   <url type="homepage">https://store.steampowered.com/</url>
-  <url type="help">https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions</url>
+  <url type="help">https://github.com/flathub/com.valvesoftware.Steam/wiki</url>
   <url type="bugtracker">https://github.com/flathub/com.valvesoftware.Steam/issues</url>
   <project_license>LicenseRef-proprietary</project_license>
   <developer_name>Valve Corporation</developer_name>
@@ -47,6 +47,7 @@
     <value key="GnomeSoftware::popular-background">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam-thumb.png</value>
   </metadata>
   <releases>
+    <release version="1.0.0.68" date="2020-12-02"/>
     <release version="1.0.0.67" date="2020-11-20"/>
     <release version="1.0.0.66" date="2020-07-29"/>
     <release version="1.0.0.64" date="2020-06-24"/>
