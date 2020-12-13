@@ -91,8 +91,10 @@ def copytree(source, target, ignore=None):
             os.utime(full_target)
 
 def check_bad_filesystem_entries(entries):
-    bad_names = ["home", "host", os.path.expandvars("/var/home/$USER"),
-         "/home/$USER"]
+    bad_names = ["home",
+                 "host",
+                 os.path.expandvars("/var/home/$USER"),
+                 os.path.expandvars("/home/$USER")]
     found = False
     for entry in entries:
         items = entry.split(";")
