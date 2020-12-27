@@ -8,3 +8,12 @@ If you're having issues, first see
 to see if you're hitting some corner-case that needs manual intervention. If your case isn't listed, file an issue in addition to adding an entry in tested games.
 
 Minimum version required 1.0.0
+
+Python dependencies
+-------------------
+
+poetry lock
+
+flatpak-builder-tools/poetry/flatpak-poetry-generator.py poetry.lock
+
+COmmit result
