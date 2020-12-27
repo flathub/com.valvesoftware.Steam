@@ -1,0 +1,12 @@
+[tool.poetry]
+name = "com.valvesoftware.Steam"
+description = "Boilerplate for managing dependencies"
+version = "1.0.0"
+authors = [
+    "Flathub"
+]
+
+[tool.poetry.dependencies]
+jsonschema = "*"
+PyYAML = "*"
+vdf = "*"
