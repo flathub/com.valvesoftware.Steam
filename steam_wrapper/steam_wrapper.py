@@ -10,13 +10,13 @@ from distutils.version import LooseVersion
 
 
 STEAM_PATH = "/app/bin/steam"
-STEAM_ROOT = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
+FLATPAK_STATE_DIR = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 XDG_RUNTIME_DIR = os.environ["XDG_RUNTIME_DIR"]
-CONFIG = ".config"
-DATA = ".local/share"
-CACHE = ".cache"
+DEFAULT_CONFIG_DIR = ".config"
+DEFAULT_DATA_DIR = ".local/share"
+DEFAULT_CACHE_DIR = ".cache"
 FLATPAK_INFO = "/.flatpak-info"
 
 
@@ -90,6 +90,7 @@ def copytree(source, target, ignore=None):
             shutil.copy2(full_source, full_target)
             os.utime(full_target)
 
+
 def check_bad_filesystem_entries(entries):
     bad_names = ["home",
                  "host",
@@ -106,6 +107,7 @@ def check_bad_filesystem_entries(entries):
         faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki"
                "#i-want-to-add-external-disk-for-steam-libraries")
         raise SystemExit(f"Please see {faq}")
+
 
 def check_allowed_to_run(current_info):
     current_version = current_info["flatpak-version"]
@@ -131,8 +133,8 @@ def migrate_config():
     In theory this should not break everything
     """
     source = os.path.expandvars("$XDG_CONFIG_HOME")
-    target = CONFIG
-    backup = f'{CONFIG}.bak'
+    target = DEFAULT_CONFIG_DIR
+    backup = f'{DEFAULT_CONFIG_DIR}.bak'
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
@@ -143,7 +145,8 @@ def migrate_config():
     else:
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
-    os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{CONFIG}")
+    os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
+
 
 def migrate_data():
     """
@@ -151,30 +154,32 @@ def migrate_data():
     games and is massive. It needs to be separately moved
     """
     source = os.path.expandvars("$XDG_DATA_HOME")
-    target = DATA
-    backup = f'{DATA}.bak'
-    steam_home = os.path.join(source, "Steam")
-    xdg_data_home = os.path.join(STEAM_ROOT, target)
+    target = DEFAULT_DATA_DIR
+    backup = f'{DEFAULT_DATA_DIR}.bak'
+    steam_root = os.path.join(source, "Steam")
+    new_data_home = os.path.join(FLATPAK_STATE_DIR, target)
     if not os.path.islink(source):
         if os.path.isdir(target):
             copytree(target, backup,
                      ignore=[os.path.join(target, "Steam")])
-        copytree(source, target, ignore=[steam_home])
-        if os.path.isdir(steam_home):
-            os.rename(steam_home,
-                      os.path.join(xdg_data_home, "Steam"))
+        copytree(source, target, ignore=[steam_root])
+        if os.path.isdir(steam_root):
+            os.rename(steam_root,
+                      os.path.join(new_data_home, "Steam"))
         shutil.rmtree(source)
         os.symlink(target, source)
-    os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DATA}")
+    os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
+
 
 def migrate_cache():
     source = os.path.expandvars("$XDG_CACHE_HOME")
-    target = CACHE
+    target = DEFAULT_CACHE_DIR
     if not os.path.islink(source):
         copytree(source, target)
         shutil.rmtree(source)
         os.symlink(target, source)
-    os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{CACHE}")
+    os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CACHE_DIR}")
+
 
 def enable_discord_rpc():
     # Discord can have a socket numbered from 0 to 9
@@ -187,12 +192,14 @@ def enable_discord_rpc():
         else:
             os.symlink(src=src_rel, dst=dst)
 
+
 def configure_shared_library_guard():
     mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
     if not mode:
         return
     else:
         os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
+
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
