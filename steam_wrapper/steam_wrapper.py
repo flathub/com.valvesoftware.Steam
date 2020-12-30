@@ -95,7 +95,7 @@ def check_bad_filesystem_entries(entries):
                  "host",
                  os.path.expandvars("/var/home/$USER"),
                  os.path.expandvars("/home/$USER")]
-    bad_topdirs = ["xdg-config", "xdg-data", "xdg-cache"]
+    bad_topdirs = ["home/", "system/"]
     found = False
     for entry in entries:
         assert ";" not in entry
@@ -194,14 +194,26 @@ def configure_shared_library_guard():
     else:
         os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
 
+
+def skip_migration(current_info, prefix):
+    compare = re.compile(fr"^{prefix}/?")
+    for entry in current_info["filesystems"]:
+        if compare.search(entry):
+            return True
+    return False
+
+
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    migrate_config()
-    migrate_data()
-    migrate_cache()
+    if not skip_migration(current_info, "xdg-config"):
+        migrate_config()
+    if not skip_migration(current_info, "xdg-data"):
+        migrate_data()
+    if not skip_migration(current_info, "xdg-cache"):
+        migrate_cache()
     timezone_workaround()
     configure_shared_library_guard()
     enable_discord_rpc()
