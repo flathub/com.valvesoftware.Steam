@@ -53,7 +53,6 @@ finish-args:
   - --env=STEAM_RUNTIME=
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
-  - --env=PULSE_LATENCY_MSEC=60
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
