@@ -6,6 +6,7 @@ import shutil
 import errno
 import fnmatch
 import configparser
+import re
 from distutils.version import LooseVersion
 
 
@@ -96,7 +97,7 @@ def check_bad_filesystem_entries(entries):
                  "host",
                  os.path.expandvars("/var/home/$USER"),
                  os.path.expandvars("/home/$USER")]
-    bad_topdirs = ["xdg-config", "xdg-data", "xdg-cache"]
+    bad_topdirs = ["xdg-data", "xdg-cache"]
     found = False
     for entry in entries:
         assert ";" not in entry
@@ -125,7 +126,18 @@ def check_allowed_to_run(current_info):
         shutil.rmtree(steam_home)
 
 
-def migrate_config():
+def make_xdg_ignores(current_info, xdg_name, path):
+    ignores = []
+    filesystems = current_info["filesystems"]
+    for filesystem in filesystems:
+        filesystem_path = filesystem.split(":")[0]
+        if filesystem_path.startswith(xdg_name):
+            ignores.append(re.sub(f"^{xdg_name}", path,
+                                  filesystem_path))
+    return ignores
+
+
+def migrate_config(current_info):
     """
     There's bind-mounted contents inside config dir so we need to
     1) Relocate, move to temp
@@ -139,7 +151,8 @@ def migrate_config():
     if not os.path.islink(source):
         if os.path.isdir(target):
             copytree(target, backup)
-        copytree(source, target)
+        ignores = make_xdg_ignores(current_info, "xdg-config", source)
+        copytree(source, target, ignores)
         os.rename(source, relocated)
         os.symlink(target, source)
     else:
@@ -206,7 +219,7 @@ def main(steam_binary=STEAM_PATH):
     print ("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    migrate_config()
+    migrate_config(current_info)
     migrate_data()
     migrate_cache()
     timezone_workaround()
