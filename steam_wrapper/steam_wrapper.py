@@ -97,7 +97,7 @@ def check_bad_filesystem_entries(entries):
                  "host",
                  os.path.expandvars("/var/home/$USER"),
                  os.path.expandvars("/home/$USER")]
-    bad_topdirs = ["xdg-data", "xdg-cache"]
+    bad_topdirs = ["xdg-data", "xdg-cache", "home", "host"]
     found = False
     for entry in entries:
         assert ";" not in entry
