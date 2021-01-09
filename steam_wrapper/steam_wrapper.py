@@ -96,12 +96,11 @@ def check_bad_filesystem_entries(entries):
                  "host",
                  os.path.expandvars("/var/home/$USER"),
                  os.path.expandvars("/home/$USER")]
-    bad_topdirs = ["xdg-config", "xdg-data", "xdg-cache"]
     found = False
     for entry in entries:
-        assert ";" not in entry
-        if (entry in bad_names) or (os.path.split(entry)[0] in bad_topdirs):
-            print (f"Bad item \"{entry}\" found in filesystem overrides")
+        items = entry.split(";")
+        if items[0] in bad_names:
+            print (f"Bad item \"{items[0]}\" found in filesystem overrides")
             found = True
     if found:
         faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki"
