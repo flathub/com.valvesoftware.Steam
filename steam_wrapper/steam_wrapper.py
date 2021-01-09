@@ -91,6 +91,13 @@ def copytree(source, target, ignore=None):
             os.utime(full_target)
 
 
+def symlink_rel(target, source):
+    assert os.path.isabs(source)
+    assert os.path.isabs(target)
+    rel_target = os.path.relpath(target, os.path.dirname(source))
+    os.symlink(rel_target, source)
+
+
 def check_bad_filesystem_entries(entries):
     bad_names = ["home",
                  "host",
@@ -132,15 +139,15 @@ def migrate_config():
     In theory this should not break everything
     """
     source = os.path.expandvars("$XDG_CONFIG_HOME")
-    target = DEFAULT_CONFIG_DIR
-    backup = f'{DEFAULT_CONFIG_DIR}.bak'
+    target = os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR)
+    backup = f'{target}.bak'
     relocated = os.path.expandvars("$XDG_CONFIG_HOME.old")
     if not os.path.islink(source):
         if os.path.isdir(target):
             copytree(target, backup)
         copytree(source, target)
         os.rename(source, relocated)
-        os.symlink(target, source)
+        symlink_rel(target, source)
     else:
         if os.path.isdir(relocated):
             shutil.rmtree(relocated)
@@ -153,30 +160,28 @@ def migrate_data():
     games and is massive. It needs to be separately moved
     """
     source = os.path.expandvars("$XDG_DATA_HOME")
-    target = DEFAULT_DATA_DIR
-    backup = f'{DEFAULT_DATA_DIR}.bak'
-    steam_root = os.path.join(source, "Steam")
-    new_data_home = os.path.join(FLATPAK_STATE_DIR, target)
+    target = os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR)
+    backup = f'{target}.bak'
+    steam_root_source = os.path.join(source, "Steam")
+    steam_root_target = os.path.join(target, "Steam")
     if not os.path.islink(source):
         if os.path.isdir(target):
-            copytree(target, backup,
-                     ignore=[os.path.join(target, "Steam")])
-        copytree(source, target, ignore=[steam_root])
-        if os.path.isdir(steam_root):
-            os.rename(steam_root,
-                      os.path.join(new_data_home, "Steam"))
+            copytree(target, backup, ignore=[steam_root_target])
+        copytree(source, target, ignore=[steam_root_source])
+        if os.path.isdir(steam_root_source):
+            os.rename(steam_root_source, steam_root_target)
         shutil.rmtree(source)
-        os.symlink(target, source)
+        symlink_rel(target, source)
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
 
 
 def migrate_cache():
     source = os.path.expandvars("$XDG_CACHE_HOME")
-    target = DEFAULT_CACHE_DIR
+    target = os.path.join(FLATPAK_STATE_DIR, DEFAULT_CACHE_DIR)
     if not os.path.islink(source):
         copytree(source, target)
         shutil.rmtree(source)
-        os.symlink(target, source)
+        symlink_rel(target, source)
     os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CACHE_DIR}")
 
 
