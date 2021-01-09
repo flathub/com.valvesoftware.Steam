@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.342
-        commit: bdcc84fca6eb97bef9a8a8b04f71cbed8f32a986
+        tag: v0.343
+        commit: cce4969f24c213ae3ab45ee90a485b342ab74014
 
   - name: eudev
     cleanup:
@@ -34,8 +34,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: f3a05e2e368cf17f9882c8d358f2fa205eb1ead6
-        tag: v012
+        commit: 88ee15b7f4e4185060bfadb41cf583cebcaa6d0f
+        tag: v013
 
 # -- end controllers --
 

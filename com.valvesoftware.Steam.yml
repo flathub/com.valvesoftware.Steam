@@ -209,7 +209,7 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/nanonyme/lsb-release-compat.git
-        commit: 5751a93f4cd3885a9c3c92aa86026255851ad670
+        commit: f4f908b62dcc9cd081eb2a42b6ad7cf98db4bb10
 
   - name: platform-bootstrap
     buildsystem: simple
