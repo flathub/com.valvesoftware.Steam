@@ -162,6 +162,7 @@ def migrate_data():
     source = os.path.expandvars("$XDG_DATA_HOME")
     target = os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR)
     backup = f'{target}.bak'
+    relocated = os.path.expandvars("$XDG_DATA_HOME.old")
     steam_root_source = os.path.join(source, "Steam")
     steam_root_target = os.path.join(target, "Steam")
     if not os.path.islink(source):
@@ -170,8 +171,11 @@ def migrate_data():
         copytree(source, target, ignore=[steam_root_source])
         if os.path.isdir(steam_root_source):
             os.rename(steam_root_source, steam_root_target)
-        shutil.rmtree(source)
+        os.rename(source, relocated)
         symlink_rel(target, source)
+    else:
+        if os.path.isdir(relocated):
+            shutil.rmtree(relocated)
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
 
 
