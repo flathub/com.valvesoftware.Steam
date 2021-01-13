@@ -202,29 +202,45 @@ class Migrator:
         return False
 
 
-def migrate_config():
+
+def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
+    assert xdg_name in ["xdg-data", "xdg-config", "xdg-cache"]
+    dirs: t.Set[str] = set()
+    for filesystem in flatpak_info["filesystems"]:
+        filesystem_path = filesystem.rsplit(":", 1)[0]
+        path_seq = os.path.split(filesystem_path)
+        if path_seq[0] == xdg_name:
+            dirs.add(os.path.join(*path_seq[1:]))
+    return dirs
+
+
+def migrate_config(flatpak_info):
     """
     There's bind-mounted contents inside config dir so we need to
     1) Relocate, move to temp
     2) Next start of app, remove temp
     In theory this should not break everything
     """
+    ignore = _get_host_xdg_mounts("xdg-config", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_CONFIG_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR),
+                        ignore=ignore,
                         two_steps=True)
     should_restart = migrator.apply()
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
     return should_restart
 
 
-def migrate_data():
+def migrate_data(flatpak_info):
     """
     Data directory contains a directory Steam which contains all installed
     games and is massive. It needs to be separately moved
     """
+    ignore = _get_host_xdg_mounts("xdg-data", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_DATA_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR),
                         two_steps=True,
+                        ignore=ignore,
                         rename=["Steam"])
     should_restart = migrator.apply()
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
@@ -266,8 +282,8 @@ def main(steam_binary=STEAM_PATH):
     logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    should_restart = migrate_config()
-    should_restart += migrate_data()
+    should_restart = migrate_config(current_info)
+    should_restart += migrate_data(current_info)
     should_restart += migrate_cache()
     if should_restart:
         command = ["/usr/bin/flatpak-spawn"] + sys.argv
