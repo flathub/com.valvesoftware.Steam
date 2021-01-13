@@ -127,16 +127,16 @@ def check_allowed_to_run(current_info):
 
 class Migrator:
     def __init__(self, source: str, target: str,
-                 ignore: t.Optional[t.List[str]]=None,
+                 ignore: t.Optional[t.Set[str]]=None,
                  rename: t.Optional[t.List[str]]=None,
                  two_steps=False, need_backup=True):
         self.source = source
         assert os.path.isabs(self.source)
         self.target = target
         assert os.path.isabs(self.target)
-        self.ignore = ignore or []
+        self.ignore = ignore or set()
         self.rename = rename or []
-        self.no_copy = list(set(self.ignore) | set(self.rename))
+        self.no_copy = self.ignore | set(self.rename)
         assert not any(os.path.isabs(i) for i in self.no_copy)
         self.two_steps = two_steps
         self.need_backup = need_backup
@@ -154,11 +154,11 @@ class Migrator:
         if self.need_backup and os.path.isdir(self.target):
             self.log.info(f"Copying {self.target} to {self.target_backup}, ignoring {self.no_copy}")
             copytree(self.target, self.target_backup,
-                     ignore=[os.path.join(self.target, i) for i in self.no_copy])
+                     ignore={os.path.join(self.target, i) for i in self.no_copy})
         # Copy source to target, rename nocopy subdirs
         self.log.info(f"Copying {self.source} to {self.target}, ignoring {self.no_copy}")
         copytree(self.source, self.target,
-                 ignore=[os.path.join(self.source, i) for i in self.no_copy])
+                 ignore={os.path.join(self.source, i) for i in self.no_copy})
         for rename_path in self.rename:
             if rename_path in self.ignore:
                 continue
