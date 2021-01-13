@@ -196,13 +196,17 @@ class Migrator:
         assert self.need_cleanup
         self.log.info(f"Deleting {self.relocated_source}")
         shutil.rmtree(self.relocated_source)
-        return [self.relocated_source]
 
     def apply(self):
+        """
+        Return value means whether we need app restart
+        """
         if self.need_migration:
             self.do_migrate()
+            return self.two_steps
         elif self.need_cleanup:
             self.do_cleanup()
+        return False
 
 
 def migrate_config():
@@ -215,8 +219,9 @@ def migrate_config():
     migrator = Migrator(os.path.expandvars("$XDG_CONFIG_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR),
                         two_steps=True)
-    migrator.apply()
+    should_restart = migrator.apply()
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
+    return should_restart
 
 
 def migrate_data():
@@ -228,16 +233,18 @@ def migrate_data():
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR),
                         two_steps=True,
                         rename=["Steam"])
-    migrator.apply()
+    should_restart = migrator.apply()
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
+    return should_restart
 
 
 def migrate_cache():
     migrator = Migrator(os.path.expandvars("$XDG_CACHE_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CACHE_DIR),
                         need_backup=False)
-    migrator.apply()
+    should_restart = migrator.apply()
     os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CACHE_DIR}")
+    return should_restart
 
 
 def enable_discord_rpc():
@@ -266,10 +273,15 @@ def main(steam_binary=STEAM_PATH):
     logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    migrate_config()
-    migrate_data()
-    migrate_cache()
-    timezone_workaround()
-    configure_shared_library_guard()
-    enable_discord_rpc()
-    os.execv(steam_binary, [steam_binary] + sys.argv[1:])
+    should_restart = migrate_config()
+    should_restart += migrate_data()
+    should_restart += migrate_cache()
+    if should_restart:
+        command = ["/usr/bin/flatpak-spawn"] + sys.argv
+        logging.info("Restarting app due to finalize sandbox tuning")
+        os.execv(command[0], command)
+    else:
+        timezone_workaround()
+        configure_shared_library_guard()
+        enable_discord_rpc()
+        os.execv(steam_binary, [steam_binary] + sys.argv[1:])
