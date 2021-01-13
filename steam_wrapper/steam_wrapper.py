@@ -124,26 +124,19 @@ def check_allowed_to_run(current_info):
 
     check_bad_filesystem_entries(current_info["filesystems"])
 
-    steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
-    if os.path.isdir(steam_home):
-        # Relocate from old migration
-        ignore = ("*/.steam", "*/.local", "*/.var")
-        copytree(steam_home, os.path.expandvars("$HOME"), ignore=ignore)
-        shutil.rmtree(steam_home)
-
 
 class Migrator:
     def __init__(self, source: str, target: str,
-                 ignore: t.Optional[t.List[str]]=None,
+                 ignore: t.Optional[t.Set[str]]=None,
                  rename: t.Optional[t.List[str]]=None,
                  two_steps=False, need_backup=True):
         self.source = source
         assert os.path.isabs(self.source)
         self.target = target
         assert os.path.isabs(self.target)
-        self.ignore = ignore or []
+        self.ignore = ignore or set()
         self.rename = rename or []
-        self.no_copy = list(set(self.ignore) | set(self.rename))
+        self.no_copy = self.ignore | set(self.rename)
         assert not any(os.path.isabs(i) for i in self.no_copy)
         self.two_steps = two_steps
         self.need_backup = need_backup
@@ -161,11 +154,11 @@ class Migrator:
         if self.need_backup and os.path.isdir(self.target):
             self.log.info(f"Copying {self.target} to {self.target_backup}, ignoring {self.no_copy}")
             copytree(self.target, self.target_backup,
-                     ignore=[os.path.join(self.target, i) for i in self.no_copy])
+                     ignore={os.path.join(self.target, i) for i in self.no_copy})
         # Copy source to target, rename nocopy subdirs
         self.log.info(f"Copying {self.source} to {self.target}, ignoring {self.no_copy}")
         copytree(self.source, self.target,
-                 ignore=[os.path.join(self.source, i) for i in self.no_copy])
+                 ignore={os.path.join(self.source, i) for i in self.no_copy})
         for rename_path in self.rename:
             if rename_path in self.ignore:
                 continue
@@ -209,29 +202,45 @@ class Migrator:
         return False
 
 
-def migrate_config():
+
+def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
+    assert xdg_name in ["xdg-data", "xdg-config", "xdg-cache"]
+    dirs: t.Set[str] = set()
+    for filesystem in flatpak_info["filesystems"]:
+        filesystem_path = filesystem.rsplit(":", 1)[0]
+        path_seq = os.path.split(filesystem_path)
+        if path_seq[0] == xdg_name:
+            dirs.add(os.path.join(*path_seq[1:]))
+    return dirs
+
+
+def migrate_config(flatpak_info):
     """
     There's bind-mounted contents inside config dir so we need to
     1) Relocate, move to temp
     2) Next start of app, remove temp
     In theory this should not break everything
     """
+    ignore = _get_host_xdg_mounts("xdg-config", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_CONFIG_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR),
+                        ignore=ignore,
                         two_steps=True)
     should_restart = migrator.apply()
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
     return should_restart
 
 
-def migrate_data():
+def migrate_data(flatpak_info):
     """
     Data directory contains a directory Steam which contains all installed
     games and is massive. It needs to be separately moved
     """
+    ignore = _get_host_xdg_mounts("xdg-data", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_DATA_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR),
                         two_steps=True,
+                        ignore=ignore,
                         rename=["Steam"])
     should_restart = migrator.apply()
     os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
@@ -273,8 +282,8 @@ def main(steam_binary=STEAM_PATH):
     logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    should_restart = migrate_config()
-    should_restart += migrate_data()
+    should_restart = migrate_config(current_info)
+    should_restart += migrate_data(current_info)
     should_restart += migrate_cache()
     if should_restart:
         command = ["/usr/bin/flatpak-spawn"] + sys.argv
