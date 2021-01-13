@@ -124,13 +124,6 @@ def check_allowed_to_run(current_info):
 
     check_bad_filesystem_entries(current_info["filesystems"])
 
-    steam_home = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam/home")
-    if os.path.isdir(steam_home):
-        # Relocate from old migration
-        ignore = ("*/.steam", "*/.local", "*/.var")
-        copytree(steam_home, os.path.expandvars("$HOME"), ignore=ignore)
-        shutil.rmtree(steam_home)
-
 
 class Migrator:
     def __init__(self, source: str, target: str,
