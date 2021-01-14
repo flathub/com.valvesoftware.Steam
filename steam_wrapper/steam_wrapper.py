@@ -202,13 +202,12 @@ class Migrator:
         return False
 
 
-
 def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
     assert xdg_name in ["xdg-data", "xdg-config", "xdg-cache"]
     dirs: t.Set[str] = set()
     for filesystem in flatpak_info["filesystems"]:
         filesystem_path = filesystem.rsplit(":", 1)[0]
-        path_seq = os.path.split(filesystem_path)
+        path_seq = os.path.normpath(filesystem_path).split(os.path.sep)
         if path_seq[0] == xdg_name:
             dirs.add(os.path.join(*path_seq[1:]))
     return dirs
