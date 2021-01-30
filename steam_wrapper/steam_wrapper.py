@@ -129,7 +129,7 @@ class Migrator:
     def __init__(self, source: str, target: str,
                  ignore: t.Optional[t.Set[str]]=None,
                  rename: t.Optional[t.List[str]]=None,
-                 two_steps=False, need_backup=True):
+                 two_steps=True, need_backup=True):
         self.source = source
         assert os.path.isabs(self.source)
         self.target = target
@@ -223,8 +223,7 @@ def migrate_config(flatpak_info):
     ignore = _get_host_xdg_mounts("xdg-config", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_CONFIG_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR),
-                        ignore=ignore,
-                        two_steps=True)
+                        ignore=ignore)
     should_restart = migrator.apply()
     os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
     return should_restart
@@ -238,7 +237,6 @@ def migrate_data(flatpak_info):
     ignore = _get_host_xdg_mounts("xdg-data", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_DATA_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_DATA_DIR),
-                        two_steps=True,
                         ignore=ignore,
                         rename=["Steam"])
     should_restart = migrator.apply()
@@ -246,9 +244,11 @@ def migrate_data(flatpak_info):
     return should_restart
 
 
-def migrate_cache():
+def migrate_cache(flatpak_info):
+    ignore = _get_host_xdg_mounts("xdg-cache", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_CACHE_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CACHE_DIR),
+                        ignore=ignore,
                         need_backup=False)
     should_restart = migrator.apply()
     os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CACHE_DIR}")
@@ -283,7 +283,7 @@ def main(steam_binary=STEAM_PATH):
     check_allowed_to_run(current_info)
     should_restart = migrate_config(current_info)
     should_restart += migrate_data(current_info)
-    should_restart += migrate_cache()
+    should_restart += migrate_cache(current_info)
     if should_restart:
         command = ["/usr/bin/flatpak-spawn"] + sys.argv
         logging.info("Restarting app due to finalize sandbox tuning")
