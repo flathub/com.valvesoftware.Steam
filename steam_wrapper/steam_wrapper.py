@@ -213,7 +213,7 @@ def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
     return dirs
 
 
-def migrate_config(flatpak_info):
+def migrate_config(flatpak_info, xdg_dirs_prefix):
     """
     There's bind-mounted contents inside config dir so we need to
     1) Relocate, move to temp
@@ -225,11 +225,15 @@ def migrate_config(flatpak_info):
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CONFIG_DIR),
                         ignore=ignore)
     should_restart = migrator.apply()
-    os.environ["XDG_CONFIG_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CONFIG_DIR}")
+    if xdg_dirs_prefix:
+        os.environ["XDG_CONFIG_HOME"] = os.path.join(
+            os.path.expanduser(xdg_dirs_prefix),
+            DEFAULT_CONFIG_DIR,
+        )
     return should_restart
 
 
-def migrate_data(flatpak_info):
+def migrate_data(flatpak_info, xdg_dirs_prefix):
     """
     Data directory contains a directory Steam which contains all installed
     games and is massive. It needs to be separately moved
@@ -240,18 +244,26 @@ def migrate_data(flatpak_info):
                         ignore=ignore,
                         rename=["Steam"])
     should_restart = migrator.apply()
-    os.environ["XDG_DATA_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_DATA_DIR}")
+    if xdg_dirs_prefix:
+        os.environ["XDG_DATA_HOME"] = os.path.join(
+            os.path.expanduser(xdg_dirs_prefix),
+            DEFAULT_DATA_DIR,
+        )
     return should_restart
 
 
-def migrate_cache(flatpak_info):
+def migrate_cache(flatpak_info, xdg_dirs_prefix):
     ignore = _get_host_xdg_mounts("xdg-cache", flatpak_info)
     migrator = Migrator(os.path.expandvars("$XDG_CACHE_HOME"),
                         os.path.join(FLATPAK_STATE_DIR, DEFAULT_CACHE_DIR),
                         ignore=ignore,
                         need_backup=False)
     should_restart = migrator.apply()
-    os.environ["XDG_CACHE_HOME"] = os.path.expandvars(f"$HOME/{DEFAULT_CACHE_DIR}")
+    if xdg_dirs_prefix:
+        os.environ["XDG_CACHE_HOME"] = os.path.join(
+            os.path.expanduser(xdg_dirs_prefix),
+            DEFAULT_CACHE_DIR,
+        )
     return should_restart
 
 
@@ -281,9 +293,11 @@ def main(steam_binary=STEAM_PATH):
     logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    should_restart = migrate_config(current_info)
-    should_restart += migrate_data(current_info)
-    should_restart += migrate_cache(current_info)
+    xdg_dirs_prefix = os.environ.get("FLATPAK_STEAM_XDG_DIRS_PREFIX")
+    assert not xdg_dirs_prefix or xdg_dirs_prefix.startswith("~")
+    should_restart = migrate_config(current_info, xdg_dirs_prefix)
+    should_restart += migrate_data(current_info, xdg_dirs_prefix)
+    should_restart += migrate_cache(current_info, xdg_dirs_prefix)
     if should_restart:
         command = ["/usr/bin/flatpak-spawn"] + sys.argv
         logging.info("Restarting app due to finalize sandbox tuning")
