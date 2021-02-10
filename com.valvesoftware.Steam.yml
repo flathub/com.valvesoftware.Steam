@@ -18,6 +18,7 @@ finish-args:
   - --socket=wayland
   - --socket=x11
   - --socket=pulseaudio
+  - --socket=system-bus
   - --share=network
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   # Steam in -steamos mode uses Network Manager for network settings, e.g.
