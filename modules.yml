@@ -97,13 +97,19 @@ modules:
         url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
         sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
 
+  - name: libmd
+    sources:
+      - type: archive
+        url: https://archive.hadrons.org/software/libmd/libmd-1.0.3.tar.xz
+        mirror-urls:
+          - https://libbsd.freedesktop.org/releases/libmd-1.0.3.tar.xz
+        sha256: 5a02097f95cc250a3f1001865e4dbba5f1d15554120f95693c0541923c52af4a
+
   - name: libbsd
     sources:
       - type: archive
-        url: https://libbsd.freedesktop.org/releases/libbsd-0.10.0.tar.xz
-        mirror-urls:
-          - http://deb.debian.org/debian/pool/main/libb/libbsd/libbsd_0.10.0.orig.tar.xz
-        sha256: 34b8adc726883d0e85b3118fa13605e179a62b31ba51f676136ecb2d0bc1a887
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.11.3.tar.xz
+        sha256: ff95cf8184151dacae4247832f8d4ea8800fa127dbd15033ecfe839f285b42a1
 
   - name: gamemode
     buildsystem: meson
