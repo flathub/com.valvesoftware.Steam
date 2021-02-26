@@ -303,18 +303,16 @@ def get_current_xdg_dir_prefix():
     return current_prefix
 
 
-def shift_steam_symlinks(xdg_dirs_prefix):
-    if not xdg_dirs_prefix:
+def shift_steam_symlinks(current_prefix, new_prefix):
+    if not current_prefix or not new_prefix:
         return False
-    new_prefix = os.path.normpath(os.path.expanduser(xdg_dirs_prefix))
+    new_prefix = os.path.normpath(new_prefix)
     assert new_prefix in ALLOWED_XDG_DIRS_PREFIXES, new_prefix
-    current_prefix = get_current_xdg_dir_prefix()
-    if not current_prefix:
-        return False
+    current_prefix = os.path.normpath(current_prefix)
     assert current_prefix in ALLOWED_XDG_DIRS_PREFIXES, current_prefix
-    logging.info(f"Guessed current XDG dirs prefix {current_prefix}")
     if new_prefix == current_prefix:
         return False
+    logging.info(f"Changing XDG dirs prefix from {current_prefix} to {new_prefix}")
     shifted = False
     for name in STEAM_SYMLINKS:
         symlink = os.path.expanduser(f"~/.steam/{name}")
@@ -361,8 +359,14 @@ def main(steam_binary=STEAM_PATH):
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
-    xdg_dirs_prefix = os.environ.get("FLATPAK_STEAM_XDG_DIRS_PREFIX")
-    assert not xdg_dirs_prefix or xdg_dirs_prefix.startswith("~")
+    current_xdg_prefix = get_current_xdg_dir_prefix()
+    if not current_xdg_prefix or should_update_symlinks:
+        xdg_dirs_prefix = os.environ.get("FLATPAK_STEAM_XDG_DIRS_PREFIX")
+        assert not xdg_dirs_prefix or xdg_dirs_prefix.startswith("~")
+        xdg_dirs_prefix = os.path.expanduser(xdg_dirs_prefix)
+    else:
+        xdg_dirs_prefix = current_xdg_prefix
+    logging.info(f"Will set XDG dirs prefix to {xdg_dirs_prefix}")
     should_restart = migrate_config(current_info, xdg_dirs_prefix)
     should_restart += migrate_data(current_info, xdg_dirs_prefix)
     should_restart += migrate_cache(current_info, xdg_dirs_prefix)
@@ -372,7 +376,7 @@ def main(steam_binary=STEAM_PATH):
         os.execv(command[0], command)
     else:
         if should_update_symlinks:
-            shift_steam_symlinks(xdg_dirs_prefix)
+            shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
         timezone_workaround()
         configure_shared_library_guard()
         enable_discord_rpc()
