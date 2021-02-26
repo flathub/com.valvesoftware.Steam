@@ -52,6 +52,7 @@ finish-args:
   - --env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=
   - --env=STEAM_RUNTIME=
   - --env=FLATPAK_STEAM_XDG_DIRS_PREFIX=~/.var/app/com.valvesoftware.Steam
+  - --env=FLATPAK_STEAM_UPDATE_SYMLINKS=0
   - --env=SDL_VIDEODRIVER=
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs

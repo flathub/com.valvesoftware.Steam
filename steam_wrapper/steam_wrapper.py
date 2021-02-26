@@ -20,6 +20,19 @@ DEFAULT_CONFIG_DIR = ".config"
 DEFAULT_DATA_DIR = ".local/share"
 DEFAULT_CACHE_DIR = ".cache"
 FLATPAK_INFO = "/.flatpak-info"
+# List of symlinks under ~/.steam relative to xdg-data
+STEAM_SYMLINKS = {
+    "bin32": "ubuntu12_32",
+    "bin64": "ubuntu12_64",
+    "root": ".",
+    "sdk32": "linux32",
+    "sdk64": "linux64",
+    "steam": ".",
+}
+ALLOWED_XDG_DIRS_PREFIXES = [
+    os.path.expanduser("~"),
+    FLATPAK_STATE_DIR,
+]
 
 
 def read_flatpak_info(path):
@@ -38,6 +51,17 @@ def read_flatpak_info(path):
         "filesystems": flatpak_info.get("Context", "filesystems",
                                         fallback="").split(";")
     }
+
+
+def env_is_true(env_str: str):
+    if env_str.lower() in ["y", "yes", "true"]:
+        return True
+    if env_str.lower() in ["n", "no", "false"]:
+        return False
+    if env_str.isdigit():
+        return bool(int(env_str))
+    return None
+
 
 def read_file(path):
     try:
@@ -267,6 +291,47 @@ def migrate_cache(flatpak_info, xdg_dirs_prefix):
     return should_restart
 
 
+def get_current_xdg_dir_prefix():
+    if not os.path.isdir(os.path.expanduser("~/.steam")):
+        logging.debug("~/.steam doesn't exists - cannot determine current prefix")
+        return None
+    current_steam_root = os.readlink(os.path.expanduser("~/.steam/root"))
+    # FIXME we need a more reliable way to determine current prefix
+    # here we assume that ~/.steam/root points to ~/.local/share/Steam
+    # this will break if `steam` was first ran bypassing the wrapper
+    current_prefix = os.path.normpath(os.path.join(current_steam_root, "..", "..", ".."))
+    return current_prefix
+
+
+def shift_steam_symlinks(current_prefix, new_prefix):
+    if not current_prefix or not new_prefix:
+        return False
+    new_prefix = os.path.normpath(new_prefix)
+    assert new_prefix in ALLOWED_XDG_DIRS_PREFIXES, new_prefix
+    current_prefix = os.path.normpath(current_prefix)
+    assert current_prefix in ALLOWED_XDG_DIRS_PREFIXES, current_prefix
+    if new_prefix == current_prefix:
+        return False
+    logging.info(f"Changing XDG dirs prefix from {current_prefix} to {new_prefix}")
+    shifted = False
+    for name in STEAM_SYMLINKS:
+        symlink = os.path.expanduser(f"~/.steam/{name}")
+        assert os.path.islink(symlink)
+        current_target = os.readlink(symlink)
+        new_target = os.path.join(
+            new_prefix,
+            os.path.relpath(current_target, current_prefix)
+        )
+        if not os.path.isdir(new_target):
+            logging.error(f"Symlink {symlink}: new target {new_target} does not exist, skipping")
+            continue
+        logging.warning(f"Symlink {symlink}: replacing with new target {new_target}")
+        os.remove(symlink)
+        os.symlink(new_target, symlink)
+        shifted = True
+    return shifted
+
+
 def enable_discord_rpc():
     # Discord can have a socket numbered from 0 to 9
     for i in range(10):
@@ -293,8 +358,15 @@ def main(steam_binary=STEAM_PATH):
     logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
-    xdg_dirs_prefix = os.environ.get("FLATPAK_STEAM_XDG_DIRS_PREFIX")
-    assert not xdg_dirs_prefix or xdg_dirs_prefix.startswith("~")
+    should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
+    current_xdg_prefix = get_current_xdg_dir_prefix()
+    if not current_xdg_prefix or should_update_symlinks:
+        xdg_dirs_prefix = os.environ.get("FLATPAK_STEAM_XDG_DIRS_PREFIX")
+        assert not xdg_dirs_prefix or xdg_dirs_prefix.startswith("~")
+        xdg_dirs_prefix = os.path.expanduser(xdg_dirs_prefix)
+    else:
+        xdg_dirs_prefix = current_xdg_prefix
+    logging.info(f"Will set XDG dirs prefix to {xdg_dirs_prefix}")
     should_restart = migrate_config(current_info, xdg_dirs_prefix)
     should_restart += migrate_data(current_info, xdg_dirs_prefix)
     should_restart += migrate_cache(current_info, xdg_dirs_prefix)
@@ -303,6 +375,8 @@ def main(steam_binary=STEAM_PATH):
         logging.info("Restarting app due to finalize sandbox tuning")
         os.execv(command[0], command)
     else:
+        if should_update_symlinks:
+            shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
         timezone_workaround()
         configure_shared_library_guard()
         enable_discord_rpc()
