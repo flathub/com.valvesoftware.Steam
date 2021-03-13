@@ -40,6 +40,7 @@ finish-args:
   - --allow=bluetooth
   - --persist=.
   - --env=TZ=
+  - --unset-env=TZ
   - --env=LC_ADDRESS=C
   - --env=LC_COLLATE=C
   - --env=LC_MONETARY=C
@@ -48,11 +49,17 @@ finish-args:
   - --env=LC_NUMERIC=C
   - --env=LC_TELEPHONE=C
   - --env=ALSA_CONFIG_PATH=
+  - --unset-env=ALSA_CONFIG_PATH
   - --env=MESA_GLSL_CACHE_DIR=
+  - --unset-env=MESA_GLSL_CACHE_DIR
   - --env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=
+  - --unset-env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES
   - --env=STEAM_RUNTIME=
+  - --unset-env=STEAM_RUNTIME
   - --env=FLATPAK_STEAM_XDG_DIRS_PREFIX=~/.var/app/com.valvesoftware.Steam
+  - --env=FLATPAK_STEAM_UPDATE_SYMLINKS=0
   - --env=SDL_VIDEODRIVER=
+  - --unset-env=SDL_VIDEODRIVER
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
@@ -172,14 +179,13 @@ modules:
         ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.68.tar.gz
-        sha256: 65e882623c671f402d8796c1db4407984f11df0538ff7462030d8d521aeb28d3
+        url: http://repo.steampowered.com/steam/archive/precise/steam_1.0.0.69.tar.gz
+        sha256: 6f9838014a6b13f953ba726ce7d203946bb93bfd5d074901bc216ad04ab2c767
         x-checker-data:
           type: html
           url: http://repo.steampowered.com/steam/archive/precise/
           version-pattern: steam_([\d.-]+).tar.gz
           url-pattern: (steam_[\d.-]+.tar.gz)
-        size: 2961396
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
