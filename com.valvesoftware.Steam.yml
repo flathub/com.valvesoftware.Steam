@@ -40,6 +40,7 @@ finish-args:
   - --allow=bluetooth
   - --persist=.
   - --env=TZ=
+  - --unset-env=TZ
   - --env=LC_ADDRESS=C
   - --env=LC_COLLATE=C
   - --env=LC_MONETARY=C
@@ -48,12 +49,17 @@ finish-args:
   - --env=LC_NUMERIC=C
   - --env=LC_TELEPHONE=C
   - --env=ALSA_CONFIG_PATH=
+  - --unset-env=ALSA_CONFIG_PATH
   - --env=MESA_GLSL_CACHE_DIR=
+  - --unset-env=MESA_GLSL_CACHE_DIR
   - --env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES=
+  - --unset-env=STEAM_RUNTIME_PREFER_HOST_LIBRARIES
   - --env=STEAM_RUNTIME=
+  - --unset-env=STEAM_RUNTIME
   - --env=FLATPAK_STEAM_XDG_DIRS_PREFIX=~/.var/app/com.valvesoftware.Steam
   - --env=FLATPAK_STEAM_UPDATE_SYMLINKS=0
   - --env=SDL_VIDEODRIVER=
+  - --unset-env=SDL_VIDEODRIVER
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
   - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d
