@@ -185,8 +185,7 @@ modules:
           type: html
           is-main-source: true
           url: http://repo.steampowered.com/steam/archive/precise/
-          version-pattern: steam_([\d.-]+).tar.gz
-          url-pattern: (steam_[\d.-]+.tar.gz)
+          pattern: (steam_([\d.-]+).tar.gz)
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
