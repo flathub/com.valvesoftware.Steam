@@ -183,9 +183,9 @@ modules:
         sha256: 6f9838014a6b13f953ba726ce7d203946bb93bfd5d074901bc216ad04ab2c767
         x-checker-data:
           type: html
+          is-main-source: true
           url: http://repo.steampowered.com/steam/archive/precise/
-          version-pattern: steam_([\d.-]+).tar.gz
-          url-pattern: (steam_[\d.-]+.tar.gz)
+          pattern: (steam_([\d.-]+).tar.gz)
       - type: file
         path: com.valvesoftware.Steam.metainfo.xml
 
