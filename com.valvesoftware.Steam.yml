@@ -179,8 +179,8 @@ modules:
         ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.70.tar.gz
-        sha256: 9ff88a5778c7b00efb18f324d4cd0c282d5f438dad1201bc3e9822e3ff6a2dff
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.69.tar.gz
+        sha256: 6f9838014a6b13f953ba726ce7d203946bb93bfd5d074901bc216ad04ab2c767
         x-checker-data:
           type: html
           is-main-source: true
