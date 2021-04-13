@@ -117,6 +117,12 @@ add-extensions:
     no-autodownload: true
     autodelete: false
 
+  com.valvesoftware.Steam.CompatibilityTool.Proton:
+    directory: share/steam/compatibilitytools.d/Proton
+    version: beta
+    versions: beta;test
+    autodelete: true
+
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
@@ -233,7 +239,7 @@ modules:
         install -Dm644 -t /app/etc ld.so.conf
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
         mkdir -p /app/lib{,32}/ffmpeg
-        mkdir -p /app/share/steam/compatibilitytools.d
+        mkdir -p /app/share/steam/compatibilitytools.d/Proton
         mkdir -p /app/utils /app/share/vulkan
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
         ln -srv /app/{utils/,}share/vulkan/implicit_layer.d
