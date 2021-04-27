@@ -38,6 +38,7 @@ finish-args:
   - --allow=multiarch
   - --allow=devel
   - --allow=bluetooth
+  - --allow=per-app-dev-shm
   - --persist=.
   - --env=TZ=
   - --unset-env=TZ
