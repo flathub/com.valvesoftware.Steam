@@ -180,7 +180,7 @@ modules:
         ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/beta/steam_1.0.0.70.tar.gz
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.70.tar.gz
         sha256: 9ff88a5778c7b00efb18f324d4cd0c282d5f438dad1201bc3e9822e3ff6a2dff
         x-checker-data:
           type: html
