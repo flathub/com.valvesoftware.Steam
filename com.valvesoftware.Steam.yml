@@ -239,8 +239,8 @@ modules:
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
         ln -srv /app/{utils/,}share/vulkan/implicit_layer.d
         mkdir -p /app/links/lib
-        ln -s /app/lib /app/links/lib/x86_64-linux-gnu
-        ln -s /app/lib32 /app/links/lib/i386-linux-gnu
+        ln -srv /app/lib /app/links/lib/x86_64-linux-gnu
+        ln -srv /app/lib32 /app/links/lib/i386-linux-gnu
     sources:
       - type: dir
         path: resources
