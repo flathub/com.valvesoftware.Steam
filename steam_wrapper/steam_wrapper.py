@@ -295,7 +295,10 @@ def get_current_xdg_dir_prefix():
     if not os.path.isdir(os.path.expanduser("~/.steam")):
         logging.debug("~/.steam doesn't exists - cannot determine current prefix")
         return None
-    current_steam_root = os.readlink(os.path.expanduser("~/.steam/root"))
+    try:
+        current_steam_root = os.readlink(os.path.expanduser("~/.steam/root"))
+    except FileNotFoundError:
+        return None
     # FIXME we need a more reliable way to determine current prefix
     # here we assume that ~/.steam/root points to ~/.local/share/Steam
     # this will break if `steam` was first ran bypassing the wrapper
