@@ -1,6 +1,6 @@
 {
     "type": "git",
     "url": "https://gitlab.com/freedesktop-sdk/shared-library-guard",
-    "commit": "c3c492a239798e111fb02a5a47b44d461bd2125c",
-    "tag": "v19.10.1"
+    "commit": "40e5754de97b65df60db39ac11a7691d3de35fb7",
+    "tag": "v21.05.1"
 }
