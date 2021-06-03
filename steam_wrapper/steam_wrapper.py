@@ -292,10 +292,12 @@ def migrate_cache(flatpak_info, xdg_dirs_prefix):
 
 
 def get_current_xdg_dir_prefix():
-    if not os.path.isdir(os.path.expanduser("~/.steam")):
-        logging.debug("~/.steam doesn't exists - cannot determine current prefix")
+    steam_root_link = os.path.expanduser("~/.steam/root")
+    if not (os.path.isdir(steam_root_link) and os.path.islink(steam_root_link)):
+        logging.error("~/.steam/root isn't a symlink to an existing directory, "
+                      "cannot determine current prefix")
         return None
-    current_steam_root = os.readlink(os.path.expanduser("~/.steam/root"))
+    current_steam_root = os.readlink(steam_root_link)
     # FIXME we need a more reliable way to determine current prefix
     # here we assume that ~/.steam/root points to ~/.local/share/Steam
     # this will break if `steam` was first ran bypassing the wrapper
