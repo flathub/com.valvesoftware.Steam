@@ -91,6 +91,14 @@ modules:
         url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
         sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
 
+  - name: zenity
+    config-opts:
+      - --disable-webkitgtk
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/zenity/3.32/zenity-3.32.0.tar.xz
+        sha256: e786e733569c97372c3ef1776e71be7e7599ebe87e11e8ad67dcc2e63a82cd95
+
   - name: xrandr
     sources:
       - type: archive
