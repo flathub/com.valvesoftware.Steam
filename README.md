@@ -4,7 +4,7 @@ Please report [tested games](https://github.com/flathub/com.valvesoftware.Steam/
 works and what does not.
 
 If you're having issues, first see
-[frequently asked questions](https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions)
+[frequently asked questions](https://github.com/flathub/com.valvesoftware.Steam/wiki)
 to see if you're hitting some corner-case that needs manual intervention. If your case isn't listed, file an issue in addition to adding an entry in tested games.
 
 Minimum version required 1.0.0
