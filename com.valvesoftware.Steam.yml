@@ -177,7 +177,6 @@ modules:
         ln -sf /bin/true /app/bin/steamdeps
         cp /usr/bin/cmp /app/bin
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
-        ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
         url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.71.tar.gz
