@@ -1,6 +1,6 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: '20.08'
+runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -20,6 +20,10 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
+  # Steam in -steamos mode uses Network Manager for network settings, e.g.
+  # connecting to wifi and so on.
+  # In normal mode, it probably just gets info about current connection status.
+  - --system-talk-name=org.freedesktop.NetworkManager
   # Wine uses UDisks2 to enumerate disk drives
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
@@ -70,17 +74,17 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '20.08'
+    version: '21.08'
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '20.08'
+    version: '21.08'
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
     version: '1.4'
-    versions: 20.08;1.4
+    versions: 21.08;1.4
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -91,8 +95,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '20.08'
-    versions: '20.08'
+    version: '21.08'
+    versions: '21.08'
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -103,14 +107,14 @@ add-extensions:
   org.freedesktop.Platform.ffmpeg-full:
     directory: lib/ffmpeg
     add-ld-path: .
-    version: '20.08'
+    version: '21.08'
     no-autodownload: true
     autodelete: false
 
   org.freedesktop.Platform.ffmpeg_full.i386:
     directory: lib32/ffmpeg
     add-ld-path: .
-    version: '20.08'
+    version: '21.08'
     no-autodownload: true
     autodelete: false
 
@@ -173,11 +177,10 @@ modules:
         ln -sf /bin/true /app/bin/steamdeps
         cp /usr/bin/cmp /app/bin
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
-        ln -sfr $(readlink -f /app/share/applications/steam.desktop) /app/share/applications/steam.desktop
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.70.tar.gz
-        sha256: 9ff88a5778c7b00efb18f324d4cd0c282d5f438dad1201bc3e9822e3ff6a2dff
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.71.tar.gz
+        sha256: 39c33d1999f8cc6d4af696479e1d73eee2e93a217bc45887032e18b33535ca21
         x-checker-data:
           type: html
           is-main-source: true
