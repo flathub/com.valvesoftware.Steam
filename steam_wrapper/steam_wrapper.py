@@ -45,9 +45,9 @@ def read_flatpak_info(path):
         "app-extensions": dict((s.split("=")
                                 for s in flatpak_info.get("Instance", "app-extensions",
                                                           fallback="").split(";") if s)),
-        "runtime-extensions": flatpak_info.get("Instance",
-                                               "runtime-extensions",
-                                               fallback=None),
+        "runtime-extensions": dict((s.split("=")
+                                   for s in flatpak_info.get("Instance", "runtime-extensions",
+                                                             fallback="").split(";") if s)),
         "filesystems": flatpak_info.get("Context", "filesystems",
                                         fallback="").split(";")
     }
