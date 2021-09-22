@@ -33,6 +33,14 @@ ALLOWED_XDG_DIRS_PREFIXES = [
     os.path.expanduser("~"),
     FLATPAK_STATE_DIR,
 ]
+EXTENSIONS = {
+    "org.freedesktop.Platform.VulkanLayer": {
+        "mountpoint": "/usr/lib/extensions/vulkan",
+        "append-env": {
+            "PATH": [ "bin" ],
+        },
+    },
+}
 
 
 def read_flatpak_info(path):
@@ -346,6 +354,24 @@ def enable_discord_rpc():
             os.symlink(src=src_rel, dst=dst)
 
 
+def enable_extensions(flatpak_info):
+    installed_ext_ids: t.Set[str]
+    installed_ext_ids = set(flatpak_info["app-extensions"])
+    installed_ext_ids |= set(flatpak_info["runtime-extensions"])
+    for ext_id, ext in EXTENSIONS.items():
+        for installed_ext_id in installed_ext_ids:
+            if not installed_ext_id.startswith(f"{ext_id}."):
+                continue
+            ext_basename = installed_ext_id[len(f"{ext_id}."):]
+            for env_var, subdirs in ext["append-env"].items():
+                paths = [p for p in os.environ.get(env_var, "").split(os.pathsep) if p]
+                for subdir in subdirs:
+                    dir_path = os.path.join(ext["mountpoint"], ext_basename, subdir)
+                    logging.debug(f"Addding {dir_path} to {env_var}")
+                    paths.append(dir_path)
+                os.environ[env_var] = os.pathsep.join(paths)
+
+
 def configure_shared_library_guard():
     mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
     if not mode:
@@ -381,5 +407,6 @@ def main(steam_binary=STEAM_PATH):
             shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
         timezone_workaround()
         configure_shared_library_guard()
+        enable_extensions(current_info)
         enable_discord_rpc()
         os.execv(steam_binary, [steam_binary] + sys.argv[1:])
