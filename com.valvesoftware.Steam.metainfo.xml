@@ -12,7 +12,7 @@
     <p>This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
     <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
     <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the SteamOS/Linux operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
-    <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer.</p>
+    <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer. Users who cannot upgrade to Flatpak 1.12 should install the Proton Community Build and set Steam Play preferences to use it.</p>
   </description>
   <description xml:lang="pt_BR">
     <p>Este é um pacote de comunidade da plataforma de jogos Steam não oficialmente suportada pela Valve. Relate bugs por meio do rastreador de problemas vinculado.</p>
