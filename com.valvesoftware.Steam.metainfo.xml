@@ -12,19 +12,17 @@
     <p>This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
     <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
     <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the SteamOS/Linux operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
-    <p>This version of Steam runs in flatpak. Starting from Valve Proton version 5.13 is not compatible with flatpak yet, so you will need to install the complement of Proton Community Build and change Steam Play preferences to use it</p>
+    <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer.</p>
   </description>
   <description xml:lang="pt_BR">
     <p>Este é um pacote de comunidade da plataforma de jogos Steam não oficialmente suportada pela Valve. Relate bugs por meio do rastreador de problemas vinculado.</p>
     <p>O Steam é uma plataforma popular para comprar, baixar e jogar jogos e conversar com outros jogadores. </p>
     <p>Muitos jogos exigem uma compra online, mas alguns jogos populares, como o Team Fortress 2, são gratuitos. Ao pesquisar na loja, certifique-se de restringir os resultados pelo sistema operacional SteamOS/Linux. Nem todos os jogos Linux são compatíveis com o seu sistema, portanto, verifique os requisitos antes de comprar jogos.</p>
-    <p>Esta versão do Steam é executada em flatpak. A partir do Valve Proton versão 5.13 ainda não é compatível com flatpak, então você precisará instalar o complemento do Proton Community Build e alterar as preferências do Steam Play para usá-lo</p> 
   </description>
   <description xml:lang="es">
     <p>Este es un paquete comunitario de la plataforma de juegos Steam que no es oficialmente soportado por Valve. Informar errores a través del rastreador de problemas, ver enlace.</p>
     <p>Steam es una plataforma popular para comprar, descargar y jugar juegos y conversar con otros jugadores. </p>
     <p>Muchos juegos requieren una compra en línea, pero algunos juegos populares, como el Team Fortress 2, son gratuitos. Al buscar en la tienda, asegúrese de restringir los resultados por el sistema operativo SteamOS/Linux. No todos los juegos de Linux son compatibles con su sistema, así que compruebe los requisitos antes de comprar juegos.</p>
-    <p>Esta versión de Steam se ejecuta en flatpak. A partir de la versión 5.13 de Proton de Valve no es compatible con flatpak aún, por lo que deberá instalar el complemento de Proton construcción comunitaria y cambiar las preferencias de Steam Play para usarlo.</p>
   </description>
   <categories>
     <category>Game</category>
@@ -58,6 +56,7 @@
     <value key="GnomeSoftware::popular-background">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam-thumb.png</value>
   </metadata>
   <releases>
+    <release version="1.0.0.72" date="2021-09-08"/>
     <release version="1.0.0.71" date="2021-07-23"/>
     <release version="1.0.0.70" date="2021-04-07"/>
     <release version="1.0.0.69" date="2021-03-03"/>
