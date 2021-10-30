@@ -154,7 +154,7 @@ modules:
 
   - modules-32bit.yml
 
-  - python-dependencies.json
+  - python3-requirements.json
 
   - name: steam_wrapper
     buildsystem: simple
