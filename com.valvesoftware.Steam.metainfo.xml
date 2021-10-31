@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2017 Cosimo Cecchi <cosimoc@gnome.org> -->
-<application>
-  <id type="desktop">com.valvesoftware.Steam.desktop</id>
+<!-- Copyright 2017 Cosimo Cecchi -->
+<!-- Copyright 2021 Collabora Ltd. -->
+<component type="desktop-application">
+  <id>com.valvesoftware.Steam.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <name>Steam</name>
   <summary>Manage and play games distributed by Steam</summary>
@@ -96,4 +97,4 @@
     <content_attribute id="money-purchasing">intense</content_attribute>
     <content_attribute id="money-gambling">intense</content_attribute>
   </content_rating>
-</application>
+</component>
