@@ -5,13 +5,12 @@
   <id>com.valvesoftware.Steam.desktop</id>
   <metadata_license>CC0-1.0</metadata_license>
   <name>Steam</name>
-  <summary>Manage and play games distributed by Steam</summary>
+  <summary>Launcher for the Steam software distribution service</summary>
   <summary xml:lang="pt_BR">Jogue jogos populares e os últimos lançamentos</summary>
   <summary xml:lang="es">Juega a los juegos populares y los últimos lanzamientos</summary>
   <description>
-    <p>This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
-    <p>Steam is a popular platform for buying, downloading, and playing video games, and chatting with other players.</p>
-    <p>Many games require an online purchase, but some popular games, such as Team Fortress 2, are free to play. When searching in the store, be sure to narrow results by the SteamOS/Linux operating system. Not all Linux games are compatible with your system, so make sure you check the requirements before purchasing games.</p>
+    <p>Steam is a software distribution service with an online store, automated installation, automatic updates, achievements, SteamCloud synchronized savegame and screenshot functionality, and many social features.</p>
+    <p>Note: This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
     <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer.</p>
   </description>
   <description xml:lang="pt_BR">
