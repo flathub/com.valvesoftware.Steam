@@ -11,6 +11,9 @@
   <description>
     <p>Steam is a software distribution service with an online store, automated installation, automatic updates, achievements, SteamCloud synchronized savegame and screenshot functionality, and many social features.</p>
     <p>Note: This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
+    <p>Note: To add a game library on another drive, first you need to grant the app access to it:</p>
+    <!-- Sadly GNOME Software as of v40 doesn't support <em> or <code> -->
+    <p>flatpak override --user --filesystem=/path/to/your/Steam/Library com.valvesoftware.Steam</p>
     <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer.</p>
   </description>
   <description xml:lang="pt_BR">
