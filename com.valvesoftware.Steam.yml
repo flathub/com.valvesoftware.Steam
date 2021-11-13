@@ -123,7 +123,7 @@ add-extensions:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
     version: stable
-    versions: stable;test
+    versions: stable;beta;test
     no-autodownload: true
     autodelete: true
 
@@ -131,7 +131,7 @@ add-extensions:
     subdirectories: true
     directory: utils
     version: stable
-    versions: stable;test
+    versions: stable;beta;test
     add-ld-path: lib
     merge-dirs: bin;lib/python3.8/site-packages;share/vulkan/explicit_layer.d;share/vulkan/implicit_layer.d;
     no-autodownload: true
