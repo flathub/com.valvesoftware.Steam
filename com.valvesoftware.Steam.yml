@@ -98,12 +98,11 @@ add-extensions:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
     version: '21.08'
     versions: '21.08'
-    subdirectories: true
-    no-autodownload: true
     autodelete: false
+    no-autodownload: true
     add-ld-path: lib
-    download-if: active-gl-driver
-    enable-if: active-gl-driver
+    download-if: have-intel-gpu
+    autoprune-unless: have-intel-gpu
 
   org.freedesktop.Platform.ffmpeg-full:
     directory: lib/ffmpeg
