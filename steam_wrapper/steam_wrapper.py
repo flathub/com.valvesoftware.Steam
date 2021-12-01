@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import os.path
+from pathlib import Path
 import sys
 import shutil
 import errno
@@ -9,6 +10,7 @@ import configparser
 from distutils.version import LooseVersion
 import typing as t
 import logging
+import subprocess
 
 
 FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
@@ -43,6 +45,26 @@ EXTENSIONS = {
     },
 }
 WIKI_URL = f"https://github.com/flathub/{FLATPAK_ID}/wiki"
+
+
+class Message(t.NamedTuple):
+    msg_id: str
+    title: str
+    text: str
+    always_show: bool
+
+    def show(self) -> bool:
+        logging.warning(self.title)
+        stamp = Path(XDG_DATA_HOME) / "steam-wrapper" / "messages" / self.msg_id
+        if not self.always_show and stamp.exists():
+            return False
+        subprocess.run(
+            ["zenity", "--no-wrap", "--warning", "--title", self.title, "--text", self.text],
+            check=True, text=True,
+        )
+        stamp.parent.mkdir(parents=True, exist_ok=True)
+        stamp.touch()
+        return True
 
 
 def read_flatpak_info(path):
