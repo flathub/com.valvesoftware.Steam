@@ -11,8 +11,9 @@ import typing as t
 import logging
 
 
+FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
 STEAM_PATH = "/app/bin/steam"
-FLATPAK_STATE_DIR = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
+FLATPAK_STATE_DIR = os.path.expanduser(f"~/.var/app/{FLATPAK_ID}")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 XDG_RUNTIME_DIR = os.environ["XDG_RUNTIME_DIR"]
@@ -41,6 +42,7 @@ EXTENSIONS = {
         },
     },
 }
+WIKI_URL = f"https://github.com/flathub/{FLATPAK_ID}/wiki"
 
 
 def read_flatpak_info(path):
@@ -143,8 +145,7 @@ def check_bad_filesystem_entries(entries):
             logging.warning(f"Bad item \"{items[0]}\" found in filesystem overrides")
             found = True
     if found:
-        faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki"
-               "#i-want-to-add-external-disk-for-steam-libraries")
+        faq = f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
         raise SystemExit(f"Please see {faq}")
 
 
@@ -383,7 +384,7 @@ def configure_shared_library_guard():
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     logging.basicConfig(level=logging.DEBUG)
-    logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
+    logging.info(WIKI_URL)
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
