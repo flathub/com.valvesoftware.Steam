@@ -12,6 +12,8 @@ import typing as t
 import logging
 import subprocess
 
+import posix1e
+
 
 FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
 STEAM_PATH = "/app/bin/steam"
@@ -67,6 +69,21 @@ class Message(t.NamedTuple):
         return True
 
 
+MSG_NO_INPUT_DEV_PERMS = Message(
+    "no-input-dev-perms",
+    "Missing permissions for input devices",
+    (
+        "Steam input devices UDEV rules don't seem to be installed, "
+        "gamepads may not work properly.\n"
+        "Consider installing \"steam-devices\" package using your distro package manager.\n"
+        "See the Steam flatpak "
+        f"<a href=\"{WIKI_URL}#my-controller-isnt-being-detected\">wiki</a> "
+        "for more details."
+    ),
+    False,
+)
+
+
 def read_flatpak_info(path):
     flatpak_info = configparser.ConfigParser()
     with open(path) as f:
@@ -103,6 +120,21 @@ def read_file(path):
         if e.errno == errno.ENOENT:
             return ""
         raise
+
+
+def check_device_perms():
+    has_perms = False
+    logging.debug("Checking input devices permissions")
+    for entry in posix1e.ACL(file="/dev/uinput"):
+        if (entry.tag_type == posix1e.ACL_USER
+            and entry.qualifier == os.geteuid()
+            and entry.permset.write):
+            has_perms = True
+            break
+    if not has_perms:
+        MSG_NO_INPUT_DEV_PERMS.show()
+    return has_perms
+
 
 def timezone_workaround():
     if os.environ.get("TZ"):
@@ -428,6 +460,7 @@ def main(steam_binary=STEAM_PATH):
     else:
         if should_update_symlinks:
             shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
+        check_device_perms()
         timezone_workaround()
         configure_shared_library_guard()
         enable_extensions(current_info)
