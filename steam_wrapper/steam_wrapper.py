@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import os.path
+from pathlib import Path
 import sys
 import shutil
 import errno
@@ -9,10 +10,14 @@ import configparser
 from distutils.version import LooseVersion
 import typing as t
 import logging
+import subprocess
+
+import posix1e
 
 
+FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
 STEAM_PATH = "/app/bin/steam"
-FLATPAK_STATE_DIR = os.path.expandvars("$HOME/.var/app/com.valvesoftware.Steam")
+FLATPAK_STATE_DIR = os.path.expanduser(f"~/.var/app/{FLATPAK_ID}")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
 XDG_RUNTIME_DIR = os.environ["XDG_RUNTIME_DIR"]
@@ -41,6 +46,42 @@ EXTENSIONS = {
         },
     },
 }
+WIKI_URL = f"https://github.com/flathub/{FLATPAK_ID}/wiki"
+
+
+class Message(t.NamedTuple):
+    msg_id: str
+    title: str
+    text: str
+    always_show: bool
+
+    def show(self) -> bool:
+        logging.warning(self.title)
+        stamp = Path(XDG_DATA_HOME) / "steam-wrapper" / "messages" / self.msg_id
+        if not self.always_show and stamp.exists():
+            return False
+        subprocess.run(
+            ["zenity", "--no-wrap", "--warning", "--title", self.title, "--text", self.text],
+            check=True, text=True,
+        )
+        stamp.parent.mkdir(parents=True, exist_ok=True)
+        stamp.touch()
+        return True
+
+
+MSG_NO_INPUT_DEV_PERMS = Message(
+    "no-input-dev-perms",
+    "Missing permissions for input devices",
+    (
+        "Steam input devices UDEV rules don't seem to be installed, "
+        "gamepads may not work properly.\n"
+        "Consider installing \"steam-devices\" package using your distro package manager.\n"
+        "See the Steam flatpak "
+        f"<a href=\"{WIKI_URL}#my-controller-isnt-being-detected\">wiki</a> "
+        "for more details."
+    ),
+    False,
+)
 
 
 def read_flatpak_info(path):
@@ -79,6 +120,21 @@ def read_file(path):
         if e.errno == errno.ENOENT:
             return ""
         raise
+
+
+def check_device_perms():
+    has_perms = False
+    logging.debug("Checking input devices permissions")
+    for entry in posix1e.ACL(file="/dev/uinput"):
+        if (entry.tag_type == posix1e.ACL_USER
+            and entry.qualifier == os.geteuid()
+            and entry.permset.write):
+            has_perms = True
+            break
+    if not has_perms:
+        MSG_NO_INPUT_DEV_PERMS.show()
+    return has_perms
+
 
 def timezone_workaround():
     if os.environ.get("TZ"):
@@ -143,8 +199,7 @@ def check_bad_filesystem_entries(entries):
             logging.warning(f"Bad item \"{items[0]}\" found in filesystem overrides")
             found = True
     if found:
-        faq = ("https://github.com/flathub/com.valvesoftware.Steam/wiki"
-               "#i-want-to-add-external-disk-for-steam-libraries")
+        faq = f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
         raise SystemExit(f"Please see {faq}")
 
 
@@ -383,7 +438,7 @@ def configure_shared_library_guard():
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
     logging.basicConfig(level=logging.DEBUG)
-    logging.info("https://github.com/flathub/com.valvesoftware.Steam/wiki")
+    logging.info(WIKI_URL)
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
@@ -405,6 +460,7 @@ def main(steam_binary=STEAM_PATH):
     else:
         if should_update_symlinks:
             shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
+        check_device_perms()
         timezone_workaround()
         configure_shared_library_guard()
         enable_extensions(current_info)
