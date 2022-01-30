@@ -37,6 +37,18 @@ modules:
         commit: 88ee15b7f4e4185060bfadb41cf583cebcaa6d0f
         tag: v013
 
+  - name: lsof
+    buildsystem: simple
+    build-commands:
+      - ./Configure -n linux
+      - make CC="cc ${CFLAGS} ${CPPFLAGS} ${LDFLAGS}"
+      - install -Dm755 lsof -t /app/bin
+    sources:
+      - type: git
+        url: https://github.com/lsof-org/lsof
+        commit: 005e014e1abdadb2493d8b3ce87b37a2c0a2351d
+        tag: 4.94.0
+
 # -- end controllers --
 
 # -- discord --

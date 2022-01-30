@@ -1,2 +1,3 @@
 [MESSAGES CONTROL]
 disable=logging-fstring-interpolation
+extension-pkg-allow-list=posix1e
