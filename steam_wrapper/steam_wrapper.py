@@ -125,12 +125,14 @@ def read_file(path):
 def check_device_perms():
     has_perms = False
     logging.debug("Checking input devices permissions")
-    for entry in posix1e.ACL(file="/dev/uinput"):
-        if (entry.tag_type == posix1e.ACL_USER
-            and entry.qualifier == os.geteuid()
-            and entry.permset.write):
-            has_perms = True
-            break
+    uinput_path = Path("/dev/uinput")
+    if uinput_path.exists():
+        for entry in posix1e.ACL(file=uinput_path):
+            if (entry.tag_type == posix1e.ACL_USER
+                and entry.qualifier == os.geteuid()
+                and entry.permset.write):
+                has_perms = True
+                break
     if not has_perms:
         MSG_NO_INPUT_DEV_PERMS.show()
     return has_perms
