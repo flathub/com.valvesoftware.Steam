@@ -73,9 +73,9 @@ MSG_NO_INPUT_DEV_PERMS = Message(
     "no-input-dev-perms",
     "Missing permissions for input devices",
     (
-        "Steam input devices UDEV rules don't seem to be installed, "
-        "gamepads may not work properly.\n"
-        "Consider installing \"steam-devices\" package using your distro package manager.\n"
+        "Steam input devices udev rules don't seem to be installed.\n"
+        "If you expirience issues with gamepads, consider installing\n"
+        "\"steam-devices\" package using your distro package manager.\n"
         "See the Steam flatpak "
         f"<a href=\"{WIKI_URL}#my-controller-isnt-being-detected\">wiki</a> "
         "for more details."
