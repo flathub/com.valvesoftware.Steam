@@ -145,3 +145,13 @@ modules:
       - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
       - "sources/shared-library-guard-git.json"
+
+  - name: zypak
+    sources:
+      - type: git
+        url: https://github.com/refi64/zypak
+        tag: v2021.09.1
+        commit: e09f37ca4ff09827434deba11f9b1f9e1c42dbaf
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)$
