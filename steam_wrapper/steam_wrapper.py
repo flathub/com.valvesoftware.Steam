@@ -73,9 +73,9 @@ MSG_NO_INPUT_DEV_PERMS = Message(
     "no-input-dev-perms",
     "Missing permissions for input devices",
     (
-        "Steam input devices UDEV rules don't seem to be installed, "
-        "gamepads may not work properly.\n"
-        "Consider installing \"steam-devices\" package using your distro package manager.\n"
+        "Steam input devices udev rules don't seem to be installed.\n"
+        "If you expirience issues with gamepads, consider installing\n"
+        "\"steam-devices\" package using your distro package manager.\n"
         "See the Steam flatpak "
         f"<a href=\"{WIKI_URL}#my-controller-isnt-being-detected\">wiki</a> "
         "for more details."
@@ -440,6 +440,7 @@ def configure_shared_library_guard():
 
 def main(steam_binary=STEAM_PATH):
     os.chdir(os.environ["HOME"]) # Ensure sane cwd
+    argv = [sys.argv[0], '-no-cef-sandbox'] + sys.argv[1:]
     logging.basicConfig(level=logging.DEBUG)
     logging.info(WIKI_URL)
     current_info = read_flatpak_info(FLATPAK_INFO)
@@ -457,7 +458,7 @@ def main(steam_binary=STEAM_PATH):
     should_restart += migrate_data(current_info, xdg_dirs_prefix)
     should_restart += migrate_cache(current_info, xdg_dirs_prefix)
     if should_restart:
-        command = ["/usr/bin/flatpak-spawn"] + sys.argv
+        command = ["/usr/bin/flatpak-spawn"] + argv
         logging.info("Restarting app due to finalize sandbox tuning")
         os.execv(command[0], command)
     else:
@@ -468,4 +469,4 @@ def main(steam_binary=STEAM_PATH):
         configure_shared_library_guard()
         enable_extensions(current_info)
         enable_discord_rpc()
-        os.execv(steam_binary, [steam_binary] + sys.argv[1:])
+        os.execv(steam_binary, [steam_binary] + argv[1:])
