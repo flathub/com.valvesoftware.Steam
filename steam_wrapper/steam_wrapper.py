@@ -87,6 +87,18 @@ MSG_NO_INPUT_DEV_PERMS = Message(
     False,
 )
 
+MSG_NO_I386_COMPAT = Message(
+    "no-i386-compat",
+    "i386 compatibility extensions not installed",
+    (
+        "The following i386 compatibility flatpak extensions are not installed, "
+        "Steam may not work properly:<tt>\n{ext_ids}</tt>\n\n"
+        "Try running <tt>flatpak update</tt>; if it doesn't help, install the extensions manually:\n"
+        "<tt>flatpak install {to_install_refs}</tt>"
+    ),
+    True,
+)
+
 
 def read_flatpak_info(path):
     flatpak_info = configparser.ConfigParser()
@@ -94,6 +106,7 @@ def read_flatpak_info(path):
         flatpak_info.read_file(f)
     return {
         "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
+        "runtime": flatpak_info.get("Application", "runtime"),
         "runtime-path": flatpak_info.get("Instance", "runtime-path"),
         "app-extensions": dict((s.split("=")
                                 for s in flatpak_info.get("Instance", "app-extensions",
@@ -416,6 +429,24 @@ def enable_discord_rpc():
             os.symlink(src=src_rel, dst=dst)
 
 
+def check_extensions(flatpak_info):
+    _, _, _, runtime_branch = flatpak_info["runtime"].split("/")
+    installed_ext_ids = set(flatpak_info["runtime-extensions"]) | \
+                        set(flatpak_info["app-extensions"])
+    missing_ids = []
+    for ext_id in ["org.freedesktop.Platform.Compat.i386",
+                   "org.freedesktop.Platform.GL32.default"]:
+        if ext_id not in installed_ext_ids:
+            missing_ids.append(ext_id)
+    if missing_ids:
+        MSG_NO_I386_COMPAT.show({
+            "ext_ids": "\n".join(missing_ids),
+            "to_install_refs": " ".join(f"{i}//{runtime_branch}" for i in missing_ids),
+        })
+        return False
+    return True
+
+
 def enable_extensions(flatpak_info):
     installed_ext_ids: t.Set[str]
     installed_ext_ids = set(flatpak_info["app-extensions"])
@@ -449,6 +480,7 @@ def main(steam_binary=STEAM_PATH):
     logging.info(WIKI_URL)
     current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
+    check_extensions(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
     current_xdg_prefix = get_current_xdg_dir_prefix()
     if not current_xdg_prefix or should_update_symlinks:
