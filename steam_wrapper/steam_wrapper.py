@@ -55,13 +55,17 @@ class Message(t.NamedTuple):
     text: str
     always_show: bool
 
-    def show(self) -> bool:
-        logging.warning(self.title)
+    def show(self, subst: t.Dict[str, str] = None) -> bool:
+        if subst is None:
+            subst = {}
+        logging.warning(self.title.format(**subst))
         stamp = Path(XDG_DATA_HOME) / "steam-wrapper" / "messages" / self.msg_id
         if not self.always_show and stamp.exists():
             return False
         subprocess.run(
-            ["zenity", "--no-wrap", "--warning", "--title", self.title, "--text", self.text],
+            ["zenity", "--no-wrap", "--warning",
+             "--title", self.title.format(**subst),
+             "--text", self.text.format(**subst)],
             check=True, text=True,
         )
         stamp.parent.mkdir(parents=True, exist_ok=True)
