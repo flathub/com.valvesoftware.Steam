@@ -46,8 +46,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 005e014e1abdadb2493d8b3ce87b37a2c0a2351d
-        tag: 4.94.0
+        commit: 67d8c828e7bdc01ba93f8ff79765dd424da0c9d7
+        tag: 4.95.0
 
 # -- end controllers --
 
