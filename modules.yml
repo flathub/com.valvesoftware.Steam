@@ -34,8 +34,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: 88ee15b7f4e4185060bfadb41cf583cebcaa6d0f
-        tag: v013
+        commit: 57fb18e59cce31a50a1ca62d1e192512c905ba00
+        tag: v014
 
   - name: lsof
     buildsystem: simple
