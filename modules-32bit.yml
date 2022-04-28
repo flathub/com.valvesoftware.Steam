@@ -83,8 +83,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: d8eb315fb18f6fb0d6efa923401f166343727bc6
-        tag: gperftools-2.8.1
+        commit: f7c6fb6c8e99d6b1b725e5994373bcd19ffdf8fd
+        tag: gperftools-2.9.1
 
   - name: shared-library-guard-32bit
     build-options:
