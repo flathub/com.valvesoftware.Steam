@@ -48,20 +48,6 @@ modules:
 
 # -- end discord --
 
-# -- faudio --
-
-  - name: FAudio-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DGSTREAMER=ON
-    sources:
-      - "sources/FAudio-archive.json"
-
-# -- end faudio --
-
   - name: gamemode-32bit
     build-options:
      arch:

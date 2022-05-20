@@ -76,17 +76,6 @@ modules:
 
 # -- end discord --
 
-# -- faudio --
-
-  - name: FAudio
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DGSTREAMER=ON
-    sources:
-      - "sources/FAudio-archive.json"
-
-# -- end faudio --
-
   - name: libnotify
     buildsystem: meson
     config-opts:
