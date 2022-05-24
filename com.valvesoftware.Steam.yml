@@ -63,7 +63,7 @@ finish-args:
   - --unset-env=SDL_VIDEODRIVER
   - --env=DBUS_FATAL_WARNINGS=0
   - --env=SSL_CERT_DIR=/etc/ssl/certs
-  - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d;/app/utils/share/steam/compatibilitytools.d
+  - --env=STEAM_EXTRA_COMPAT_TOOLS_PATHS=/app/share/steam/compatibilitytools.d:/app/utils/share/steam/compatibilitytools.d
   - --env=PATH=/app/bin:/app/utils/bin:/usr/bin
   - --env=PYTHONPATH=/app/utils/lib/python3.8/site-packages
   - --env=PROTON_DEBUG_DIR=/var/tmp
