@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.345
-        commit: 5d7d97bae533401f60ce9a5a036ff7152c8aca8c
+        tag: v0.359
+        commit: bf3322565b3bf5c35c90e42ca6cf4928f2f2d481
 
   - name: eudev
     cleanup:
@@ -34,8 +34,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: 88ee15b7f4e4185060bfadb41cf583cebcaa6d0f
-        tag: v013
+        commit: 57fb18e59cce31a50a1ca62d1e192512c905ba00
+        tag: v014
 
   - name: lsof
     buildsystem: simple
@@ -46,8 +46,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 005e014e1abdadb2493d8b3ce87b37a2c0a2351d
-        tag: 4.94.0
+        commit: 67d8c828e7bdc01ba93f8ff79765dd424da0c9d7
+        tag: 4.95.0
 
 # -- end controllers --
 
@@ -76,17 +76,6 @@ modules:
 
 # -- end discord --
 
-# -- faudio --
-
-  - name: FAudio
-    buildsystem: cmake-ninja
-    config-opts:
-      - -DGSTREAMER=ON
-    sources:
-      - "sources/FAudio-archive.json"
-
-# -- end faudio --
-
   - name: libnotify
     buildsystem: meson
     config-opts:
@@ -97,8 +86,8 @@ modules:
       - -Ddocbook_docs=disabled
     sources:
       - type: archive
-        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.9.tar.xz
-        sha256: 66c0517ed16df7af258e83208faaf5069727dfd66995c4bbc51c16954d674761
+        url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.12.tar.xz
+        sha256: 744b2b37508135f8261b755a9debe6e09add421adc75bde930f6e198b70ab46e
       - type: archive
         url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
         sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
@@ -112,16 +101,16 @@ modules:
   - name: libmd
     sources:
       - type: archive
-        url: https://archive.hadrons.org/software/libmd/libmd-1.0.3.tar.xz
+        url: https://archive.hadrons.org/software/libmd/libmd-1.0.4.tar.xz
         mirror-urls:
-          - https://libbsd.freedesktop.org/releases/libmd-1.0.3.tar.xz
-        sha256: 5a02097f95cc250a3f1001865e4dbba5f1d15554120f95693c0541923c52af4a
+          - https://libbsd.freedesktop.org/releases/libmd-1.0.4.tar.xz
+        sha256: f51c921042e34beddeded4b75557656559cf5b1f2448033b4c1eec11c07e530f
 
   - name: libbsd
     sources:
       - type: archive
-        url: https://libbsd.freedesktop.org/releases/libbsd-0.11.3.tar.xz
-        sha256: ff95cf8184151dacae4247832f8d4ea8800fa127dbd15033ecfe839f285b42a1
+        url: https://libbsd.freedesktop.org/releases/libbsd-0.11.6.tar.xz
+        sha256: 19b38f3172eaf693e6e1c68714636190c7e48851e45224d720b3b5bc0499b5df
 
   - name: gamemode
     buildsystem: meson
