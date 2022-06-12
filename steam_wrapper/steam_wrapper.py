@@ -433,9 +433,16 @@ def check_extensions(flatpak_info):
     _, _, _, runtime_branch = flatpak_info["runtime"].split("/")
     installed_ext_ids = set(flatpak_info["runtime-extensions"]) | \
                         set(flatpak_info["app-extensions"])
+
+    compat_ids = ["org.freedesktop.Platform.Compat.i386"]
+    # For each installed .GL. extension, check for its .GL32. counterpart
+    GL_EXT_PREFIX = "org.freedesktop.Platform.GL"
+    for ext_id in installed_ext_ids:
+        if ext_id.startswith(f"{GL_EXT_PREFIX}."):
+            compat_ids.append(f"{GL_EXT_PREFIX}32" + ext_id[len(GL_EXT_PREFIX):])
+
     missing_ids = []
-    for ext_id in ["org.freedesktop.Platform.Compat.i386",
-                   "org.freedesktop.Platform.GL32.default"]:
+    for ext_id in compat_ids:
         if ext_id not in installed_ext_ids:
             missing_ids.append(ext_id)
     if missing_ids:
