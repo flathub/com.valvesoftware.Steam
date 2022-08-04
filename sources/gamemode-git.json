@@ -2,5 +2,10 @@
   "type": "git",
   "url": "https://github.com/FeralInteractive/gamemode",
   "commit": "b11d2912e280acb87d9ad114d6c7cd8846c4ef02",
-  "tag": "1.6.1"
+  "tag": "1.6.1",
+  "x-checker-data": {
+    "type": "json",
+    "url": "https://api.github.com/repos/FeralInteractive/gamemode/releases/latest",
+    "tag-query": ".tag_name"
+  }
 }

@@ -71,6 +71,10 @@ modules:
         url: https://github.com/gperftools/gperftools.git
         commit: f7c6fb6c8e99d6b1b725e5994373bcd19ffdf8fd
         tag: gperftools-2.9.1
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/gperftools/gperftools/releases/latest
+          tag-query: .tag_name
 
   - name: shared-library-guard-32bit
     build-options:
