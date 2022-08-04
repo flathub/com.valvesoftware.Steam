@@ -13,6 +13,10 @@ modules:
         url: https://github.com/vcrhonek/hwdata
         tag: v0.359
         commit: bf3322565b3bf5c35c90e42ca6cf4928f2f2d481
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
+          tag-query: .tag_name
 
   - name: eudev
     cleanup:
@@ -36,6 +40,11 @@ modules:
         url: https://github.com/gregkh/usbutils
         commit: 57fb18e59cce31a50a1ca62d1e192512c905ba00
         tag: v014
+        x-checker-data:
+          type: anitya
+          project-id: 5061
+          stable-only: true
+          tag-template: v$version
 
   - name: lsof
     buildsystem: simple
@@ -48,6 +57,10 @@ modules:
         url: https://github.com/lsof-org/lsof
         commit: 67d8c828e7bdc01ba93f8ff79765dd424da0c9d7
         tag: 4.95.0
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/lsof-org/lsof/releases/latest
+          tag-query: .tag_name
 
 # -- end controllers --
 
@@ -88,29 +101,50 @@ modules:
       - type: archive
         url: https://download.gnome.org/sources/libnotify/0.7/libnotify-0.7.12.tar.xz
         sha256: 744b2b37508135f8261b755a9debe6e09add421adc75bde930f6e198b70ab46e
+        x-checker-data:
+          type: gnome
+          name: libnotify
+          stable-only: true
       - type: archive
         url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
         sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+        x-checker-data:
+          type: gnome
+          name: gnome-common
+          stable-only: true
 
   - name: xrandr
     sources:
       - type: archive
         url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
         sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
+        x-checker-data:
+          type: anitya
+          project-id: 14957
+          stable-only: true
+          url-template: https://xorg.freedesktop.org/archive/individual/app/xrandr-$version.tar.xz
 
   - name: libmd
     sources:
       - type: archive
-        url: https://archive.hadrons.org/software/libmd/libmd-1.0.4.tar.xz
-        mirror-urls:
-          - https://libbsd.freedesktop.org/releases/libmd-1.0.4.tar.xz
+        url: https://libbsd.freedesktop.org/releases/libmd-1.0.4.tar.xz
         sha256: f51c921042e34beddeded4b75557656559cf5b1f2448033b4c1eec11c07e530f
+        x-checker-data:
+          type: anitya
+          project-id: 15525
+          stable-only: true
+          url-template: https://libbsd.freedesktop.org/releases/libmd-$version.tar.xz
 
   - name: libbsd
     sources:
       - type: archive
         url: https://libbsd.freedesktop.org/releases/libbsd-0.11.6.tar.xz
         sha256: 19b38f3172eaf693e6e1c68714636190c7e48851e45224d720b3b5bc0499b5df
+        x-checker-data:
+          type: anitya
+          project-id: 1567
+          stable-only: true
+          url-template: https://libbsd.freedesktop.org/releases/libbsd-$version.tar.xz
 
   - name: gamemode
     buildsystem: meson
