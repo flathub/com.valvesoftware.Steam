@@ -1,6 +1,8 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: &runtime-version '22.08'
+x-gl-version: &gl-version '1.4'
+x-gl-versions: &gl-versions 22.08;1.4
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -75,17 +77,17 @@ finish-args:
 add-extensions:
   org.freedesktop.Platform.Compat.i386:
     directory: lib/i386-linux-gnu
-    version: '21.08'
+    version: *runtime-version
 
   org.freedesktop.Platform.Compat.i386.Debug:
     directory: lib/debug/lib/i386-linux-gnu
-    version: '21.08'
+    version: *runtime-version
     no-autodownload: true
 
   org.freedesktop.Platform.GL32:
     directory: lib/i386-linux-gnu/GL
-    version: '1.4'
-    versions: 21.08;1.4
+    version: *gl-version
+    versions: *gl-versions
     subdirectories: true
     no-autodownload: true
     autodelete: false
@@ -96,8 +98,8 @@ add-extensions:
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
-    version: '21.08'
-    versions: '21.08'
+    version: *runtime-version
+    versions: *runtime-version
     autodelete: false
     no-autodownload: true
     add-ld-path: lib
@@ -107,14 +109,14 @@ add-extensions:
   org.freedesktop.Platform.ffmpeg-full:
     directory: lib/ffmpeg
     add-ld-path: .
-    version: '21.08'
+    version: *runtime-version
     no-autodownload: true
     autodelete: false
 
   org.freedesktop.Platform.ffmpeg_full.i386:
     directory: lib32/ffmpeg
     add-ld-path: .
-    version: '21.08'
+    version: *runtime-version
     no-autodownload: true
     autodelete: false
 

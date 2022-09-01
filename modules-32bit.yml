@@ -44,20 +44,20 @@ modules:
     post-install:
       - install -Dm755 examples/send-presence/send-presence -t /app/bin/
     sources:
-      - "sources/discord-rpc-archive.json"
+      - sources/discord-rpc-archive.json
 
 # -- end discord --
 
   - name: gamemode-32bit
     build-options:
-     arch:
-       x86_64: *compat_i386_opts
+      arch:
+        x86_64: *compat_i386_opts
     buildsystem: meson
     config-opts:
       - -Dwith-sd-bus-provider=no-daemon
       - -Dwith-examples=false
     sources:
-      - "sources/gamemode-git.json"
+      - sources/gamemode-git.json
 
   - name: google-perfools
     buildsystem: autotools
@@ -69,8 +69,12 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: f7c6fb6c8e99d6b1b725e5994373bcd19ffdf8fd
-        tag: gperftools-2.9.1
+        commit: bf8b714bf5075d0a6f2f28504b43095e2b1e11c5
+        tag: gperftools-2.10
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/gperftools/gperftools/releases/latest
+          tag-query: .tag_name
 
   - name: shared-library-guard-32bit
     build-options:
@@ -81,4 +85,4 @@ modules:
     config-opts:
       - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
-      - "sources/shared-library-guard-git.json"
+      - sources/shared-library-guard-git.json
