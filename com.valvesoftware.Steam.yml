@@ -1,8 +1,8 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '22.08beta'
+runtime-version: &runtime-version '22.08'
 x-gl-version: &gl-version '1.4'
-x-gl-versions: &gl-versions 22.08beta;1.4
+x-gl-versions: &gl-versions 22.08;1.4
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
