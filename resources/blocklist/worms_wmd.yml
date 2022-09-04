@@ -1,0 +1,7 @@
+entries:
+  - basedir: "*(/*|/.*)/WormsWMD"
+    blocklists:
+      - binaries:
+          - path: "Worms W.M.Dx64"
+        libraries:
+          - path: libstdc++.so.6
