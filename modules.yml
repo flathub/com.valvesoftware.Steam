@@ -55,8 +55,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 67d8c828e7bdc01ba93f8ff79765dd424da0c9d7
-        tag: 4.95.0
+        commit: 55374d78c3168fade7995064d7906c8a7289d05c
+        tag: 4.96.1-freebsd
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
