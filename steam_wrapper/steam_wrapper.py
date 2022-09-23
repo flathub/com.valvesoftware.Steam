@@ -12,8 +12,6 @@ import typing as t
 import logging
 import subprocess
 
-import posix1e
-
 
 FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
 STEAM_PATH = "/app/bin/steam"
@@ -140,17 +138,11 @@ def read_file(path):
 
 
 def check_device_perms():
-    has_perms = False
     logging.debug("Checking input devices permissions")
     uinput_path = Path("/dev/uinput")
     if not uinput_path.exists():
         return None
-    for entry in posix1e.ACL(file=uinput_path):
-        if (entry.tag_type == posix1e.ACL_USER
-            and entry.qualifier == os.geteuid()
-            and entry.permset.write):
-            has_perms = True
-            break
+    has_perms = os.access(uinput_path, os.R_OK | os.W_OK)
     if not has_perms:
         MSG_NO_INPUT_DEV_PERMS.show()
     return has_perms
