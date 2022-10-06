@@ -22,6 +22,8 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
+  # Needed for appimages
+  - --env=APPIMAGE_EXTRACT_AND_RUN=1
   # Steam in -steamos mode uses Network Manager for network settings, e.g.
   # connecting to wifi and so on.
   # In normal mode, it probably just gets info about current connection status.
