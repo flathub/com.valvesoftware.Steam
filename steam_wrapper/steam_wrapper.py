@@ -156,48 +156,6 @@ def timezone_workaround():
         os.environ["TZ"] = zone_name
         logging.info(f"Overriding TZ to {zone_name}")
 
-def ignored(name, patterns):
-    for pattern in patterns:
-        if fnmatch.fnmatch(name, pattern):
-            return True
-    else:
-        return False
-
-def filter_names(root, names, patterns):
-    _names = []
-    for name in names:
-        if not ignored(os.path.join(root, name), patterns):
-            _names.append(name)
-    return _names
-
-def try_create(path):
-    try:
-        os.mkdir(path)
-    except FileExistsError:
-        pass
-
-def copytree(source, target, ignore=None):
-    os.makedirs(target, exist_ok=True)
-    for root, d_names, f_names in os.walk(source):
-        rel_root = os.path.relpath(root, source)
-        target_root = os.path.normpath(os.path.join(target, rel_root))
-        try_create(target_root)
-        if ignore:
-            d_names[:] = filter_names(root, d_names, ignore)
-            f_names = filter_names(root, f_names, ignore)
-        for f_name in f_names:
-            full_source = os.path.join(root, f_name)
-            full_target = os.path.join(target_root, f_name)
-            shutil.copy2(full_source, full_target)
-            os.utime(full_target)
-
-
-def symlink_rel(target, source):
-    assert os.path.isabs(source)
-    assert os.path.isabs(target)
-    rel_target = os.path.relpath(target, os.path.dirname(source))
-    os.symlink(rel_target, source)
-
 
 def check_bad_filesystem_entries(entries):
     bad_names = ["home",
@@ -247,17 +205,27 @@ class Migrator:
     def need_migration(self):
         return not os.path.islink(self.source)
 
+    def _copytree(self, src: str, dst: str):
+        def _copy_ignored(root: str, names: t.List[str]):
+            ignored_names: t.Set[str] = set()
+            for name in names:
+                for ignored_pat in self.no_copy:
+                    if fnmatch.fnmatch(os.path.join(root, name),
+                                       os.path.join(src, ignored_pat)):
+                        ignored_names.add(name)
+            return ignored_names
+
+        shutil.copytree(src, dst, symlinks=True, ignore=_copy_ignored, dirs_exist_ok=True)
+
     def do_migrate(self):
         assert self.need_migration
         # Back-up target if requested
         if self.need_backup and os.path.isdir(self.target):
             self.log.info(f"Copying {self.target} to {self.target_backup}, ignoring {self.no_copy}")
-            copytree(self.target, self.target_backup,
-                     ignore={os.path.join(self.target, i) for i in self.no_copy})
+            self._copytree(self.target, self.target_backup)
         # Copy source to target, rename nocopy subdirs
         self.log.info(f"Copying {self.source} to {self.target}, ignoring {self.no_copy}")
-        copytree(self.source, self.target,
-                 ignore={os.path.join(self.source, i) for i in self.no_copy})
+        self._copytree(self.source, self.target)
         for rename_path in self.rename:
             if rename_path in self.ignore:
                 continue
