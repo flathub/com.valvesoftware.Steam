@@ -1,0 +1,7 @@
+entries:
+  - basedir: "*(/*|/.*)/XCOM 2/XCOM2WotC"
+    blocklists:
+      - binaries:
+          - path: bin/XCOM2WotC
+        libraries:
+          - path: lib/private_symbol_hack.so
