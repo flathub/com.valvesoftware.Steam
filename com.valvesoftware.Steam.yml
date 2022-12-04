@@ -35,7 +35,7 @@ finish-args:
   - --talk-name=org.freedesktop.Notifications
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
-  - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --filesystem=xdg-run/app/com.discordapp.Discord:ro
   - --device=all
   - --allow=multiarch
   - --allow=devel
