@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.364
-        commit: 3ac83cecf56f299e7390e5afeab2808632719243
+        tag: v0.365
+        commit: 803068db92b8bb249014f1c947b91b452f539f5f
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -38,8 +38,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: 57fb18e59cce31a50a1ca62d1e192512c905ba00
-        tag: v014
+        commit: 79b796f945ea7d5c2b0e2a74f9b8819cb7948680
+        tag: v015
         x-checker-data:
           type: anitya
           project-id: 5061
@@ -116,8 +116,8 @@ modules:
   - name: xrandr
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.1.tar.xz
-        sha256: 7bc76daf9d72f8aff885efad04ce06b90488a1a169d118dea8a2b661832e8762
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.2.tar.xz
+        sha256: c8bee4790d9058bacc4b6246456c58021db58a87ddda1a9d0139bf5f18f1f240
         x-checker-data:
           type: anitya
           project-id: 14957
