@@ -167,11 +167,16 @@ def check_bad_filesystem_entries(entries):
     for entry in entries:
         item, _ = re.match(r"(.+?)(?:\:(\w+))?$", entry).groups()
         if item in bad_names:
-            logging.warning(f"Bad item \"{item}\" found in filesystem overrides")
+            logging.warning(f"Found filesystem \"{entry}\" in static permissions")
             found = True
     if found:
-        faq = f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
-        raise SystemExit(f"Please see {faq}")
+        logging.error(
+            "Refusing to launch in order to prevent issues; "
+            "if you've added an override with access to some of the filesystems above, "
+            "please remove it and see "
+            f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
+        )
+        raise SystemExit(1)
 
 
 def check_allowed_to_run(current_info):
