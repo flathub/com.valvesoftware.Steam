@@ -9,6 +9,7 @@ import fnmatch
 import configparser
 from distutils.version import LooseVersion
 import typing as t
+import re
 import logging
 import subprocess
 
@@ -164,9 +165,9 @@ def check_bad_filesystem_entries(entries):
                  os.path.expandvars("/home/$USER")]
     found = False
     for entry in entries:
-        items = entry.split(";")
-        if items[0] in bad_names:
-            logging.warning(f"Bad item \"{items[0]}\" found in filesystem overrides")
+        item, _ = re.match(r"(.+?)(?:\:(\w+))?$", entry).groups()
+        if item in bad_names:
+            logging.warning(f"Bad item \"{item}\" found in filesystem overrides")
             found = True
     if found:
         faq = f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
