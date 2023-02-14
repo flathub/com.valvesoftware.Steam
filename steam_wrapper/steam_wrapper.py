@@ -165,7 +165,12 @@ def check_bad_filesystem_entries(entries):
                  os.path.expandvars("/home/$USER")]
     found = False
     for entry in entries:
-        item, _ = re.match(r"(.+?)(?:\:(\w+))?$", entry).groups()
+        if entry == '':
+            continue
+        matches = re.match(r"(.+?)(?:\:(\w+))?$", entry)
+        if matches is None:
+            continue
+        item, _ = matches.groups()
         if item in bad_names:
             logging.warning(f"Found filesystem \"{entry}\" in static permissions")
             found = True
