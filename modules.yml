@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.367
-        commit: 15c9d3bc939848e5f8b86cf9496f991de48c861f
+        tag: v0.368
+        commit: 0e25d93ac6433791edbb9d28b3f8eae0cf5e46ff
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -99,8 +99,8 @@ modules:
       - -Ddocbook_docs=disabled
     sources:
       - type: archive
-        url: https://download.gnome.org/sources/libnotify/0.8/libnotify-0.8.1.tar.xz
-        sha256: d033e6d4d6ccbf46a436c31628a4b661b36dca1f5d4174fe0173e274f4e62557
+        url: https://download.gnome.org/sources/libnotify/0.8/libnotify-0.8.2.tar.xz
+        sha256: c5f4ed3d1f86e5b118c76415aacb861873ed3e6f0c6b3181b828cf584fc5c616
         x-checker-data:
           type: gnome
           name: libnotify
