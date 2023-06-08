@@ -3,6 +3,7 @@ runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '22.08'
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 22.08;22.08-extra;1.4
+x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -88,7 +89,7 @@ add-extensions:
     no-autodownload: true
     autodelete: false
     add-ld-path: lib
-    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+    merge-dirs: *gl-merge-dirs
     download-if: active-gl-driver
     enable-if: active-gl-driver
 
