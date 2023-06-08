@@ -4,6 +4,12 @@
   <name>SteamCMD</name>
   <summary>Command-line version of the Steam client</summary>
   <url type="homepage">https://developer.valvesoftware.com/wiki/SteamCMD</url>
+  <description>
+    <p>
+      The Steam Console Client or SteamCMD is a command-line version of the Steam client.
+      Its primary use is to install and update various dedicated servers available on Steam using a command-line interface.
+    </p>
+  </description>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>LicenseRef-proprietary</project_license>
   <developer_name>Valve Corporation</developer_name>
