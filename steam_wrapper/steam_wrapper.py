@@ -193,6 +193,24 @@ def check_allowed_to_run(current_info):
     check_bad_filesystem_entries(current_info["filesystems"])
 
 
+class FileIgnorer:
+    def __init__(self, patterns: set):
+        self.patterns = patterns
+        assert not any(os.path.isabs(i) for i in self.patterns)
+
+    def __call__(self, root: str, names: t.List[str]) -> t.Set[str]:
+        ignored_names: t.Set[str] = set()
+        for name in names:
+            for ignored_pat in self.patterns:
+                if fnmatch.fnmatch(os.path.join(root, name),
+                                   os.path.join(src, ignored_pat)):
+                    ignored_names.add(name)
+        return ignored_names
+
+    def __str__(self):
+        return str(self.patterns)
+
+
 class Migrator:
     def __init__(self, source: str, target: str,
                  ignore: t.Optional[t.Set[str]]=None,
@@ -204,8 +222,7 @@ class Migrator:
         assert os.path.isabs(self.target)
         self.ignore = ignore or set()
         self.rename = rename or []
-        self.no_copy = self.ignore | set(self.rename)
-        assert not any(os.path.isabs(i) for i in self.no_copy)
+        self.file_ignorer = FileIgnorer(self.ignore | set(self.rename))
         self.two_steps = two_steps
         self.need_backup = need_backup
         self.target_backup = f'{self.target}.bak'
@@ -217,25 +234,16 @@ class Migrator:
         return not os.path.islink(self.source)
 
     def _copytree(self, src: str, dst: str):
-        def _copy_ignored(root: str, names: t.List[str]):
-            ignored_names: t.Set[str] = set()
-            for name in names:
-                for ignored_pat in self.no_copy:
-                    if fnmatch.fnmatch(os.path.join(root, name),
-                                       os.path.join(src, ignored_pat)):
-                        ignored_names.add(name)
-            return ignored_names
-
-        shutil.copytree(src, dst, symlinks=True, ignore=_copy_ignored, dirs_exist_ok=True)
+        shutil.copytree(src, dst, symlinks=True, ignore=self.file_ignorer, dirs_exist_ok=True)
 
     def do_migrate(self):
         assert self.need_migration
         # Back-up target if requested
         if self.need_backup and os.path.isdir(self.target):
-            self.log.info(f"Copying {self.target} to {self.target_backup}, ignoring {self.no_copy}")
+            self.log.info(f"Copying {self.target} to {self.target_backup}, ignoring {self.file_ignorer}")
             self._copytree(self.target, self.target_backup)
         # Copy source to target, rename nocopy subdirs
-        self.log.info(f"Copying {self.source} to {self.target}, ignoring {self.no_copy}")
+        self.log.info(f"Copying {self.source} to {self.target}, ignoring {self.file_ignorer}")
         self._copytree(self.source, self.target)
         for rename_path in self.rename:
             if rename_path in self.ignore:

@@ -1,6 +1,9 @@
 #!/usr/bin/python3
-import steam_wrapper
 import os
+import shutil
+
+import steam_wrapper
+
 
 STEAMCMD_BOOTSTRAP_DIR = "/app/steamcmd"
 
@@ -15,13 +18,12 @@ def main():
 
     if not os.path.isfile(steamcmd_path):
         if os.path.isfile(os.path.join(STEAMCMD_BOOTSTRAP_DIR, "steamcmd.sh")):
-            steam_wrapper.copytree(
+            shutil.copytree.copytree(
                 STEAMCMD_BOOTSTRAP_DIR,
                 steamcmd_install_dir,
-                ignore=[
-                    os.path.join(STEAMCMD_BOOTSTRAP_DIR, p) for p in
-                    ['metadata', '.ref', 'share']
-                ]
+                symlinks=True,
+                ignore=steam_wrapper.FileIgnorer({'metadata', '.ref', 'share'},
+                dirs_exist_ok=True)
             )
         else:
             raise OSError("SteamCMD is not installed")
