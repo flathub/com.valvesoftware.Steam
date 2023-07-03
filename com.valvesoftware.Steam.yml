@@ -187,8 +187,8 @@ modules:
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.76.tar.gz
-        sha256: 5fb8b104ba1434b94c6e44373edfbb6188c8ef305f02bcd519b809f5e28f23fd
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.78.tar.gz
+        sha256: 104259755d7211b5f101db247ff70ebfed6ae6ca3e14da61195d1fbf91c7200d
         x-checker-data:
           type: html
           is-main-source: true
