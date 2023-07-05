@@ -24,7 +24,7 @@ modules:
       - /sbin
       - /lib*/udev
     post-install:
-      - udevadm hwdb --update
+      - udevadm hwdb --update --usr
     sources:
       - sources/eudev-archive.json
 
