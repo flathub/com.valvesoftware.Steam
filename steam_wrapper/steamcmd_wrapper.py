@@ -18,12 +18,15 @@ def main():
 
     if not os.path.isfile(steamcmd_path):
         if os.path.isfile(os.path.join(STEAMCMD_BOOTSTRAP_DIR, "steamcmd.sh")):
+            file_ignorer = FileIgnorer(STEAMCMD_BOOTSTRAP_DIR,
+                {'metadata', '.ref', 'share'}
+            )
             shutil.copytree.copytree(
                 STEAMCMD_BOOTSTRAP_DIR,
                 steamcmd_install_dir,
                 symlinks=True,
-                ignore=steam_wrapper.FileIgnorer({'metadata', '.ref', 'share'},
-                dirs_exist_ok=True)
+                ignore=file_ignorer,
+                dirs_exist_ok=True
             )
         else:
             raise OSError("SteamCMD is not installed")
