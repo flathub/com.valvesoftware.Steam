@@ -3,6 +3,7 @@ runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '22.08'
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 22.08;22.08-extra;1.4
+x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 command: steam-wrapper
 separate-locales: false
@@ -88,8 +89,17 @@ add-extensions:
     no-autodownload: true
     autodelete: false
     add-ld-path: lib
-    merge-dirs: vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+    merge-dirs: *gl-merge-dirs
     download-if: active-gl-driver
+    enable-if: active-gl-driver
+
+  org.freedesktop.Platform.GL32.Debug:
+    directory: lib/debug/lib/i386-linux-gnu/GL
+    version: *gl-version
+    versions: *gl-versions
+    subdirectories: true
+    no-autodownload: true
+    merge-dirs: *gl-merge-dirs
     enable-if: active-gl-driver
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
@@ -177,8 +187,8 @@ modules:
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.75.tar.gz
-        sha256: e52565a5e33b9a4184c5bdc222978b7fea958efd32641d5d5967774d751236a7
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.78.tar.gz
+        sha256: 104259755d7211b5f101db247ff70ebfed6ae6ca3e14da61195d1fbf91c7200d
         x-checker-data:
           type: html
           is-main-source: true
@@ -214,9 +224,10 @@ modules:
         set -e
         mkdir -p /app/bin
         mkdir -p /app/lib/i386-linux-gnu
-        mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/i386-linux-gnu/GL
         mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu
+        mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf

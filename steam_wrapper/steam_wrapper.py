@@ -9,6 +9,7 @@ import fnmatch
 import configparser
 from distutils.version import LooseVersion
 import typing as t
+import re
 import logging
 import subprocess
 
@@ -164,13 +165,23 @@ def check_bad_filesystem_entries(entries):
                  os.path.expandvars("/home/$USER")]
     found = False
     for entry in entries:
-        items = entry.split(";")
-        if items[0] in bad_names:
-            logging.warning(f"Bad item \"{items[0]}\" found in filesystem overrides")
+        if entry == '':
+            continue
+        matches = re.match(r"(.+?)(?:\:(\w+))?$", entry)
+        if matches is None:
+            continue
+        item, _ = matches.groups()
+        if item in bad_names:
+            logging.warning(f"Found filesystem \"{entry}\" in static permissions")
             found = True
     if found:
-        faq = f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
-        raise SystemExit(f"Please see {faq}")
+        logging.error(
+            "Refusing to launch in order to prevent issues; "
+            "if you've added an override with access to some of the filesystems above, "
+            "please remove it and see "
+            f"{WIKI_URL}#i-want-to-add-external-disk-for-steam-libraries"
+        )
+        raise SystemExit(1)
 
 
 def check_allowed_to_run(current_info):
@@ -180,6 +191,22 @@ def check_allowed_to_run(current_info):
         raise SystemExit(f"Flatpak {required} or newer required")
 
     check_bad_filesystem_entries(current_info["filesystems"])
+
+
+class FileIgnorer:
+    def __init__(self, src: str, patterns: set):
+        assert not any(os.path.isabs(i) for i in patterns)
+        self.patterns = patterns
+        self.src = src
+
+    def __call__(self, root: str, names: t.List[str]) -> t.Set[str]:
+        ignored_names: t.Set[str] = set()
+        for name in names:
+            for ignored_pat in self.patterns:
+                if fnmatch.fnmatch(os.path.join(root, name),
+                                   os.path.join(self.src, ignored_pat)):
+                    ignored_names.add(name)
+        return ignored_names
 
 
 class Migrator:
@@ -194,7 +221,6 @@ class Migrator:
         self.ignore = ignore or set()
         self.rename = rename or []
         self.no_copy = self.ignore | set(self.rename)
-        assert not any(os.path.isabs(i) for i in self.no_copy)
         self.two_steps = two_steps
         self.need_backup = need_backup
         self.target_backup = f'{self.target}.bak'
@@ -206,16 +232,8 @@ class Migrator:
         return not os.path.islink(self.source)
 
     def _copytree(self, src: str, dst: str):
-        def _copy_ignored(root: str, names: t.List[str]):
-            ignored_names: t.Set[str] = set()
-            for name in names:
-                for ignored_pat in self.no_copy:
-                    if fnmatch.fnmatch(os.path.join(root, name),
-                                       os.path.join(src, ignored_pat)):
-                        ignored_names.add(name)
-            return ignored_names
-
-        shutil.copytree(src, dst, symlinks=True, ignore=_copy_ignored, dirs_exist_ok=True)
+        file_ignorer = FileIgnorer(src, self.no_copy)
+        shutil.copytree(src, dst, symlinks=True, ignore=file_ignorer, dirs_exist_ok=True)
 
     def do_migrate(self):
         assert self.need_migration
