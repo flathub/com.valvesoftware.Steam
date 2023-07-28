@@ -180,6 +180,8 @@ modules:
         sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop
         sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop
         desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
+        desktop-file-edit --remove-key=PrefersNonDefaultGPU steam.desktop
+        desktop-file-edit --remove-key=X-KDE-RunOnDiscreteGpu steam.desktop
         sed -i s:/usr/lib/:/app/lib/: steam
         PREFIX=/app make install
         ln -sf /bin/true /app/bin/steamdeps
