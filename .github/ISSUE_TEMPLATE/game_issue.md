@@ -6,7 +6,7 @@ about: In addition to reporting issues with games, please also use this same tem
 
 **Game information**
 <!-- Name of the game or games that do not work 
-https://github.com/flathub/com.valvesoftware.Steam/wiki/Frequently-asked-questions#my-game-is-giving-strange-errors-about-missing-symbols-in-libraries might be helpful for fixing some game issues for good
+https://github.com/flathub/com.valvesoftware.Steam/wiki#user-content-My_game_is_giving_strange_errors_about_missing_symbols_in_libraries might be helpful for fixing some game issues for good
 -->
 
 **Distribution name and version where applicable**
