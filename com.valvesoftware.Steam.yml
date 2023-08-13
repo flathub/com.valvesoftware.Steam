@@ -5,7 +5,7 @@ x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 23.08beta;23.08beta-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
-command: steam-wrapper
+command: steam
 separate-locales: false
 rename-icon: steam
 rename-desktop-file: steam.desktop
@@ -92,7 +92,6 @@ add-extensions:
     merge-dirs: *gl-merge-dirs
     download-if: active-gl-driver
     enable-if: active-gl-driver
-    autoprune-unless: active-gl-driver
 
   org.freedesktop.Platform.GL32.Debug:
     directory: lib/debug/lib/i386-linux-gnu/GL
@@ -102,7 +101,6 @@ add-extensions:
     no-autodownload: true
     merge-dirs: *gl-merge-dirs
     enable-if: active-gl-driver
-    autoprune-unless: active-gl-driver
 
   org.freedesktop.Platform.VAAPI.Intel.i386:
     directory: lib/i386-linux-gnu/dri/intel-vaapi-driver
@@ -179,16 +177,16 @@ modules:
     build-commands:
       - |
         set -e
-        sed -i s:Exec=steam:Exec=/app/bin/steam-wrapper: steam.desktop
-        sed -i s:/usr/bin/steam:/app/bin/steam-wrapper: steam.desktop
-        desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
-        desktop-file-edit --remove-key=PrefersNonDefaultGPU steam.desktop
+        sed -i s:/usr/bin/steam:/app/bin/steam: steam.desktop
         desktop-file-edit --remove-key=X-KDE-RunOnDiscreteGpu steam.desktop
+        desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
         sed -i s:/usr/lib/:/app/lib/: steam
         PREFIX=/app make install
         ln -sf /bin/true /app/bin/steamdeps
         cp /usr/bin/cmp /app/bin
         install -Dm644 -t /app/share/metainfo com.valvesoftware.Steam.metainfo.xml
+        ln -sf steam-wrapper /app/bin/steam
+        test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
         url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.78.tar.gz
