@@ -58,6 +58,9 @@ modules:
       - -Dwith-examples=false
     sources:
       - sources/gamemode-git.json
+      - type: patch
+        path: patches/gamemode-pidfd-open.patch
+        use-git: true
 
   - name: google-perfools
     buildsystem: autotools
@@ -69,8 +72,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: bf8b714bf5075d0a6f2f28504b43095e2b1e11c5
-        tag: gperftools-2.10
+        commit: 539ed9ca40f4d3806e7a2b79b5aa02b9a45083d3
+        tag: gperftools-2.12
         x-checker-data:
           type: json
           url: https://api.github.com/repos/gperftools/gperftools/releases/latest

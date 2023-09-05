@@ -15,7 +15,7 @@ import subprocess
 
 
 FLATPAK_ID = os.getenv("FLATPAK_ID", "com.valvesoftware.Steam")
-STEAM_PATH = "/app/bin/steam"
+STEAM_PATH = "/app/lib/steam/bin_steam.sh"
 FLATPAK_STATE_DIR = os.path.expanduser(f"~/.var/app/{FLATPAK_ID}")
 XDG_DATA_HOME = os.environ["XDG_DATA_HOME"]
 XDG_CACHE_HOME = os.environ["XDG_CACHE_HOME"]
