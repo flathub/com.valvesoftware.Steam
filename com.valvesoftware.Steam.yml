@@ -1,8 +1,8 @@
 app-id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '23.08beta'
+runtime-version: &runtime-version '23.08'
 x-gl-version: &gl-version '1.4'
-x-gl-versions: &gl-versions 23.08beta;23.08beta-extra;1.4
+x-gl-versions: &gl-versions 23.08;23.08extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 command: steam
