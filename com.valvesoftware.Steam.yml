@@ -180,6 +180,7 @@ modules:
       - |
         set -e
         sed -i s:/usr/bin/steam:/app/bin/steam: steam.desktop
+        desktop-file-edit --remove-key=PrefersNonDefaultGPU steam.desktop
         desktop-file-edit --remove-key=X-KDE-RunOnDiscreteGpu steam.desktop
         desktop-file-edit --set-key=StartupWMClass --set-value=Steam steam.desktop
         sed -i s:/usr/lib/:/app/lib/: steam
