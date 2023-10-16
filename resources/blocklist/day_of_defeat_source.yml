@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Day of Defeat Source"
+    blocklists:
+      - binaries:
+          - path: hl2_linux
+            libdir: bin
+        libraries:
+          - path: libtcmalloc_minimal.so.4
