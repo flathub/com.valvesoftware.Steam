@@ -21,7 +21,7 @@ def main():
             file_ignorer = steam_wrapper.FileIgnorer(STEAMCMD_BOOTSTRAP_DIR,
                 {'metadata', '.ref', 'share'}
             )
-            shutil.copytree.copytree(
+            shutil.copytree(
                 STEAMCMD_BOOTSTRAP_DIR,
                 steamcmd_install_dir,
                 symlinks=True,
