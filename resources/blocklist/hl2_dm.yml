@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Half-Life 2 Deathmatch"
+    blocklists:
+      - binaries:
+          - path: hl2_linux
+            libdir: bin
+        libraries:
+          - path: libtcmalloc_minimal.so.4
