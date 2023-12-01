@@ -171,3 +171,19 @@ modules:
       - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
       - sources/shared-library-guard-git.json
+
+# -- pygobject, used by steam_wrapper --
+
+  - name: py3cairo
+    buildsystem: meson
+    sources:
+      - type: archive
+        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.25.1.tar.gz
+        sha256: fabe2a6ae082e7970084ce61b29087f2211f098a099b0d6de68caac4be1263fb
+        x-checker-data:
+          type: anitya
+          project-id: 13166
+          stable-only: true
+          url-template: https://github.com/pygobject/pycairo/archive/refs/tags/v$version.tar.gz
+
+# -- end pygobject --
