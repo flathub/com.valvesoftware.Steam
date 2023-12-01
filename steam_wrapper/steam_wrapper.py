@@ -6,7 +6,7 @@ import sys
 import shutil
 import errno
 import fnmatch
-import configparser
+from gi.repository import GLib
 from distutils.version import LooseVersion
 import typing as t
 import re
@@ -99,22 +99,30 @@ MSG_NO_I386_COMPAT = Message(
 )
 
 
-def read_flatpak_info(path):
-    flatpak_info = configparser.ConfigParser()
-    with open(path) as f:
-        flatpak_info.read_file(f)
+def keyfile_get_string_dict(keyfile, section, key):
+    try:
+        return dict((s.split("=", 1)
+                     for s in keyfile.get_string_list(section, key) if s))
+    except GLib.Error:
+        return {}
+
+
+def read_flatpak_info():
+    flatpak_info = GLib.KeyFile.new()
+    assert flatpak_info.load_from_file(FLATPAK_INFO, GLib.KeyFileFlags.NONE)
+
+    try:
+        filesystems = flatpak_info.get_string_list("Context", "filesystems")
+    except GLib.Error:
+        filesystems = []
+
     return {
-        "flatpak-version": flatpak_info.get("Instance", "flatpak-version"),
-        "runtime": flatpak_info.get("Application", "runtime"),
-        "runtime-path": flatpak_info.get("Instance", "runtime-path"),
-        "app-extensions": dict((s.split("=")
-                                for s in flatpak_info.get("Instance", "app-extensions",
-                                                          fallback="").split(";") if s)),
-        "runtime-extensions": dict((s.split("=")
-                                   for s in flatpak_info.get("Instance", "runtime-extensions",
-                                                             fallback="").split(";") if s)),
-        "filesystems": flatpak_info.get("Context", "filesystems",
-                                        fallback="").split(";")
+        "flatpak-version": flatpak_info.get_string("Instance", "flatpak-version"),
+        "runtime": flatpak_info.get_string("Application", "runtime"),
+        "runtime-path": flatpak_info.get_string("Instance", "runtime-path"),
+        "app-extensions": keyfile_get_string_dict(flatpak_info, "Instance", "app-extensions"),
+        "runtime-extensions": keyfile_get_string_dict(flatpak_info, "Instance", "runtime-extensions"),
+        "filesystems": filesystems
     }
 
 
@@ -463,7 +471,7 @@ def main(steam_binary=STEAM_PATH):
     argv = [sys.argv[0], '-no-cef-sandbox'] + sys.argv[1:]
     logging.basicConfig(level=logging.DEBUG)
     logging.info(WIKI_URL)
-    current_info = read_flatpak_info(FLATPAK_INFO)
+    current_info = read_flatpak_info()
     check_allowed_to_run(current_info)
     check_extensions(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
