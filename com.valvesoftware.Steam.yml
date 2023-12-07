@@ -1,4 +1,4 @@
-app-id: com.valvesoftware.Steam
+id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '23.08'
 x-gl-version: &gl-version '1.4'
