@@ -9,6 +9,7 @@
   <summary xml:lang="pt_BR">Jogue jogos populares e os últimos lançamentos</summary>
   <summary xml:lang="es">Juega a los juegos populares y los últimos lanzamientos</summary>
   <description>
+    <p>Important: using any flatpak launcher apps together with this app may result in unrecoverable loss of cloud data</p>
     <p>Steam is a software distribution service with an online store, automated installation, automatic updates, achievements, SteamCloud synchronized savegame and screenshot functionality, and many social features.</p>
     <p>Note: This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
     <p>Note: To add a game library on another drive, first you need to grant the app access to it:</p>
