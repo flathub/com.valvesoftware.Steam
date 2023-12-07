@@ -22,6 +22,7 @@ finish-args:
   - --socket=x11
   - --socket=pulseaudio
   - --share=network
+  - --own-name=com.steampowered.PressureVessel.*
   - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   # Wine uses UDisks2 to enumerate disk drives
   - --system-talk-name=org.freedesktop.UDisks2
