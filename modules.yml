@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.376
-        commit: e27f08bda517100746000dacdd882b6a7e7ce19a
+        tag: v0.377-2
+        commit: 77f6d29c6d7da2bb59442650f0e6fcac06ad1568
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -55,8 +55,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 546eb1c9910e7c137fdff551683c35a736021e05
-        tag: 4.98.0
+        commit: 2015d742527ebdded8c5694edcf3ac2a01ce76ab
+        tag: 4.99.0
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
