@@ -1,8 +1,8 @@
 {
     "type": "git",
     "url": "https://github.com/FeralInteractive/gamemode",
-    "commit": "4dc99dff76218718763a6b07fc1900fa6d1dafd9",
-    "tag": "1.7",
+    "commit": "bb403740671551c2acbbb5c00c84689914966ba2",
+    "tag": "1.8",
     "x-checker-data": {
         "type": "json",
         "url": "https://api.github.com/repos/FeralInteractive/gamemode/releases/latest",
