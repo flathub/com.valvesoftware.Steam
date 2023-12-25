@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Source SDK Base 2013 Singleplayer"
+    blocklists:
+      - binaries:
+          - path: hl2_linux
+            libdir: bin
+        libraries:
+          - path: libtcmalloc_minimal.so.4
