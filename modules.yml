@@ -55,8 +55,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 2015d742527ebdded8c5694edcf3ac2a01ce76ab
-        tag: 4.99.0
+        commit: 2e4c7a1a9bc7258dc5b6a3ab28ebca44174279a8
+        tag: 4.99.3
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
