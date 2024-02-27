@@ -53,6 +53,7 @@
     <value key="GnomeSoftware::popular-background">https://raw.githubusercontent.com/flathub/com.valvesoftware.Steam/master/images/com.valvesoftware.Steam-thumb.png</value>
   </metadata>
   <releases>
+    <release version="1.0.0.79" date="2024-02-08"/>
     <release version="1.0.0.78" date="2023-05-09"/>
     <release version="1.0.0.77" date="2023-05-09"/>
     <release version="1.0.0.76" date="2023-03-01"/>
