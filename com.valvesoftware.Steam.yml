@@ -3,7 +3,7 @@ runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '23.08'
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 23.08;23.08-extra;1.4
-x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;OpenCL/vendors;lib/dri;lib/d3d;vulkan/explicit_layer.d;vulkan/implicit_layer.d
+x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 command: steam
 separate-locales: false
@@ -193,8 +193,8 @@ modules:
         test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.78.tar.gz
-        sha256: 104259755d7211b5f101db247ff70ebfed6ae6ca3e14da61195d1fbf91c7200d
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.79.tar.gz
+        sha256: 3a0012daf5889311c2e1dcf33a587b409019b66d893a52192df6947e18f1ec46
         x-checker-data:
           type: html
           is-main-source: true
