@@ -13,7 +13,6 @@
     <p>Note: This is a community package of Steam gaming plaform not officially supported by Valve. Report bugs through linked issue tracker.</p>
     <p>Note: To add a game library on another drive, first you need to grant the app access to it:</p>
     <p>flatpak override --user --filesystem=/path/to/your/Steam/Library com.valvesoftware.Steam</p>
-    <p>Note: You need Flatpak version 1.12 or later to be able to run Proton 5.13 and newer.</p>
     <p xml:lang="pt_BR">Este é um pacote de comunidade da plataforma de jogos Steam não oficialmente suportada pela Valve. Relate bugs por meio do rastreador de problemas vinculado.</p>
     <p xml:lang="pt_BR">O Steam é uma plataforma popular para comprar, baixar e jogar jogos e conversar com outros jogadores. </p>
     <p xml:lang="pt_BR">Muitos jogos exigem uma compra online, mas alguns jogos populares, como o Team Fortress 2, são gratuitos. Ao pesquisar na loja, certifique-se de restringir os resultados pelo sistema operacional SteamOS/Linux. Nem todos os jogos Linux são compatíveis com o seu sistema, portanto, verifique os requisitos antes de comprar jogos.</p>
