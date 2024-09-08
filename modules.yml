@@ -11,8 +11,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.385
-        commit: a038a430d5861df6f0429171746639d4fd21b624
+        tag: v0.387
+        commit: f0ba62c0b0401c215aed8abb42cf7dcdb7e6fecc
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -174,8 +174,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.26.1.tar.gz
-        sha256: 771900e37a54c8f109d69cd8faf5e0dd5df8c90b17465e9c436c9f1cef5b4c8f
+        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.27.0.tar.gz
+        sha256: ce10721e4a5d74c53c8b7241e5ccfd4627fadb2830ecdae72524c077067ca247
         x-checker-data:
           type: anitya
           project-id: 13166
