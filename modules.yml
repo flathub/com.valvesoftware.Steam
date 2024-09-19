@@ -77,6 +77,10 @@ modules:
       - type: archive
         url: https://github.com/miloyip/rapidjson/archive/v1.1.0.tar.gz
         sha256: bf7ced29704a1e696fbccf2a2b4ea068e7774fa37f6d7dd4039d0787f8bed98e
+      - type: patch
+        paths:
+          - patches/rapidjson/3b2441b87f99ab65f37b141a7b548ebadb607b96.patch
+          - patches/rapidjson/862c39be371278a45a88d4d1d75164be57bb7e2d.patch
 
   - name: discord-rpc
     buildsystem: cmake-ninja
