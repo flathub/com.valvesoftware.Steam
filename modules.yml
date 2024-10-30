@@ -38,8 +38,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: 23077bf82534baad8adfe33ce4c02b5fb087eb86
-        tag: v017
+        commit: cda6883cade6ec67671d0c7de61e70eb992509a9
+        tag: v018
         x-checker-data:
           type: anitya
           project-id: 5061
