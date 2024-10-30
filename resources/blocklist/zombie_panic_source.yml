@@ -1,0 +1,8 @@
+entries:
+  - basedir: "*(/*|/.*)/Zombie Panic Source"
+    blocklists:
+      - binaries:
+          - path: zps_linux
+            libdir: bin
+        libraries:
+          - path: libtcmalloc_minimal.so.4
