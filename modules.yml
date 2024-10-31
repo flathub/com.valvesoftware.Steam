@@ -33,8 +33,7 @@ modules:
       - sources/libusb-archive.json
 
   - name: usbutils
-    config-opts:
-      - --datadir=/app/share/hwdata
+    buildsystem: meson
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
