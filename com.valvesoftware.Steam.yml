@@ -168,6 +168,30 @@ modules:
 
   - python3-requirements.json
 
+  - name: sdl2
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DBUILD_SHARED_LIBS:BOOL=ON
+      - -DSDL_ARTS:BOOL=OFF
+      - -DSDL_ESD:BOOL=OFF
+      - -DSDL_NAS:BOOL=OFF
+      - -DSDL_ALSA:BOOL=OFF
+      - -DSDL_OSS:BOOL=OFF
+      - -DSDL_SNDIO:BOOL=OFF
+      - -DSDL_WAYLAND:BOOL=ON
+      - -DSDL_WAYLAND_SHARED:BOOL=OFF
+      - -DSDL_RPATH:BOOL=OFF
+      - -DSDL_WAYLAND_LIBDECOR=ON
+      - -DSDL_PIPEWIRE_SHARED:BOOL=ON
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL.git
+        tag: release-2.28.5
+        commit: 15ead9a40d09a1eb9972215cceac2bf29c9b77f6
+      - type: patch
+        path: sdl-libdecor.patch
+
   - name: steam_wrapper
     buildsystem: simple
     sources:
