@@ -3,6 +3,20 @@ buildsystem: simple
 build-commands: []
 modules:
 
+  - name: zlib-ng
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DZLIB_ENABLE_TESTS=false
+      - -DZLIB_COMPAT=true
+    sources:
+      - type: archive
+        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.2.3.tar.gz
+        sha256: f2fb245c35082fe9ea7a22b332730f63cf1d42f04d84fe48294207d033cba4dd
+        x-checker-data:
+          type: anitya
+          project-id: 115592
+          url-template: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/$version.tar.gz
+          
 # -- controllers --
 
   - name: hwdata
