@@ -16,7 +16,7 @@ modules:
           type: anitya
           project-id: 115592
           url-template: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/$version.tar.gz
-          
+
 # -- controllers --
 
   - name: hwdata
@@ -25,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.391
-        commit: 0955087d49d085d1ef2207d6bef0c07b02844b78
+        tag: v0.392
+        commit: e3aac7f6bed87ca6d701bb5ad30f29a8df857f66
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
