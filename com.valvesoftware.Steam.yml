@@ -214,15 +214,12 @@ modules:
         set -e
         cp -ax steamcmd /app/
         ln -s steamcmd-wrapper /app/bin/steamcmd
-        install -Dm644 com.valvesoftware.Steam.cmd.metainfo.xml -t /app/share/metainfo
     sources:
       - type: archive
         strip-components: 0
         dest: steamcmd
         url: https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz
         sha256: cebf0046bfd08cf45da6bc094ae47aa39ebf4155e5ede41373b579b8f1071e7c
-      - type: file
-        path: com.valvesoftware.Steam.cmd.metainfo.xml
 
   - name: platform-bootstrap
     buildsystem: simple
