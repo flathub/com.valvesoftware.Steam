@@ -244,6 +244,7 @@ modules:
         mkdir -p /app/links/lib
         ln -srv /app/lib /app/links/lib/x86_64-linux-gnu
         ln -srv /app/lib32 /app/links/lib/i386-linux-gnu
+        chmod -R u+w /app/steamcmd/linux32/
     sources:
       - type: dir
         path: resources
