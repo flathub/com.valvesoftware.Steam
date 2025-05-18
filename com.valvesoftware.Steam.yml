@@ -35,7 +35,8 @@ finish-args:
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
-  - --device=all
+  - --device=dri
+  - --device=input
   - --allow=multiarch
   - --allow=devel
   - --allow=bluetooth
