@@ -194,8 +194,8 @@ modules:
         test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.82.tar.gz
-        sha256: afa2f1dd6271fd2b645ba30b8f3ab40afd3654e354241a31cbd51000f7e6fc77
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.83.tar.gz
+        sha256: 791682b0cc7efd946c7002f917c9dd474d2619b7f9ed00891216a8a6b4ac8f82
         x-checker-data:
           type: html
           is-main-source: true
