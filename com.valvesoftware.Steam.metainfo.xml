@@ -61,24 +61,6 @@
     <release version="1.0.0.81" date="2024-08-15">
       <description/>
     </release>
-    <release version="1.0.0.79" date="2024-02-08"/>
-    <release version="1.0.0.78" date="2023-05-09"/>
-    <release version="1.0.0.77" date="2023-05-09"/>
-    <release version="1.0.0.76" date="2023-03-01"/>
-    <release version="1.0.0.75" date="2022-07-12"/>
-    <release version="1.0.0.74" date="2021-12-01"/>
-    <release version="1.0.0.73" date="2021-11-09"/>
-    <release version="1.0.0.72" date="2021-09-08"/>
-    <release version="1.0.0.71" date="2021-07-23"/>
-    <release version="1.0.0.70" date="2021-04-07"/>
-    <release version="1.0.0.69" date="2021-03-03"/>
-    <release version="1.0.0.68" date="2020-12-02"/>
-    <release version="1.0.0.67" date="2020-11-20"/>
-    <release version="1.0.0.66" date="2020-07-29"/>
-    <release version="1.0.0.64" date="2020-06-24"/>
-    <release version="1.0.0.63" date="2020-06-09"/>
-    <release version="1.0.0.62" date="2020-03-19"/>
-    <release version="1.0.0.61" date="2019-04-18"/>
   </releases>
   <content_rating type="oars-1.1">
     <content_attribute id="social-chat">intense</content_attribute>
