@@ -3,6 +3,20 @@ buildsystem: simple
 build-commands: []
 modules:
 
+  - name: zlib-ng
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DZLIB_ENABLE_TESTS=false
+      - -DZLIB_COMPAT=true
+    sources:
+      - type: archive
+        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.2.4.tar.gz
+        sha256: a73343c3093e5cdc50d9377997c3815b878fd110bf6511c2c7759f2afb90f5a3
+        x-checker-data:
+          type: anitya
+          project-id: 115592
+          url-template: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/$version.tar.gz
+
 # -- controllers --
 
   - name: hwdata
@@ -11,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.388
-        commit: f25185c1814901bf85383693e0dd73bf1d8fe1a1
+        tag: v0.397
+        commit: e4423c783ca7db5c9d6d4881985272849f4892cf
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -54,8 +68,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: 2e4c7a1a9bc7258dc5b6a3ab28ebca44174279a8
-        tag: 4.99.3
+        commit: ed0fef9a134b64c9398075185534a76714c91179
+        tag: 4.99.5
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
@@ -95,8 +109,8 @@ modules:
   - name: xrandr
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.2.tar.xz
-        sha256: c8bee4790d9058bacc4b6246456c58021db58a87ddda1a9d0139bf5f18f1f240
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.3.tar.xz
+        sha256: f8dd7566adb74147fab9964680b6bbadee87cf406a7fcff51718a5e6949b841c
         x-checker-data:
           type: anitya
           project-id: 14957
@@ -138,8 +152,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.27.0.tar.gz
-        sha256: ce10721e4a5d74c53c8b7241e5ccfd4627fadb2830ecdae72524c077067ca247
+        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.28.0.tar.gz
+        sha256: e7e1a487820467a174512633f3ec4c49d567041e40f2d0135d14679045b054e9
         x-checker-data:
           type: anitya
           project-id: 13166
