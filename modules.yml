@@ -106,6 +106,30 @@ modules:
 
 # -- end discord --
 
+  - name: libnotify
+    buildsystem: meson
+    config-opts:
+      - -Dtests=false
+      - -Dintrospection=disabled
+      - -Dman=false
+      - -Dgtk_doc=false
+      - -Ddocbook_docs=disabled
+    sources:
+      - type: archive
+        url: https://download.gnome.org/sources/libnotify/0.8/libnotify-0.8.3.tar.xz
+        sha256: ee8f3ef946156ad3406fdf45feedbdcd932dbd211ab4f16f75eba4f36fb2f6c0
+        x-checker-data:
+          type: gnome
+          name: libnotify
+          stable-only: true
+      - type: archive
+        url: https://download.gnome.org/sources/gnome-common/3.18/gnome-common-3.18.0.tar.xz
+        sha256: 22569e370ae755e04527b76328befc4c73b62bfd4a572499fde116b8318af8cf
+        x-checker-data:
+          type: gnome
+          name: gnome-common
+          stable-only: true
+
   - name: xrandr
     sources:
       - type: archive
@@ -138,6 +162,21 @@ modules:
           project-id: 1567
           stable-only: true
           url-template: https://libbsd.freedesktop.org/releases/libbsd-$version.tar.xz
+
+  - name: gamemode
+    buildsystem: meson
+    config-opts:
+      - -Dwith-sd-bus-provider=no-daemon
+      - -Dwith-examples=false
+    sources:
+      - sources/gamemode-git.json
+
+  - name: gamemoderun
+    buildsystem: simple
+    build-commands:
+      - install -Dm755 data/gamemoderun -t /app/bin
+    sources:
+      - sources/gamemode-git.json
 
   - name: shared-library-guard
     buildsystem: meson
