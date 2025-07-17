@@ -471,7 +471,7 @@ def main(steam_binary=STEAM_PATH):
     argv = [sys.argv[0], '-no-cef-sandbox'] + sys.argv[1:]
     logging.basicConfig(level=logging.DEBUG)
     logging.info(WIKI_URL)
-    current_info = read_flatpak_info()
+    current_info = read_flatpak_info(FLATPAK_INFO)
     check_allowed_to_run(current_info)
     check_extensions(current_info)
     should_update_symlinks = env_is_true(os.environ.get("FLATPAK_STEAM_UPDATE_SYMLINKS", "0"))
