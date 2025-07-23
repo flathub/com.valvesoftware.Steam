@@ -149,13 +149,18 @@ add-extensions:
     autodelete: true
 
 cleanup:
+  - /include
   - /lib/*.a
   - /lib/*.la
+  - /lib/cmake
+  - /lib/pkgconfig
   - /lib32/*.a
   - /lib32/*.la
+  - /lib32/pkgconfig
   - /share/doc
   - /share/gtk-doc
   - /share/man
+  - /share/pkgconfig
 
 cleanup-commands:
   - python3 -m compileall --invalidation-mode=unchecked-hash /app
