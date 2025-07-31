@@ -108,8 +108,15 @@ def keyfile_get_string_dict(keyfile, section, key):
 
 
 def read_flatpak_info():
+    with open(FLATPAK_INFO, "r") as f:
+        print(f.read())
+
     flatpak_info = GLib.KeyFile.new()
     assert flatpak_info.load_from_file(FLATPAK_INFO, GLib.KeyFileFlags.NONE)
+
+    contents, _ = flatpak_info.to_data()
+    print("FLATPAK_INFO contents", contents)
+    sys.exit(1)
 
     try:
         filesystems = flatpak_info.get_string_list("Context", "filesystems")
