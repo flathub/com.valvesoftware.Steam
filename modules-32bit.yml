@@ -58,8 +58,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: e1014dead2029b341d06027b4f2b5562d799d5b1
-        tag: gperftools-2.16
+        commit: 742e4e29c497a2780a4e7d02516b8c5e80978abd
+        tag: gperftools-2.17
         x-checker-data:
           type: json
           url: https://api.github.com/repos/gperftools/gperftools/releases/latest
