@@ -35,6 +35,7 @@ finish-args:
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
+  - --filesystem=xdg-run/pipewire-0:ro
   - --device=all
   - --allow=multiarch
   - --allow=devel
