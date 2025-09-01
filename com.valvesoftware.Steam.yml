@@ -1,9 +1,9 @@
 id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
-runtime-version: &runtime-version '24.08'
+runtime-version: &runtime-version '25.08'
 x-gl-version: &gl-version '1.4'
 # Change to `25.08-extra` next year
-x-gl-versions: &gl-versions 24.08;24.08extra;1.4
+x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
 command: steam
@@ -117,20 +117,6 @@ add-extensions:
     download-if: have-intel-gpu
     autoprune-unless: have-intel-gpu
 
-  org.freedesktop.Platform.ffmpeg-full:
-    directory: lib/ffmpeg
-    add-ld-path: .
-    version: *runtime-version
-    no-autodownload: true
-    autodelete: false
-
-  org.freedesktop.Platform.ffmpeg_full.i386:
-    directory: lib32/ffmpeg
-    add-ld-path: .
-    version: *runtime-version
-    no-autodownload: true
-    autodelete: false
-
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
@@ -243,7 +229,6 @@ modules:
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
         shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
-        mkdir -p /app/lib{,32}/ffmpeg
         mkdir -p /app/share/steam/compatibilitytools.d
         mkdir -p /app/utils /app/share/vulkan
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
