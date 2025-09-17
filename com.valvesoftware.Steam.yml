@@ -116,6 +116,16 @@ add-extensions:
     download-if: have-intel-gpu
     autoprune-unless: have-intel-gpu
 
+  org.freedesktop.Platform.VAAPI.nvidia.i386:
+    directory: lib/i386-linux-gnu/dri/nvidia-vaapi-driver
+    version: *runtime-version
+    versions: *runtime-version
+    autodelete: false
+    no-autodownload: true
+    add-ld-path: lib
+    download-if: have-kernel-module-nvidia
+    autoprune-unless: have-kernel-module-nvidia
+
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
@@ -222,6 +232,7 @@ modules:
         mkdir -p /app/lib/i386-linux-gnu
         mkdir -p /app/lib/i386-linux-gnu/GL
         mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
+        mkdir -p /app/lib/i386-linux-gnu/dri/nvidia-vaapi-driver
         mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
         cp /usr/bin/addr2line /app/bin/
