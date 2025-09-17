@@ -2,7 +2,6 @@ id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '25.08'
 x-gl-version: &gl-version '1.4'
-# Change to `25.08-extra` next year
 x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d
 sdk: org.freedesktop.Sdk
