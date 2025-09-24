@@ -117,7 +117,7 @@ add-extensions:
     autoprune-unless: have-intel-gpu
 
   org.freedesktop.Platform.VAAPI.nvidia.i386:
-    directory: lib/i386-linux-gnu/dri/nvidia-vaapi-driver
+    directory: i386/nvidia-vaapi-driver
     version: *runtime-version
     versions: *runtime-version
     autodelete: false
@@ -232,7 +232,7 @@ modules:
         mkdir -p /app/lib/i386-linux-gnu
         mkdir -p /app/lib/i386-linux-gnu/GL
         mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
-        mkdir -p /app/lib/i386-linux-gnu/dri/nvidia-vaapi-driver
+        mkdir -p /app/i386/nvidia-vaapi-driver
         mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
         cp /usr/bin/addr2line /app/bin/
