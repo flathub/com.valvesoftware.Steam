@@ -1,6 +1,7 @@
 id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '25.08'
+x-runtime-version-extra: &runtime-version-extra '25.08-extra'
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d;vdpau
@@ -126,6 +127,12 @@ add-extensions:
     download-if: have-kernel-module-nvidia
     autoprune-unless: have-kernel-module-nvidia
 
+  org.freedesktop.Platform.codecs_extra.i386:
+    directory: lib/i386-linux-gnu/codecs-extra
+    version: *runtime-version-extra
+    autodelete: false
+    add-ld-path: lib
+
   com.valvesoftware.Steam.CompatibilityTool:
     subdirectories: true
     directory: share/steam/compatibilitytools.d
@@ -233,6 +240,7 @@ modules:
         mkdir -p /app/lib/i386-linux-gnu/GL
         mkdir -p /app/lib/i386-linux-gnu/dri/intel-vaapi-driver
         mkdir -p /app/i386/nvidia-vaapi-driver
+        mkdir -p /app/lib/i386-linux-gnu/codecs-extra
         mkdir -p /app/lib/debug/lib/i386-linux-gnu
         mkdir -p /app/lib/debug/lib/i386-linux-gnu/GL
         cp /usr/bin/addr2line /app/bin/
