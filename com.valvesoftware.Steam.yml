@@ -1,7 +1,7 @@
 id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '25.08'
-x-runtime-version-extra: &runtime-version-extra '25.08-extra'
+x-runtime-version-extra: &runtime-version-extra 25.08-extra
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d;vdpau
@@ -202,8 +202,8 @@ modules:
         test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.84.tar.gz
-        sha256: 31fa762d58793f1aa8ea9df0122c3469c253fc8acb6daa7140fb7433fe077b44
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.85.tar.gz
+        sha256: 7f2d374a2fb413ced5b8125151456219d918a255872b4bb77016cbccf38bb7f1
         x-checker-data:
           type: html
           is-main-source: true
