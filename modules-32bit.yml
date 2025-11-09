@@ -12,26 +12,6 @@ buildsystem: simple
 build-commands: []
 modules:
 
-  - name: eudev-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    cleanup:
-      - /bin
-      - /sbin
-      - /lib*/udev
-    sources:
-      - sources/eudev-archive.json
-
-  - name: libusb-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-      ldflags: -L/app/lib32 -Wl,-z,relro,-z,now -Wl,--as-needed
-      ldflags-override: true
-    sources:
-      - sources/libusb-archive.json
-
 # -- discord --
 
   - name: discord-rpc-32bit
