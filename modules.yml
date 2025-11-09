@@ -32,20 +32,6 @@ modules:
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
           tag-query: .tag_name
 
-  - name: eudev
-    cleanup:
-      - /bin
-      - /sbin
-      - /lib*/udev
-    post-install:
-      - udevadm hwdb --update --usr
-    sources:
-      - sources/eudev-archive.json
-
-  - name: libusb
-    sources:
-      - sources/libusb-archive.json
-
   - name: usbutils
     buildsystem: meson
     sources:
