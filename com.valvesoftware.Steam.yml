@@ -16,6 +16,7 @@ tags:
 sdk-extensions:
   - org.freedesktop.Sdk.Compat.i386
   - org.freedesktop.Sdk.Extension.toolchain-i386
+  - org.freedesktop.Sdk.Extension.rust-stable # Needed for compiling rpds-py Python module
 
 finish-args:
   - --share=ipc
