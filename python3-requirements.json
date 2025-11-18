@@ -30,6 +30,15 @@
                 },
                 {
                     "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl",
+                    "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "jsonschema-specifications"
+                    }
+                },
+                {
+                    "type": "file",
                     "url": "https://files.pythonhosted.org/packages/bf/9c/8c95d856233c1f82500c2450b8c68576b4cf1c871db3afac5c34ff84e6fd/jsonschema-4.25.1-py3-none-any.whl",
                     "sha256": "3fba0169e345c7175110351d456342c364814cfcf3b964ba4587f22915230a63",
                     "x-checker-data": {
