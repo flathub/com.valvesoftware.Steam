@@ -30,6 +30,15 @@
                 },
                 {
                     "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/fa/60/aa3b8678f3f009f675b99174fa2754302a7fbfe749162e8043d111de2d88/rpds_py-0.29.0-cp313-cp313t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "8e5bb73ffc029820f4348e9b66b3027493ae00bca6629129cd433fd7a76308ee",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "rpds-py"
+                    }
+                },
+                {
+                    "type": "file",
                     "url": "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl",
                     "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
                     "x-checker-data": {
