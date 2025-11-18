@@ -12,6 +12,15 @@
             "sources": [
                 {
                     "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/98/33/23b3b3419b6a3e0f559c7c0d2ca8fc1b9448382b25245033788785921332/rpds_py-0.29.0.tar.gz",
+                    "sha256": "fe55fe686908f50154d1dc599232016e50c243b438c3b7432f24e2895b0e5359",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "rpds-py"
+                    }
+                },
+                {
+                    "type": "file",
                     "url": "https://files.pythonhosted.org/packages/3a/2a/7cc015f5b9f5db42b7d48157e23356022889fc354a2813c15934b7cb5c0e/attrs-25.4.0-py3-none-any.whl",
                     "sha256": "adcf7e2a1fb3b36ac48d97835bb6d8ade15b8dcce26aba8bf1d14847b57a3373",
                     "x-checker-data": {
@@ -26,15 +35,6 @@
                     "x-checker-data": {
                         "type": "pypi",
                         "name": "referencing"
-                    }
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/fa/60/aa3b8678f3f009f675b99174fa2754302a7fbfe749162e8043d111de2d88/rpds_py-0.29.0-cp313-cp313t-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "8e5bb73ffc029820f4348e9b66b3027493ae00bca6629129cd433fd7a76308ee",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "name": "rpds-py"
                     }
                 },
                 {
