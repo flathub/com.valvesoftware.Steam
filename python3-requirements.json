@@ -12,6 +12,15 @@
             "sources": [
                 {
                     "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/e9/4c/dd1dbc35780fdc5c51ccb0d08e5ece8e63a5ca82f6c9189fcbb031fc589c/maturin-1.10.1.tar.gz",
+                    "sha256": "69543e8bad4221c3c7ae7d7f31f275757bff8a66936368e013fa0256f8d6b512",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "name": "maturin"
+                    }
+                },
+                {
+                    "type": "file",
                     "url": "https://files.pythonhosted.org/packages/98/33/23b3b3419b6a3e0f559c7c0d2ca8fc1b9448382b25245033788785921332/rpds_py-0.29.0.tar.gz",
                     "sha256": "fe55fe686908f50154d1dc599232016e50c243b438c3b7432f24e2895b0e5359",
                     "x-checker-data": {
