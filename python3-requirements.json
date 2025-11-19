@@ -4,6 +4,25 @@
     "build-commands": [],
     "modules": [
         {
+            "name": "python3-setuptools",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"setuptools\" --no-build-isolation"
+            ],
+            "sources": [
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl",
+                    "sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
+                    "x-checker-data": {
+                        "type": "pypi",
+                        "packagetype": "bdist_wheel",
+                        "name": "setuptools"
+                    }
+                }
+            ]
+        },
+        {
             "name": "python3-jsonschema",
             "buildsystem": "simple",
             "build-commands": [
