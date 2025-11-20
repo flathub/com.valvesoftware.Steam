@@ -100,10 +100,10 @@
             ]
         },
         {
-            "name": "python3-PyGObject",
+            "name": "python3-meson-python",
             "buildsystem": "simple",
             "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"PyGObject\" --no-build-isolation"
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"meson-python\" --no-build-isolation"
             ],
             "sources": [
                 {
@@ -125,7 +125,16 @@
                         "packagetype": "bdist_wheel",
                         "name": "meson-python"
                     }
-                },
+                }
+            ]
+        },
+        {
+            "name": "python3-PyGObject",
+            "buildsystem": "simple",
+            "build-commands": [
+                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"PyGObject\" --no-build-isolation"
+            ],
+            "sources": [
                 {
                     "type": "file",
                     "url": "https://files.pythonhosted.org/packages/d3/a5/68f883df1d8442e3b267cb92105a4b2f0de819bd64ac9981c2d680d3f49f/pygobject-3.54.5.tar.gz",
