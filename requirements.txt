@@ -1,5 +1,4 @@
 jsonschema
 PyYAML
 vdf
-meson-python
 PyGObject
