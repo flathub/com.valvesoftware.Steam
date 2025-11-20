@@ -1,4 +1,3 @@
-setuptools
 jsonschema
 PyYAML
 vdf
