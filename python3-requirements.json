@@ -4,25 +4,6 @@
     "build-commands": [],
     "modules": [
         {
-            "name": "python3-setuptools",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"setuptools\" --no-build-isolation"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e44edc772/setuptools-80.9.0-py3-none-any.whl",
-                    "sha256": "062d34222ad13e0cc312a4c02d73f059e86a4acbfbdea8f8f76b28c99f306922",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "setuptools"
-                    }
-                }
-            ]
-        },
-        {
             "name": "python3-jsonschema",
             "buildsystem": "simple",
             "build-commands": [
@@ -31,53 +12,18 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/b9/42/555b4ee17508beafac135c8b450816ace5a96194ce97fefc49d58e5652ea/rpds_py-0.29.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "de73e40ebc04dd5d9556f50180395322193a78ec247e637e741c1b954810f295",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "rpds-py"
-                    }
+                    "url": "https://files.pythonhosted.org/packages/f4/d7/0fa558c4fb00f15aabc6d42d365fcca7a15fcc1091cd0f5784a14f390b7f/pyrsistent-0.18.0.tar.gz",
+                    "sha256": "773c781216f8c2900b42a7b638d5b517bb134ae1acbebe4d1e8f1f41ea60eb4b"
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/3a/2a/7cc015f5b9f5db42b7d48157e23356022889fc354a2813c15934b7cb5c0e/attrs-25.4.0-py3-none-any.whl",
-                    "sha256": "adcf7e2a1fb3b36ac48d97835bb6d8ade15b8dcce26aba8bf1d14847b57a3373",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "attrs"
-                    }
+                    "url": "https://files.pythonhosted.org/packages/20/a9/ba6f1cd1a1517ff022b35acd6a7e4246371dfab08b8e42b829b6d07913cc/attrs-21.2.0-py2.py3-none-any.whl",
+                    "sha256": "149e90d6d8ac20db7a955ad60cf0e6881a3f20d37096140088356da6c716b0b1"
                 },
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/2c/58/ca301544e1fa93ed4f80d724bf5b194f6e4b945841c5bfd555878eea9fcb/referencing-0.37.0-py3-none-any.whl",
-                    "sha256": "381329a9f99628c9069361716891d34ad94af76e461dcb0335825aecc7692231",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "referencing"
-                    }
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/41/45/1a4ed80516f02155c51f51e8cedb3c1902296743db0bbc66608a0db2814f/jsonschema_specifications-2025.9.1-py3-none-any.whl",
-                    "sha256": "98802fee3a11ee76ecaca44429fda8a41bff98b00a0f2838151b113f210cc6fe",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "jsonschema-specifications"
-                    }
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/bf/9c/8c95d856233c1f82500c2450b8c68576b4cf1c871db3afac5c34ff84e6fd/jsonschema-4.25.1-py3-none-any.whl",
-                    "sha256": "3fba0169e345c7175110351d456342c364814cfcf3b964ba4587f22915230a63",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "jsonschema"
-                    }
+                    "url": "https://files.pythonhosted.org/packages/4a/25/176c2fb5f063bea33b395cae529a5b9419e1a3d27a89505b96c79c9032c4/jsonschema-4.1.2-py3-none-any.whl",
+                    "sha256": "166870c8ab27bd712a8627e0598de4685bd8d199c4d7bd7cacc3d941ba0c6ca0"
                 }
             ]
         },
