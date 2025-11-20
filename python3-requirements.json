@@ -100,35 +100,6 @@
             ]
         },
         {
-            "name": "python3-meson-python",
-            "buildsystem": "simple",
-            "build-commands": [
-                "pip3 install --verbose --exists-action=i --no-index --find-links=\"file://${PWD}\" --prefix=${FLATPAK_DEST} \"meson-python\" --no-build-isolation"
-            ],
-            "sources": [
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/7e/b1/8e63033b259e0a4e40dd1ec4a9fee17718016845048b43a36ec67d62e6fe/pyproject_metadata-0.9.1-py3-none-any.whl",
-                    "sha256": "ee5efde548c3ed9b75a354fc319d5afd25e9585fa918a34f62f904cc731973ad",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "pyproject-metadata"
-                    }
-                },
-                {
-                    "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/28/58/66db620a8a7ccb32633de9f403fe49f1b63c68ca94e5c340ec5cceeb9821/meson_python-0.18.0-py3-none-any.whl",
-                    "sha256": "3b0fe051551cc238f5febb873247c0949cd60ded556efa130aa57021804868e2",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "meson-python"
-                    }
-                }
-            ]
-        },
-        {
             "name": "python3-PyGObject",
             "buildsystem": "simple",
             "build-commands": [
@@ -137,12 +108,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/d3/a5/68f883df1d8442e3b267cb92105a4b2f0de819bd64ac9981c2d680d3f49f/pygobject-3.54.5.tar.gz",
-                    "sha256": "b6656f6348f5245606cf15ea48c384c7f05156c75ead206c1b246c80a22fb585",
-                    "x-checker-data": {
-                        "type": "pypi",
-                        "name": "PyGObject"
-                    }
+                    "url": "https://files.pythonhosted.org/packages/ac/4a/f24ddf1d20cc4b56affc7921e29928559a06c922eb60077448392792b914/PyGObject-3.46.0.tar.gz",
+                    "sha256": "481437b05af0a66b7c366ea052710eb3aacbb979d22d30b797f7ec29347ab1e6"
                 }
             ]
         }
