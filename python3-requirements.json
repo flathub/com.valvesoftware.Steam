@@ -15,9 +15,10 @@
                     "url": "https://files.pythonhosted.org/packages/b9/42/555b4ee17508beafac135c8b450816ace5a96194ce97fefc49d58e5652ea/rpds_py-0.29.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
                     "sha256": "de73e40ebc04dd5d9556f50180395322193a78ec247e637e741c1b954810f295",
                     "x-checker-data": {
-                        "type": "pypi",
-                        "packagetype": "bdist_wheel",
-                        "name": "rpds-py"
+                        "type": "json",
+                        "url": "https://pypi.org/pypi/rpds_py/json",
+                        "version-query": ".info.version",
+                        "url-query": ".releases | .[$version][] | select(.filename==\"rpds_py-\" + $version + \"-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\") | .url"
                     }
                 },
                 {
