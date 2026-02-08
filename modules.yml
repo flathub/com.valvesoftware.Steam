@@ -10,8 +10,8 @@ modules:
       - -DZLIB_COMPAT=true
     sources:
       - type: archive
-        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.3.2.tar.gz
-        sha256: 6a0561b50b8f5f6434a6a9e667a67026f2b2064a1ffa959c6b2dae320161c2a8
+        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.3.3.tar.gz
+        sha256: f9c65aa9c852eb8255b636fd9f07ce1c406f061ec19a2e7d508b318ca0c907d1
         x-checker-data:
           type: anitya
           project-id: 115592
@@ -25,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.403
-        commit: bb56be59220b34d79160b73bd24eb36952dc8c63
+        tag: v0.404
+        commit: 428ad3882fff801c553fc575d99bcdb2edbd41f7
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
