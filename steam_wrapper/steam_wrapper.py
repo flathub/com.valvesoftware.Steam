@@ -302,7 +302,8 @@ def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
         filesystem_path = filesystem.rsplit(":", 1)[0]
         path_seq = os.path.normpath(filesystem_path).split(os.path.sep)
         if path_seq[0] == xdg_name:
-            dirs.add(os.path.join(*path_seq[1:]))
+            subpath = path_seq[1:]
+            dirs.add(os.path.join(*subpath) if subpath else "")
     return dirs
 
 
