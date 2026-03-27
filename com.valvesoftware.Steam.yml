@@ -24,12 +24,12 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --own-name=com.steampowered.*
-  - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   # Wine uses UDisks2 to enumerate disk drives
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.gnome.SessionManager
   - --talk-name=org.freedesktop.PowerManagement
   - --talk-name=org.freedesktop.Notifications
   - --filesystem=xdg-music:ro
@@ -37,6 +37,11 @@ finish-args:
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --filesystem=xdg-run/pipewire-0:ro
   - --filesystem=xdg-config/MangoHud:ro
+  - --filesystem=/run/udev:ro
+  - --filesystem=xdg-run/speech-dispatcher:ro
+  - --filesystem=/mnt
+  - --filesystem=/media
+  - --filesystem=/run/media
   - --device=all
   - --allow=multiarch
   - --allow=devel
