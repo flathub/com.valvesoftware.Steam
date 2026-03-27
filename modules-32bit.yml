@@ -12,26 +12,6 @@ buildsystem: simple
 build-commands: []
 modules:
 
-  - name: eudev-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-    cleanup:
-      - /bin
-      - /sbin
-      - /lib*/udev
-    sources:
-      - sources/eudev-archive.json
-
-  - name: libusb-32bit
-    build-options:
-      arch:
-        x86_64: *compat_i386_opts
-      ldflags: -L/app/lib32 -Wl,-z,relro,-z,now -Wl,--as-needed
-      ldflags-override: true
-    sources:
-      - sources/libusb-archive.json
-
 # -- discord --
 
   - name: discord-rpc-32bit
@@ -59,8 +39,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/gperftools/gperftools.git
-        commit: d9a5d38e5cd1c5d50c77d6bcff707d040c43e4de
-        tag: gperftools-2.17.2
+        commit: d837a42788ba591d5d791c3b686f2738e7a93562
+        tag: gperftools-2.18.1
         x-checker-data:
           type: json
           url: https://api.github.com/repos/gperftools/gperftools/releases/latest

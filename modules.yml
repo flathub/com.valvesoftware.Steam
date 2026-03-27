@@ -10,8 +10,8 @@ modules:
       - -DZLIB_COMPAT=true
     sources:
       - type: archive
-        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.2.5.tar.gz
-        sha256: 5b3b022489f3ced82384f06db1e13ba148cbce38c7941e424d6cb414416acd18
+        url: https://github.com/zlib-ng/zlib-ng/archive/refs/tags/2.3.3.tar.gz
+        sha256: f9c65aa9c852eb8255b636fd9f07ce1c406f061ec19a2e7d508b318ca0c907d1
         x-checker-data:
           type: anitya
           project-id: 115592
@@ -25,34 +25,20 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.399
-        commit: 7ba0e54565843faee300ca885699e4c42ed674b2
+        tag: v0.405
+        commit: be46d7186e918e62eb75de399e800145a781c8db
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
           tag-query: .tag_name
-
-  - name: eudev
-    cleanup:
-      - /bin
-      - /sbin
-      - /lib*/udev
-    post-install:
-      - udevadm hwdb --update --usr
-    sources:
-      - sources/eudev-archive.json
-
-  - name: libusb
-    sources:
-      - sources/libusb-archive.json
 
   - name: usbutils
     buildsystem: meson
     sources:
       - type: git
         url: https://github.com/gregkh/usbutils
-        commit: cda6883cade6ec67671d0c7de61e70eb992509a9
-        tag: v018
+        commit: d0c76b601b4b3ab9b2ab2647d604a8e3cce6d666
+        tag: v019
         x-checker-data:
           type: anitya
           project-id: 5061
@@ -68,8 +54,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: ed0fef9a134b64c9398075185534a76714c91179
-        tag: 4.99.5
+        commit: b173315c8f94bf61d52094857ea3fe7d0f5aaff9
+        tag: 4.99.6
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
@@ -154,8 +140,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.28.0.tar.gz
-        sha256: e7e1a487820467a174512633f3ec4c49d567041e40f2d0135d14679045b054e9
+        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.29.0.tar.gz
+        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
         x-checker-data:
           type: anitya
           project-id: 13166

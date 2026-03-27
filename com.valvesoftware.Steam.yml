@@ -24,18 +24,24 @@ finish-args:
   - --socket=pulseaudio
   - --share=network
   - --own-name=com.steampowered.*
-  - --talk-name=org.gnome.SettingsDaemon.MediaKeys
   # Wine uses UDisks2 to enumerate disk drives
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
   - --talk-name=org.freedesktop.ScreenSaver
+  - --talk-name=org.gnome.SessionManager
   - --talk-name=org.freedesktop.PowerManagement
   - --talk-name=org.freedesktop.Notifications
   - --filesystem=xdg-music:ro
   - --filesystem=xdg-pictures:ro
   - --filesystem=xdg-run/app/com.discordapp.Discord:create
   - --filesystem=xdg-run/pipewire-0:ro
+  - --filesystem=xdg-config/MangoHud:ro
+  - --filesystem=/run/udev:ro
+  - --filesystem=xdg-run/speech-dispatcher:ro
+  - --filesystem=/mnt
+  - --filesystem=/media
+  - --filesystem=/run/media
   - --device=all
   - --allow=multiarch
   - --allow=devel
@@ -71,7 +77,7 @@ finish-args:
   - --env=PROTON_DEBUG_DIR=/var/tmp
   - --env=XDG_CONFIG_DIRS=/etc/xdg:/usr/lib/x86_64-linux-gnu/GL:/usr/lib/i386-linux-gnu/GL
   - --env=XDG_DATA_DIRS=/app/share:/usr/lib/extensions/vulkan/share:/usr/share:/usr/share/runtime/share:/run/host/user-share:/run/host/share:/usr/lib/pressure-vessel/overrides/share
-  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/codecs-extra/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
+  - --env=GST_PLUGIN_SYSTEM_PATH=/app/lib/gstreamer-1.0:/app/lib32/gstreamer-1.0:/usr/lib/extensions/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/codecs-extra/lib/gstreamer-1.0:/usr/lib/i386-linux-gnu/codecs-extra/lib/gstreamer-1.0:/usr/lib/x86_64-linux-gnu/gstreamer-1.0:/usr/lib/i386-linux-gnu/gstreamer-1.0
   - --require-version=1.12.0
 
 add-extensions:
@@ -176,6 +182,41 @@ modules:
 
   - python3-requirements.json
 
+  - name: dotconf
+    cleanup:
+      - "*"
+    sources:
+      - type: archive
+        url: https://github.com/williamh/dotconf/archive/refs/tags/v1.3.tar.gz
+        sha256: 7f1ecf40de1ad002a065a321582ed34f8c14242309c3547ad59710ae3c805653
+      - type: script
+        commands:
+          - autoreconf -fiv
+        dest-filename: autogen.sh
+
+  - name: libspeechd
+    config-opts:
+      - --disable-python
+      - --with-systemdsystemunitdir=''
+      - --disable-rpath
+      - --disable-static
+      - --with-kali=no
+      - --with-baratinoo=no
+      - --with-ibmtts=no
+      - --with-voxin=no
+      - --without-oss
+    sources:
+      - type: archive
+        url: https://github.com/brailcom/speechd/releases/download/0.12.0/speech-dispatcher-0.12.0.tar.gz
+        sha256: e1dd0bfa24b8338545e165451330adf51c4c0dca862b1b67e76fba5142dbbb74
+    cleanup:
+      - /bin
+      - /etc
+      - /libexec
+      - /lib/speech-dispatcher
+      - /share/sounds/speech-dispatcher
+      - /share/speech-dispatcher
+
   - name: steam_wrapper
     buildsystem: simple
     sources:
@@ -202,8 +243,8 @@ modules:
         test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.84.tar.gz
-        sha256: 31fa762d58793f1aa8ea9df0122c3469c253fc8acb6daa7140fb7433fe077b44
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.85.tar.gz
+        sha256: 7f2d374a2fb413ced5b8125151456219d918a255872b4bb77016cbccf38bb7f1
         x-checker-data:
           type: html
           is-main-source: true

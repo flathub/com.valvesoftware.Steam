@@ -302,7 +302,8 @@ def _get_host_xdg_mounts(xdg_name: str, flatpak_info):
         filesystem_path = filesystem.rsplit(":", 1)[0]
         path_seq = os.path.normpath(filesystem_path).split(os.path.sep)
         if path_seq[0] == xdg_name:
-            dirs.add(os.path.join(*path_seq[1:]))
+            subpath = path_seq[1:]
+            dirs.add(os.path.join(*subpath) if subpath else "")
     return dirs
 
 
@@ -424,6 +425,8 @@ def check_extensions(flatpak_info):
     # For each installed .GL. extension, check for its .GL32. counterpart
     GL_EXT_PREFIX = "org.freedesktop.Platform.GL"
     for ext_id in installed_ext_ids:
+        if ".Debug" in ext_id:
+            continue
         if ext_id.startswith(f"{GL_EXT_PREFIX}."):
             compat_ids.append(f"{GL_EXT_PREFIX}32" + ext_id[len(GL_EXT_PREFIX):])
 
