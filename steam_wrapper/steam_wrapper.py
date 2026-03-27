@@ -425,6 +425,8 @@ def check_extensions(flatpak_info):
     # For each installed .GL. extension, check for its .GL32. counterpart
     GL_EXT_PREFIX = "org.freedesktop.Platform.GL"
     for ext_id in installed_ext_ids:
+        if ".Debug" in ext_id:
+            continue
         if ext_id.startswith(f"{GL_EXT_PREFIX}."):
             compat_ids.append(f"{GL_EXT_PREFIX}32" + ext_id[len(GL_EXT_PREFIX):])
 
