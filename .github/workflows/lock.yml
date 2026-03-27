@@ -19,6 +19,7 @@ jobs:
           gh issue lock ${{ github.event.issue.number }} --reason resolved || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
 
       - name: Lock pull request
         if: github.event_name == 'pull_request'
@@ -26,3 +27,4 @@ jobs:
           gh pr lock ${{ github.event.pull_request.number }} --reason resolved || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
