@@ -182,41 +182,6 @@ modules:
 
   - python3-requirements.json
 
-  - name: dotconf
-    cleanup:
-      - "*"
-    sources:
-      - type: archive
-        url: https://github.com/williamh/dotconf/archive/refs/tags/v1.3.tar.gz
-        sha256: 7f1ecf40de1ad002a065a321582ed34f8c14242309c3547ad59710ae3c805653
-      - type: script
-        commands:
-          - autoreconf -fiv
-        dest-filename: autogen.sh
-
-  - name: libspeechd
-    config-opts:
-      - --disable-python
-      - --with-systemdsystemunitdir=''
-      - --disable-rpath
-      - --disable-static
-      - --with-kali=no
-      - --with-baratinoo=no
-      - --with-ibmtts=no
-      - --with-voxin=no
-      - --without-oss
-    sources:
-      - type: archive
-        url: https://github.com/brailcom/speechd/releases/download/0.12.0/speech-dispatcher-0.12.0.tar.gz
-        sha256: e1dd0bfa24b8338545e165451330adf51c4c0dca862b1b67e76fba5142dbbb74
-    cleanup:
-      - /bin
-      - /etc
-      - /libexec
-      - /lib/speech-dispatcher
-      - /share/sounds/speech-dispatcher
-      - /share/speech-dispatcher
-
   - name: steam_wrapper
     buildsystem: simple
     sources:
