@@ -97,8 +97,8 @@ modules:
   - name: xrandr
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.3.tar.xz
-        sha256: f8dd7566adb74147fab9964680b6bbadee87cf406a7fcff51718a5e6949b841c
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.4.tar.xz
+        sha256: 2cafccb2aaf2491a4068676117a0d4f90ab307724b96fffc54cd1da953779400
         x-checker-data:
           type: anitya
           project-id: 14957
