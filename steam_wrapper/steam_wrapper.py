@@ -461,12 +461,17 @@ def enable_extensions(flatpak_info):
                 os.environ[env_var] = os.pathsep.join(paths)
 
 
-def configure_shared_library_guard():
-    mode = int(os.environ.get("SHARED_LIBRARY_GUARD", 1))
+def configure_libloadguard():
+    mode = int(
+        os.environ.get(
+            "LIBLOADGUARD",
+            os.environ.get("SHARED_LIBRARY_GUARD", 1),
+        )
+    )
     if not mode:
         return
     else:
-        os.environ["LD_AUDIT"] = f"/app/links/$LIB/libshared-library-guard.so"
+        os.environ["LD_AUDIT"] = f"/app/links/$LIB/libloadguard.so"
 
 
 def main(steam_binary=STEAM_PATH):
@@ -498,7 +503,7 @@ def main(steam_binary=STEAM_PATH):
             shift_steam_symlinks(current_xdg_prefix, xdg_dirs_prefix)
         check_device_perms()
         timezone_workaround()
-        configure_shared_library_guard()
+        configure_libloadguard()
         enable_extensions(current_info)
         enable_discord_rpc()
         os.execv(steam_binary, [steam_binary] + argv[1:])
