@@ -176,11 +176,11 @@ cleanup-commands:
 
 modules:
 
+  - python3-requirements.json
+
   - modules.yml
 
   - modules-32bit.yml
-
-  - python3-requirements.json
 
   - name: dotconf
     cleanup:
@@ -297,7 +297,7 @@ modules:
         cp /usr/bin/addr2line /app/bin/
         cp /usr/lib/x86_64-linux-gnu/libbfd-*.so /app/lib/
         install -Dm644 -t /app/etc ld.so.conf
-        shared-library-guard-config-converter blocklist/* --outfile /app/etc/freedesktop-sdk.ld.so.blockedlist
+        libloadguard-config-converter --manifest blocklist/* --outfile /app/etc/libloadguard.blockedlist
         mkdir -p /app/share/steam/compatibilitytools.d
         mkdir -p /app/utils /app/share/vulkan
         ln -srv /app/{utils/,}share/vulkan/explicit_layer.d
