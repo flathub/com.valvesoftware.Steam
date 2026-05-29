@@ -127,25 +127,7 @@ modules:
           stable-only: true
           url-template: https://libbsd.freedesktop.org/releases/libbsd-$version.tar.xz
 
-  - name: shared-library-guard
-    buildsystem: meson
-    config-opts:
-      - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
-    sources:
-      - sources/shared-library-guard-git.json
-
-# -- pygobject, used by steam_wrapper --
-
-  - name: py3cairo
+  - name: libloadguard
     buildsystem: meson
     sources:
-      - type: archive
-        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.29.0.tar.gz
-        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
-        x-checker-data:
-          type: anitya
-          project-id: 13166
-          stable-only: true
-          url-template: https://github.com/pygobject/pycairo/archive/refs/tags/v$version.tar.gz
-
-# -- end pygobject --
+      - sources/libloadguard.json

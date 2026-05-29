@@ -46,12 +46,10 @@ modules:
           url: https://api.github.com/repos/gperftools/gperftools/releases/latest
           tag-query: .tag_name
 
-  - name: shared-library-guard-32bit
+  - name: libloadguard-32bit
     build-options:
       arch:
         x86_64: *compat_i386_opts
     buildsystem: meson
-    config-opts:
-      - -Dshared_library_guard_config=/app/etc/freedesktop-sdk.ld.so.blockedlist
     sources:
-      - sources/shared-library-guard-git.json
+      - sources/libloadguard.json
