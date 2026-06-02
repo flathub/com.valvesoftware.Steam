@@ -25,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.407
-        commit: a9bbe4d8619e9a73dc433db2d2afceda8cbeae10
+        tag: v0.408
+        commit: 4456b256a1a5b1d1c1c1a60a9f69c59f7743c522
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
