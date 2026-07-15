@@ -1,7 +1,7 @@
 id: com.valvesoftware.Steam
 runtime: org.freedesktop.Platform
 runtime-version: &runtime-version '25.08'
-x-runtime-version-extra: &runtime-version-extra '25.08-extra'
+x-runtime-version-extra: &runtime-version-extra 25.08-extra
 x-gl-version: &gl-version '1.4'
 x-gl-versions: &gl-versions 25.08;25.08-extra;1.4
 x-gl-merge-dirs: &gl-merge-dirs vulkan/icd.d;glvnd/egl_vendor.d;egl/egl_external_platform.d;OpenCL/vendors;lib/dri;lib/d3d;lib/gbm;vulkan/explicit_layer.d;vulkan/implicit_layer.d;vdpau
@@ -233,7 +233,9 @@ modules:
       - type: dir
         path: steam_wrapper
     build-commands:
-      - python3 -mpip install . --prefix=/app --no-index --no-build-isolation --find-links .
+      - |
+        python3 -mpip install . --prefix=/app --no-index \
+          --no-build-isolation --find-links .
 
   - name: steam
     buildsystem: simple
@@ -253,8 +255,8 @@ modules:
         test -x /app/lib/steam/bin_steam.sh
     sources:
       - type: archive
-        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.85.tar.gz
-        sha256: 7f2d374a2fb413ced5b8125151456219d918a255872b4bb77016cbccf38bb7f1
+        url: https://repo.steampowered.com/steam/archive/stable/steam_1.0.0.87.tar.gz
+        sha256: 649375d2f9377f8009aaf3e2ff09978041eb9114897d9c5a3886f1d82e27ba1f
         x-checker-data:
           type: html
           is-main-source: true
