@@ -28,6 +28,8 @@ finish-args:
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
+  # Big Picture Mode queries NetworkManager over the system bus for connectivity status
+  - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.freedesktop.ScreenSaver
   - --talk-name=org.gnome.SessionManager
   - --talk-name=org.freedesktop.PowerManagement
