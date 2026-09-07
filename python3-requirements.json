@@ -12,8 +12,8 @@
             "sources": [
                 {
                     "type": "file",
-                    "url": "https://files.pythonhosted.org/packages/b7/de/f7192e12b21b9e9a68a6d0f249b4af3fdcdff8418be0767a627564afa1f1/rpds_py-0.30.0-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
-                    "sha256": "9027da1ce107104c50c81383cae773ef5c24d296dd11c99e2629dbd7967a20c6"
+                    "url": "https://files.pythonhosted.org/packages/ce/81/9a91c0111ce1758c92516a3e44776920b579d9a7c09b2b06b642d4de3f0f/rpds_py-0.30.0-cp314-cp314-manylinux_2_17_x86_64.manylinux2014_x86_64.whl",
+                    "sha256": "47e77dc9822d3ad616c3d5759ea5631a75e5809d5a28707744ef79d7a1bcfcad"
                 },
                 {
                     "type": "file",
@@ -77,6 +77,11 @@
                     "type": "file",
                     "url": "https://files.pythonhosted.org/packages/1d/0b/da4851b1e2d9c40c9bd74c0abd94510a7d797da9ccde0a90e8953751ed4a/pyproject_metadata-0.11.0-py3-none-any.whl",
                     "sha256": "85bbecca8694e2c00f63b492c96921d6c228454057c88e7c352b2077fcaa4096"
+                },
+                {
+                    "type": "file",
+                    "url": "https://files.pythonhosted.org/packages/df/b2/87e62e8c3e2f4b32e5fe99e0b86d576da1312593b39f47d8ceef365e95ed/packaging-26.2-py3-none-any.whl",
+                    "sha256": "5fc45236b9446107ff2415ce77c807cee2862cb6fac22b8a73826d0693b0980e"
                 },
                 {
                     "type": "file",
