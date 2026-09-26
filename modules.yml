@@ -25,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.405
-        commit: be46d7186e918e62eb75de399e800145a781c8db
+        tag: v0.411
+        commit: 7fc63d411377e40aab66bfbf77dce6a439c3fe87
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -54,8 +54,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/lsof-org/lsof
-        commit: b173315c8f94bf61d52094857ea3fe7d0f5aaff9
-        tag: 4.99.6
+        commit: 646395f8e893edb5572405b2311a079f55f269f2
+        tag: 4.99.7
         x-checker-data:
           type: json
           url: https://api.github.com/repos/lsof-org/lsof/releases/latest
@@ -97,8 +97,8 @@ modules:
   - name: xrandr
     sources:
       - type: archive
-        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.3.tar.xz
-        sha256: f8dd7566adb74147fab9964680b6bbadee87cf406a7fcff51718a5e6949b841c
+        url: https://xorg.freedesktop.org/archive/individual/app/xrandr-1.5.4.tar.xz
+        sha256: 2cafccb2aaf2491a4068676117a0d4f90ab307724b96fffc54cd1da953779400
         x-checker-data:
           type: anitya
           project-id: 14957
@@ -108,8 +108,8 @@ modules:
   - name: libmd
     sources:
       - type: archive
-        url: https://libbsd.freedesktop.org/releases/libmd-1.1.0.tar.xz
-        sha256: 1bd6aa42275313af3141c7cf2e5b964e8b1fd488025caf2f971f43b00776b332
+        url: https://libbsd.freedesktop.org/releases/libmd-1.2.0.tar.xz
+        sha256: ac15ffb8430502fbaccdec66c5a82ee0eab0b0f36220df56710feadfeb13d0a0
         x-checker-data:
           type: anitya
           project-id: 15525
@@ -140,8 +140,8 @@ modules:
     buildsystem: meson
     sources:
       - type: archive
-        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.29.0.tar.gz
-        sha256: 25c6a8a5a488afdd21208b5a71f95796891cceb2ee94f2ec1c51fdf0735eab0b
+        url: https://github.com/pygobject/pycairo/archive/refs/tags/v1.29.1.tar.gz
+        sha256: 05f553dffc682bce303651e090c21c4e7120512e4fdbddcdb7521e076223a3d2
         x-checker-data:
           type: anitya
           project-id: 13166
