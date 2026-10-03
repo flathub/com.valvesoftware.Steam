@@ -25,8 +25,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/vcrhonek/hwdata
-        tag: v0.411
-        commit: 7fc63d411377e40aab66bfbf77dce6a439c3fe87
+        tag: v0.412
+        commit: 816a9490ffcdad1929e0e53f79c500e1aeadd492
         x-checker-data:
           type: json
           url: https://api.github.com/repos/vcrhonek/hwdata/releases/latest
@@ -108,8 +108,8 @@ modules:
   - name: libmd
     sources:
       - type: archive
-        url: https://libbsd.freedesktop.org/releases/libmd-1.2.0.tar.xz
-        sha256: ac15ffb8430502fbaccdec66c5a82ee0eab0b0f36220df56710feadfeb13d0a0
+        url: https://libbsd.freedesktop.org/releases/libmd-1.3.0.tar.xz
+        sha256: fc0f1eb6b6766470326f2c014693809190e67dba84274a6fbae9d4912d066706
         x-checker-data:
           type: anitya
           project-id: 15525
