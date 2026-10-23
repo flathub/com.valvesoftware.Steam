@@ -149,3 +149,23 @@ modules:
           url-template: https://github.com/pygobject/pycairo/archive/refs/tags/v$version.tar.gz
 
 # -- end pygobject --
+
+# -- rsync, used by SteamOS Devkit Client
+
+  - name: rsync
+    no-autogen: true
+    config-opts:
+      - --with-included-popt
+      - --with-included-zlib
+      - --disable-debug
+    sources:
+      - type: archive
+        url: https://download.samba.org/pub/rsync/src/rsync-3.5.1.tar.gz
+        sha256: c55f9c9dc10fb8bec397b399a0fdded53cc9a2d8e30891bb0d63724d25c37bef
+        x-checker-data:
+          type: anitya
+          project-id: 4217
+          stable-only: true
+          url-template: https://download.samba.org/pub/rsync/src/rsync-$version.tar.gz
+
+# -- end rsync --
