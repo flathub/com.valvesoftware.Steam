@@ -42,6 +42,7 @@ finish-args:
   - --filesystem=/mnt
   - --filesystem=/media
   - --filesystem=/run/media
+  - --filesystem=host-root:ro
   - --device=all
   - --allow=multiarch
   - --allow=devel
