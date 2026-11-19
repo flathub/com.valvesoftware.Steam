@@ -28,6 +28,7 @@ finish-args:
   - --system-talk-name=org.freedesktop.UDisks2
   - --talk-name=org.kde.StatusNotifierWatcher
   - --system-talk-name=org.freedesktop.UPower
+  - --system-talk-name=org.freedesktop.NetworkManager
   - --talk-name=org.freedesktop.ScreenSaver
   - --talk-name=org.gnome.SessionManager
   - --talk-name=org.freedesktop.PowerManagement
